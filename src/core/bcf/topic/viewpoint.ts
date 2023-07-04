@@ -1,5 +1,4 @@
 import { create } from 'xmlbuilder2';
-import XMLCreator from '../../xml/xml';
 import Topic from './topic';
 import Markup from './markup';
 
