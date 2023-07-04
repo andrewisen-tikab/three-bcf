@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import CameraControls from 'camera-controls';
+import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 
+// @ts-ignore
 import Stats from 'three/addons/libs/stats.module.js';
 
 import saveAs from 'file-saver';
@@ -14,8 +16,14 @@ import './style.css';
 
 CameraControls.install({ THREE: THREE });
 
+THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
+THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
+THREE.Mesh.prototype.raycast = acceleratedRaycast;
+
 type Extension = 'zip' | 'bcfzip' | 'bcf';
 const extension: Extension = 'zip';
+
+const ifcModels: THREE.Object3D[] = [];
 
 const initWorker = (): void => {
     const worker = new Worker();
@@ -53,10 +61,8 @@ const initThree = (): void => {
     scene.add(light);
     scene.add(new THREE.AmbientLight(0xb0bec5, 0.8));
 
-    camera.position.z = 5;
-
-    const size = 10;
-    const divisions = 10;
+    const size = 40;
+    const divisions = size;
 
     const gridHelper = new THREE.GridHelper(size, divisions);
     scene.add(gridHelper);
@@ -64,9 +70,61 @@ const initThree = (): void => {
     const ifcLoader = new IFCLoader();
     ifcLoader.ifcManager.setWasmPath('/');
     ifcLoader.load(ifc, (ifcModel) => {
+        ifcModels.push(ifcModel);
         scene.add(ifcModel);
         cameraControls.fitToSphere(scene, false);
         cameraControls.polarAngle = Math.PI / 4;
+    });
+
+    const raycaster = new THREE.Raycaster();
+    raycaster.firstHitOnly = true;
+    const pointer = new THREE.Vector2();
+
+    const onPointerMove = (event: PointerEvent) => {
+        pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    };
+
+    window.addEventListener('pointermove', onPointerMove);
+
+    const model = { id: -1 };
+
+    const preselectMat = new THREE.MeshLambertMaterial({
+        transparent: true,
+        opacity: 1,
+        color: 0x00ff00,
+        depthTest: false,
+    });
+
+    renderer.domElement.addEventListener('pointerdown', (event: PointerEvent) => {
+        if (event.button === 2 || event.pointerType === 'touch') {
+            ifcLoader.ifcManager.removeSubset(model.id, preselectMat);
+        } else {
+            raycaster.setFromCamera(pointer, camera);
+            const found = raycaster.intersectObjects(ifcModels)[0];
+
+            if (found) {
+                // Gets model ID
+                model.id = (found.object as any).modelID;
+
+                // Gets Express ID
+                const index = found.faceIndex;
+                if (index == null) throw new Error('Face index is null');
+                const geometry = (found.object as THREE.Mesh).geometry;
+                const id = ifcLoader.ifcManager.getExpressId(geometry, index);
+
+                // Creates subset
+                ifcLoader.ifcManager.createSubset({
+                    modelID: model.id,
+                    ids: [id],
+                    material: preselectMat,
+                    scene,
+                    removePrevious: true,
+                });
+            } else {
+                ifcLoader.ifcManager.removeSubset(model.id, preselectMat);
+            }
+        }
     });
 
     const animate = (): void => {
@@ -84,7 +142,7 @@ const initThree = (): void => {
 
 const example = (): void => {
     initThree();
-    initWorker();
+    // initWorker();
 };
 
 example();
