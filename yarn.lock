@@ -377,6 +377,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tweenjs/tween.js@npm:~18.6.4":
+  version: 18.6.4
+  resolution: "@tweenjs/tween.js@npm:18.6.4"
+  checksum: 47208db3f6c32cde80284a852d0fca016284f90c4798eb4ebb2ebfc2e379504007bf0c031c2c33044df8a0878fd1942ebc4e0b7f5b8bcccf812b532ea1ee73eb
+  languageName: node
+  linkType: hard
+
 "@types/argparse@npm:1.0.38":
   version: 1.0.38
   resolution: "@types/argparse@npm:1.0.38"
@@ -395,6 +402,33 @@ __metadata:
   version: 2.0.5
   resolution: "@types/file-saver@npm:2.0.5"
   checksum: a31d6ee2abf99598647139f8f35b37b6e1bacf6c7ddf05c66651b9b0e6e53381aa0e8ed13f37faa6e496e0eb1da87c97e6c70fd589d5b83b0c95c57cb64ce92a
+  languageName: node
+  linkType: hard
+
+"@types/stats.js@npm:*":
+  version: 0.17.0
+  resolution: "@types/stats.js@npm:0.17.0"
+  checksum: ac8dc5e622fa3b7cc37b9e21663193a2f171a4f5896285e4dfc04f2874acbb75edc958f077bffbd85b0ae358daa5bf4ecbc71210386a4300bff05d09435e35f9
+  languageName: node
+  linkType: hard
+
+"@types/three@npm:^0.152.1":
+  version: 0.152.1
+  resolution: "@types/three@npm:0.152.1"
+  dependencies:
+    "@tweenjs/tween.js": ~18.6.4
+    "@types/stats.js": "*"
+    "@types/webxr": "*"
+    fflate: ~0.6.9
+    lil-gui: ~0.17.0
+  checksum: 25388e5c65414d4dd586ff0ec1615418838ceba293918b66755c08e263975db7913fc75dbe26b3342ba00ea0bc09af7428668194612bbd6ef7dd6cef3e4d4758
+  languageName: node
+  linkType: hard
+
+"@types/webxr@npm:*":
+  version: 0.5.2
+  resolution: "@types/webxr@npm:0.5.2"
+  checksum: e3387c3d64c140557796a4bcececd82d912a88f73ff8e34bf51c04d44078390fbe4756b256b2844b1ae4664a883d46f96bb40913d21f12e9ab484d9d8dbc68c3
   languageName: node
   linkType: hard
 
@@ -667,6 +701,15 @@ __metadata:
     tar: ^6.1.11
     unique-filename: ^3.0.0
   checksum: 385756781e1e21af089160d89d7462b7ed9883c978e848c7075b90b73cb823680e66092d61513050164588387d2ca87dd6d910e28d64bc13a9ac82cd8580c796
+  languageName: node
+  linkType: hard
+
+"camera-controls@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "camera-controls@npm:2.7.0"
+  peerDependencies:
+    three: ">=0.126.1"
+  checksum: 86caa08faf2e6b52a709758c133b2c987ca08082d2138cc2556970d11ec086228d50ccef6f42a6afe338aa1de60bbac602e434acce1359a7b34fd6e74859e55d
   languageName: node
   linkType: hard
 
@@ -960,6 +1003,13 @@ __metadata:
   version: 2.1.0
   resolution: "fast-json-stable-stringify@npm:2.1.0"
   checksum: b191531e36c607977e5b1c47811158733c34ccb3bfde92c44798929e9b4154884378536d26ad90dfecd32e1ffc09c545d23535ad91b3161a27ddbb8ebe0cbecb
+  languageName: node
+  linkType: hard
+
+"fflate@npm:~0.6.9":
+  version: 0.6.10
+  resolution: "fflate@npm:0.6.10"
+  checksum: 96384bc4090987fe565c0de8204e3830f538144ec950576fea50aee1b42adbe9fc3ed5e7905dfa7979faaa20979def330dbebce548f3dcafc3e118cc9838526d
   languageName: node
   linkType: hard
 
@@ -1358,6 +1408,13 @@ __metadata:
   dependencies:
     immediate: ~3.0.5
   checksum: 33102302cf19766f97919a6a98d481e01393288b17a6aa1f030a3542031df42736edde8dab29ffdbf90bebeffc48c761eb1d064dc77592ca3ba3556f9fe6d2a8
+  languageName: node
+  linkType: hard
+
+"lil-gui@npm:~0.17.0":
+  version: 0.17.0
+  resolution: "lil-gui@npm:0.17.0"
+  checksum: a6f33e90748ea98477f1f7af6d6cbdc4a1b38ce9da86d674d73f7b0bbdc7f3e947d81edee04c32f33fb28c69a108ba04c24270a8398064ffcc56ffeabc0a916e
   languageName: node
   linkType: hard
 
@@ -2123,7 +2180,9 @@ __metadata:
   resolution: "three-bcf@workspace:."
   dependencies:
     "@types/file-saver": ^2.0.5
+    "@types/three": ^0.152.1
     axios: ^1.4.0
+    camera-controls: ^2.7.0
     file-saver: ^2.0.5
     jszip: ^3.10.1
     three: ^0.154.0
@@ -2131,9 +2190,19 @@ __metadata:
     typescript: ^5.0.2
     vite: ^4.3.9
     vite-plugin-dts: ^3.0.3
+    web-ifc-three: ^0.0.125
     xmlbuilder2: ^3.1.1
   languageName: unknown
   linkType: soft
+
+"three-mesh-bvh@npm:0.5.21":
+  version: 0.5.21
+  resolution: "three-mesh-bvh@npm:0.5.21"
+  peerDependencies:
+    three: ">= 0.123.0"
+  checksum: f2984f0e5f29c47d329c9c6b6ac0fd777e604e6c65e68cf64a5f242bc4dbf31c8bcb56d19c849f1cb36a43ca0ec5f93df2c18dc970d9df6ee90d3320d9fdf1cf
+  languageName: node
+  linkType: hard
 
 "three@npm:^0.154.0":
   version: 0.154.0
@@ -2350,6 +2419,25 @@ __metadata:
   bin:
     vue-tsc: bin/vue-tsc.js
   checksum: 52abb9684959a3757ab9e4411c2213afa62a05e6caddaf78568b74502195ce6b9e9442f0f311b28a7be1a1f6cb8178db17ef398f44c5b27e915bae018b765859
+  languageName: node
+  linkType: hard
+
+"web-ifc-three@npm:^0.0.125":
+  version: 0.0.125
+  resolution: "web-ifc-three@npm:0.0.125"
+  dependencies:
+    three-mesh-bvh: 0.5.21
+    web-ifc: ^0.0.39
+  peerDependencies:
+    three: ^0.149.0
+  checksum: ffe68466a1ed66e6436833ac2ab485a96e0adfbebe005648ceecdfdeab09acbe3cf9cec77fbba2da435d389e2e08a3a4b26adcd6ee623ced07907e3c57c0254d
+  languageName: node
+  linkType: hard
+
+"web-ifc@npm:^0.0.39":
+  version: 0.0.39
+  resolution: "web-ifc@npm:0.0.39"
+  checksum: 2feab5746ef61fc1106dfaaca3e59475f5015375774e091dd14092ef91aadf909e9e7d4a434c85d532f9e7d523c80eef53f9ddfc4ec02781f73d768c8e742910
   languageName: node
   linkType: hard
 

@@ -19,11 +19,14 @@
     },
     "devDependencies": {
         "@types/file-saver": "^2.0.5",
+        "@types/three": "^0.152.1",
+        "camera-controls": "^2.7.0",
         "three": "^0.154.0",
         "typedoc": "^0.24.8",
         "typescript": "^5.0.2",
         "vite": "^4.3.9",
-        "vite-plugin-dts": "^3.0.3"
+        "vite-plugin-dts": "^3.0.3",
+        "web-ifc-three": "^0.0.125"
     },
     "dependencies": {
         "axios": "^1.4.0",
