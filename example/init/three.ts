@@ -54,7 +54,8 @@ const initThree = (): void => {
     scene.add(gridHelper);
 
     const ifcLoader = new IFCLoader();
-    ifcLoader.ifcManager.setWasmPath('/');
+    // Should work for GH Pages
+    ifcLoader.ifcManager.setWasmPath('../');
     ifcLoader.load(ifc, (ifcModel) => {
         ifcModels.push(ifcModel);
         scene.add(ifcModel);
