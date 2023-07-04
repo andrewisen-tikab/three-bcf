@@ -5,10 +5,7 @@ import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-
 // @ts-ignore
 import Stats from 'three/addons/libs/stats.module.js';
 
-import saveAs from 'file-saver';
 import { IFCLoader } from 'web-ifc-three/IFCLoader';
-
-import { Worker } from '../../src';
 
 // @ts-ignore
 import ifc from '../../resources/example_4.ifc?url';
@@ -19,19 +16,9 @@ THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
 THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
 
-type Extension = 'zip' | 'bcfzip' | 'bcf';
-const extension: Extension = 'zip';
-
 const ifcModels: THREE.Object3D[] = [];
 
-const initWorker = (): void => {
-    const worker = new Worker();
-    worker.postMessage('Hello World');
-    worker.onmessage = (e) => {
-        console.log('Got message from worker thread. Saving ZIP');
-        saveAs(e.data, `presentation.${extension}`);
-    };
-};
+let cameraControls: CameraControls;
 
 const initThree = (): void => {
     const stats = new Stats();
@@ -51,7 +38,7 @@ const initThree = (): void => {
     renderer.setClearColor(new THREE.Color(0x263238), 1);
     document.body.appendChild(renderer.domElement);
 
-    const cameraControls = new CameraControls(camera, renderer.domElement);
+    cameraControls = new CameraControls(camera, renderer.domElement);
 
     const light = new THREE.DirectionalLight(0xffffff, 1);
     light.castShadow = true;
@@ -137,6 +124,18 @@ const initThree = (): void => {
     };
 
     animate();
+};
+
+let cameraState: any;
+
+export const setCameraState = () => {
+    cameraState = cameraControls.toJSON();
+    console.log(cameraState);
+};
+
+export const loadCameraState = () => {
+    if (cameraState == null) return;
+    cameraControls.fromJSON(cameraState, true);
 };
 
 export default initThree;
