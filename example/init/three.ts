@@ -8,11 +8,10 @@ import Stats from 'three/addons/libs/stats.module.js';
 import saveAs from 'file-saver';
 import { IFCLoader } from 'web-ifc-three/IFCLoader';
 
-import { Worker } from '../src';
+import { Worker } from '../../src';
 
 // @ts-ignore
-import ifc from '../resources/example_4.ifc?url';
-import './style.css';
+import ifc from '../../resources/example_4.ifc?url';
 
 CameraControls.install({ THREE: THREE });
 
@@ -140,9 +139,4 @@ const initThree = (): void => {
     animate();
 };
 
-const example = (): void => {
-    initThree();
-    // initWorker();
-};
-
-example();
+export default initThree;

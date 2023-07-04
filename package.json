@@ -10,7 +10,7 @@
         "threejs"
     ],
     "scripts": {
-        "dev": "vite",
+        "dev": "vite -c vite.config.example.ts",
         "build": "tsc && vite build",
         "build:example": "tsc && vite build && vite build -c vite.config.example.ts",
         "preview": "vite preview",
@@ -18,16 +18,24 @@
         "docs": "typedoc"
     },
     "devDependencies": {
+        "@emotion/react": "^11.11.1",
+        "@emotion/styled": "^11.11.0",
+        "@mui/material": "^5.13.7",
+        "@reduxjs/toolkit": "^1.9.5",
         "@types/file-saver": "^2.0.5",
         "@types/three": "^0.152.1",
+        "@vitejs/plugin-react": "^4.0.1",
         "camera-controls": "^2.7.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-redux": "^8.1.1",
         "three": "^0.154.0",
+        "three-mesh-bvh": "^0.6.0",
         "typedoc": "^0.24.8",
         "typescript": "^5.0.2",
         "vite": "^4.3.9",
         "vite-plugin-dts": "^3.0.3",
-        "web-ifc-three": "^0.0.125",
-        "three-mesh-bvh": "^0.6.0"
+        "web-ifc-three": "^0.0.125"
     },
     "dependencies": {
         "axios": "^1.4.0",
