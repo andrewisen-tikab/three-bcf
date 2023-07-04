@@ -2186,6 +2186,7 @@ __metadata:
     file-saver: ^2.0.5
     jszip: ^3.10.1
     three: ^0.154.0
+    three-mesh-bvh: ^0.6.0
     typedoc: ^0.24.8
     typescript: ^5.0.2
     vite: ^4.3.9
@@ -2201,6 +2202,15 @@ __metadata:
   peerDependencies:
     three: ">= 0.123.0"
   checksum: f2984f0e5f29c47d329c9c6b6ac0fd777e604e6c65e68cf64a5f242bc4dbf31c8bcb56d19c849f1cb36a43ca0ec5f93df2c18dc970d9df6ee90d3320d9fdf1cf
+  languageName: node
+  linkType: hard
+
+"three-mesh-bvh@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "three-mesh-bvh@npm:0.6.0"
+  peerDependencies:
+    three: ">= 0.151.0"
+  checksum: bafa9c912be4137ae5bb440584deff5953abd3196f7e4c38ecfb279ed16abc7a570d9e89a0d998d1e77dc0f532f8524f393b4bc0a0755e3debd1968ee05f97fe
   languageName: node
   linkType: hard
 
