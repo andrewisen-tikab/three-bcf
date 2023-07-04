@@ -1,19 +1,29 @@
 {
     "name": "three-bcf",
-    "private": true,
     "version": "0.0.0",
     "type": "module",
+    "main": "dist/three-bcf.js",
+    "keywords": [
+        "bcf",
+        "ifc",
+        "three",
+        "threejs"
+    ],
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
+        "build:example": "tsc && vite build && vite build -c vite.config.example.ts",
         "preview": "vite preview",
-        "ts": "tsc"
+        "ts": "tsc",
+        "docs": "typedoc"
     },
     "devDependencies": {
         "@types/file-saver": "^2.0.5",
         "three": "^0.154.0",
+        "typedoc": "^0.24.8",
         "typescript": "^5.0.2",
-        "vite": "^4.3.9"
+        "vite": "^4.3.9",
+        "vite-plugin-dts": "^3.0.3"
     },
     "dependencies": {
         "axios": "^1.4.0",
