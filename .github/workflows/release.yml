@@ -44,6 +44,7 @@ jobs:
                   yarn install
                   yarn build
                   yarn build:example
+                  yarn build:worker
                   yarn docs
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v1

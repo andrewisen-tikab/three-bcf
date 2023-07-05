@@ -1,16 +1,18 @@
 import saveAs from 'file-saver';
 
 import { Worker } from '../../src';
+import {
+    WorkerEventOnMessageParams,
+    WorkerEventPostMessageData,
+    extension,
+} from '../../src/worker/types';
 
-type Extension = 'zip' | 'bcfzip' | 'bcf';
-const extension: Extension = 'zip';
-
-const initWorker = (): void => {
+const initWorker = (params: WorkerEventPostMessageData): void => {
     const worker = new Worker();
-    worker.postMessage('Hello World');
-    worker.onmessage = (e) => {
+    worker.postMessage(params);
+    worker.onmessage = (event: WorkerEventOnMessageParams) => {
         console.log('Got message from worker thread. Saving ZIP');
-        saveAs(e.data, `presentation.${extension}`);
+        saveAs(event.data, `presentation.${extension}`);
     };
 };
 
