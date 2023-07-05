@@ -1,9 +1,12 @@
 import React, { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { loadCameraState, setCameraState } from '../init/three';
-import initWorker from '../init/worker';
+import { loadCameraState, setCameraState, stateAsObject } from '../init/three';
+import initWorker, { Vector3 } from '../init/worker';
+import THREEViewer from '../viewer/Viewer';
 
 export default function UI() {
     return (
@@ -11,7 +14,7 @@ export default function UI() {
             sx={{
                 right: 0,
                 position: 'absolute',
-                zIndex: 1,
+                zIndex: 2,
                 p: 4,
                 backgroundColor: 'text.primary',
             }}
@@ -20,15 +23,15 @@ export default function UI() {
                 <Button
                     variant="outlined"
                     onClick={() => {
-                        setCameraState();
+                        THREEViewer.setCameraState();
                     }}
                 >
-                    Save camera position
+                    Save camera's position
                 </Button>
                 <Button
                     variant="outlined"
                     onClick={() => {
-                        loadCameraState();
+                        THREEViewer.loadCameraState();
                     }}
                 >
                     Load camera position
@@ -37,7 +40,7 @@ export default function UI() {
                     color="secondary"
                     variant="contained"
                     onClick={() => {
-                        initWorker();
+                        THREEViewer.generateBCF();
                     }}
                 >
                     Create BCF
