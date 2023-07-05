@@ -1,6 +1,7 @@
 import { create } from 'xmlbuilder2';
 import Topic from './topic';
 import Markup from './markup';
+import { WorkerEventPostMessageData } from '../../../worker/types';
 
 /**
  * The {@link Markup} can contain multiple viewpoints related to one or more comments.
@@ -21,7 +22,7 @@ import Markup from './markup';
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#viewpoints](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#viewpoints)
  */
 class Viewpoint extends Topic {
-    public create(): string {
+    public create(e: WorkerEventPostMessageData): string {
         const root = create({ version: '1.0', encoding: 'UTF-8', standalone: true })
             .ele('VisualizationInfo')
             .att('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
@@ -57,21 +58,19 @@ class Viewpoint extends Topic {
         // Add PerspectiveCamera element
         const perspectiveCamera = root.ele('PerspectiveCamera');
         const cameraViewPoint = perspectiveCamera.ele('CameraViewPoint');
-
-        cameraViewPoint.ele('X').txt('2.459195214654866');
-        cameraViewPoint.ele('Y').txt('-3.2626336461159022');
-        cameraViewPoint.ele('Z').txt('2.484054818039438');
+        cameraViewPoint.ele('X').txt(`${e.cameraViewPoint[0]}`);
+        cameraViewPoint.ele('Y').txt(`${e.cameraViewPoint[1]}`);
+        cameraViewPoint.ele('Z').txt(`${e.cameraViewPoint[2]}`);
 
         const cameraDirection = perspectiveCamera.ele('CameraDirection');
-        cameraDirection.ele('X').txt('0.07723484725873991');
-        cameraDirection.ele('Y').txt('0.9882145480786174');
-        cameraDirection.ele('Z').txt('-0.1321619662939877');
+        cameraDirection.ele('X').txt(`${e.cameraDirection[0]}`);
+        cameraDirection.ele('Y').txt(`${e.cameraDirection[1]}`);
+        cameraDirection.ele('Z').txt(`${e.cameraDirection[2]}`);
 
         const cameraUpVector = perspectiveCamera.ele('CameraUpVector');
-
-        cameraUpVector.ele('X').txt('0.010297840552161751');
-        cameraUpVector.ele('Y').txt('0.13176016019516443');
-        cameraUpVector.ele('Z').txt('0.9912281345206597');
+        cameraUpVector.ele('X').txt(`${e.cameraUpVector[0]}`);
+        cameraUpVector.ele('Y').txt(`${e.cameraUpVector[1]}`);
+        cameraUpVector.ele('Z').txt(`${e.cameraUpVector[2]}`);
 
         perspectiveCamera.ele('FieldOfView').txt('59.99999999999999');
         perspectiveCamera.ele('AspectRatio').txt('1.9611829944547134');
