@@ -1,3 +1,7 @@
+export type Nullable<T> = {
+    [K in keyof T]: T[K] | null;
+};
+
 export type Extension = 'zip' | 'bcfzip' | 'bcf';
 export const extension: Extension = 'zip';
 

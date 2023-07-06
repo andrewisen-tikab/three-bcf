@@ -1,6 +1,6 @@
 import { create } from 'xmlbuilder2';
 import { XML_WRITER_OPTIONS } from '../constants';
-import Topic from './topic';
+import Topic_XML from './topic';
 
 /**
  * ## Markup (.bcf) file
@@ -35,7 +35,7 @@ import Topic from './topic';
  *
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#markup-bcf-file](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#markup-bcf-file)
  */
-class Markup extends Topic {
+class Markup_XML extends Topic_XML {
     public create(): string {
         const doc = create({ version: '1.0', encoding: 'UTF-8', standalone: true })
             .ele('Markup', {
@@ -113,4 +113,4 @@ class Markup extends Topic {
     }
 }
 
-export default Markup;
+export default Markup_XML;

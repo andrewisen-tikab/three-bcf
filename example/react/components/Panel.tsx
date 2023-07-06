@@ -9,10 +9,11 @@ import CardHeader from '@mui/material/CardHeader';
 
 type PanelProps = {
     title?: string;
+    action?: React.ReactNode;
     children: React.ReactNode;
     sx: SxProps;
 };
-export default function Panel({ title, children, sx = {} }: PanelProps) {
+export default function Panel({ title, children, action, sx = {} }: PanelProps) {
     return (
         <Card
             sx={{
@@ -26,7 +27,7 @@ export default function Panel({ title, children, sx = {} }: PanelProps) {
             }}
             // elevation={24}
         >
-            <CardHeader title={title} titleTypographyProps={{ variant: 'h6' }} />
+            <CardHeader title={title} titleTypographyProps={{ variant: 'h6' }} action={action} />
 
             {children}
         </Card>

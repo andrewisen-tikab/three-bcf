@@ -9,7 +9,7 @@ import { IFCLoader } from 'web-ifc-three/IFCLoader';
 
 // @ts-ignore
 import ifc from '../../resources/example_4.ifc?url';
-import { CameraControlsStae, BCFCameraState } from '../types';
+import { CameraControlsState, BCFCameraState } from '../types';
 import initWorker from '../init/worker';
 
 CameraControls.install({ THREE: THREE });
@@ -20,17 +20,11 @@ THREE.Mesh.prototype.raycast = acceleratedRaycast;
 /**
  * THREE Viewer as singleton.
  */
-class _THREEViewer {
-    private static _instance: _THREEViewer;
-
+export default class THREEViewer {
     /**
      * TODO: Replace with Topics.
      */
     public cameraState: string | null = null;
-
-    public static get Instance() {
-        return this._instance || (this._instance = new this());
-    }
 
     /**
      * Container to append the canvas.
@@ -63,6 +57,7 @@ class _THREEViewer {
     init(container: HTMLElement = document.body) {
         this.container = container;
         this.ifcModels = [];
+        this.topics = [];
 
         this.stats = new Stats();
         container.appendChild(this.stats.dom);
@@ -235,7 +230,7 @@ class _THREEViewer {
 
     public convertCameraStateToBCFState(): BCFCameraState {
         if (this.cameraState == null) throw new Error('Camera state is null');
-        const state = JSON.parse(this.cameraState) as CameraControlsStae;
+        const state = JSON.parse(this.cameraState) as CameraControlsState;
         const { position, target } = state;
 
         const direction = new THREE.Vector3();
@@ -258,7 +253,3 @@ class _THREEViewer {
         return bcfCameraState;
     }
 }
-
-const THREEViewer = _THREEViewer.Instance;
-
-export default THREEViewer;

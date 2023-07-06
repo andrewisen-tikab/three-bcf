@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-import THREEViewer from '../../viewer/Viewer';
+import BCFViewer from '../../viewer/BCFViewer';
 
 export default function UI() {
     return (
@@ -21,7 +21,7 @@ export default function UI() {
                 <Button
                     variant="outlined"
                     onClick={() => {
-                        THREEViewer.setCameraState();
+                        BCFViewer.setCameraState();
                     }}
                 >
                     Save camera's position
@@ -29,7 +29,7 @@ export default function UI() {
                 <Button
                     variant="outlined"
                     onClick={() => {
-                        THREEViewer.loadCameraState();
+                        BCFViewer.loadCameraState();
                     }}
                 >
                     Load camera position

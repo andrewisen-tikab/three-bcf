@@ -3,23 +3,14 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Panel from './Panel';
 import Three from './Three';
+import Issues from './Issues';
 
 function Dummy() {
     return <Box sx={{ background: 'red' }} />;
 }
 
 function LeftFlexLayout() {
-    return (
-        <Panel
-            title="Issues"
-            sx={{
-                flexBasis: '33.33%',
-                //  background: 'red'
-            }}
-        >
-            <Dummy />
-        </Panel>
-    );
+    return <Issues />;
 }
 
 function RightTopFlexLayout() {

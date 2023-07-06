@@ -1,10 +1,10 @@
 import { create } from 'xmlbuilder2';
-import Topic from './topic';
-import Markup from './markup';
-import { WorkerEventPostMessageData } from '../../../worker/types';
+import Topic_XML from './topic';
+import Markup_XML from './markup';
+import { WorkerEventPostMessageData } from '../../../../types';
 
 /**
- * The {@link Markup} can contain multiple viewpoints related to one or more comments.
+ * The {@link Markup_XML} can contain multiple viewpoints related to one or more comments.
  * A viewpoint has also the Guid attribute for identifying it uniquely.
  *
  * In addition, it has the following nodes:
@@ -21,7 +21,7 @@ import { WorkerEventPostMessageData } from '../../../worker/types';
  *
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#viewpoints](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#viewpoints)
  */
-class Viewpoint extends Topic {
+class Viewpoint_XML extends Topic_XML {
     public create(e: WorkerEventPostMessageData): string {
         const root = create({ version: '1.0', encoding: 'UTF-8', standalone: true })
             .ele('VisualizationInfo')
@@ -85,4 +85,4 @@ class Viewpoint extends Topic {
     }
 }
 
-export default Viewpoint;
+export default Viewpoint_XML;

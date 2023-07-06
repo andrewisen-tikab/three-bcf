@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 
-import { WorkerEventPostMessageData, WorkerEventPostMessageParams } from './types';
+import { WorkerEventPostMessageData, WorkerEventPostMessageParams } from '../types';
 import createZipAsync from './zip';
 
 const onBeginAsync = async (e: WorkerEventPostMessageData) => {
