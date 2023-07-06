@@ -2,19 +2,19 @@ import React, { useEffect, useRef } from 'react';
 
 import Box from '@mui/material/Box';
 
-import THREEViewer from '../../viewer/Viewer';
+import BCFViewer from '../../viewer/BCFViewer';
 
 export default function Three() {
     const ref = useRef(null);
     useEffect(() => {
         if (ref.current == null) return;
         const init = async () => {
-            THREEViewer.init(ref.current!);
-            await THREEViewer.load();
+            BCFViewer.init(ref.current!);
+            await BCFViewer.load();
         };
         init();
         return () => {
-            THREEViewer.dispose();
+            BCFViewer.dispose();
         };
     }, []);
 

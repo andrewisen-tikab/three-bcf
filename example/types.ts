@@ -1,4 +1,4 @@
-import { Vector3 } from '../src/worker/types';
+import { Vector3 } from '../src/types';
 
 export interface CameraControlsStae {
     position: THREE.Vector3;

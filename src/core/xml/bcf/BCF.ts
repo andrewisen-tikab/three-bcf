@@ -1,4 +1,4 @@
-import XMLCreator from '../xml/xml';
+import XMLCreator from '../../xml/xml';
 /**
  * A BCF file is a zip containing one folder for each topic with its file extension:
  * - `bcfzip` for BCFv1.0 and BCFv2.0.
@@ -33,6 +33,6 @@ import XMLCreator from '../xml/xml';
  *
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#bcf-file-structure](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#bcf-file-structure)
  */
-class BCF extends XMLCreator {}
+class BCF_XML extends XMLCreator {}
 
-export default BCF;
+export default BCF_XML;

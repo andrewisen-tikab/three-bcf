@@ -20,17 +20,11 @@ THREE.Mesh.prototype.raycast = acceleratedRaycast;
 /**
  * THREE Viewer as singleton.
  */
-class _THREEViewer {
-    private static _instance: _THREEViewer;
-
+export default class THREEViewer {
     /**
      * TODO: Replace with Topics.
      */
     public cameraState: string | null = null;
-
-    public static get Instance() {
-        return this._instance || (this._instance = new this());
-    }
 
     /**
      * Container to append the canvas.
@@ -63,6 +57,7 @@ class _THREEViewer {
     init(container: HTMLElement = document.body) {
         this.container = container;
         this.ifcModels = [];
+        this.topics = [];
 
         this.stats = new Stats();
         container.appendChild(this.stats.dom);
@@ -258,7 +253,3 @@ class _THREEViewer {
         return bcfCameraState;
     }
 }
-
-const THREEViewer = _THREEViewer.Instance;
-
-export default THREEViewer;
