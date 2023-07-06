@@ -5,24 +5,56 @@ import Panel from './Panel';
 import CardContent from '@mui/material/CardContent';
 
 import IssueList from './IssueList';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import { Button } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createTopic } from '../state/bcfSlice';
 import BCFViewer from '../../viewer/BCFViewer';
 import { TopicParams } from '../../../src/core/three/dev';
+import initWorker from '../../init/worker';
+import { RootState, store } from '../state/store';
+import { TopicCameraState } from '../../types';
 
 function NewIssue() {
     const dispatch = useDispatch();
 
     const onClick = () => {
-        const topicCameraState = BCFViewer.getTopicCameraState();
+        const topicCameraState: TopicCameraState = BCFViewer.getTopicCameraState();
         dispatch(createTopic({ camera: topicCameraState }));
     };
 
     return (
         <Button aria-label="settings" startIcon={<AddCommentIcon />} onClick={onClick}>
             New issue
+        </Button>
+    );
+}
+
+function CreateBCF() {
+    const disabled = useSelector((state: RootState) => state.bcf.topics.length === 0);
+
+    const onClick = () => {
+        const state = store.getState().bcf.topics[0];
+        if (state === undefined) return;
+        const json: TopicCameraState = JSON.parse(state);
+        const cameraState = BCFViewer.convertTopicCameraStateToBCFState(json);
+
+        initWorker({
+            type: 'begin',
+            cameraViewPoint: cameraState.position,
+            cameraDirection: cameraState.direction,
+            cameraUpVector: cameraState.up,
+        });
+    };
+    return (
+        <Button
+            disabled={disabled}
+            aria-label="settings"
+            startIcon={<SaveAltIcon />}
+            onClick={onClick}
+        >
+            Create BCF
         </Button>
     );
 }
@@ -34,7 +66,12 @@ export default function Issues() {
             sx={{
                 flexBasis: '33.33%',
             }}
-            action={<NewIssue />}
+            action={
+                <>
+                    <NewIssue />
+                    <CreateBCF />
+                </>
+            }
         >
             <CardContent>
                 <IssueList />
