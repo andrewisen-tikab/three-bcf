@@ -21,11 +21,13 @@
     "devDependencies": {
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
+        "@fontsource/roboto": "^5.0.4",
         "@mui/material": "^5.13.7",
         "@reduxjs/toolkit": "^1.9.5",
         "@types/file-saver": "^2.0.5",
         "@types/three": "^0.152.1",
         "@vitejs/plugin-react": "^4.0.1",
+        "add": "^2.0.6",
         "camera-controls": "^2.7.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
@@ -36,7 +38,8 @@
         "typescript": "^5.0.2",
         "vite": "^4.3.9",
         "vite-plugin-dts": "^3.0.3",
-        "web-ifc-three": "^0.0.125"
+        "web-ifc-three": "^0.0.125",
+        "yarn": "^1.22.19"
     },
     "dependencies": {
         "axios": "^1.4.0",

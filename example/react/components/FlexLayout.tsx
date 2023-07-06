@@ -11,6 +11,7 @@ function Dummy() {
 function LeftFlexLayout() {
     return (
         <Panel
+            title="Issues"
             sx={{
                 flexBasis: '33.33%',
                 //  background: 'red'
@@ -23,23 +24,26 @@ function LeftFlexLayout() {
 
 function RightTopFlexLayout() {
     return (
-        <Panel
+        <Box
             sx={{
                 display: 'flex',
                 flexBasis: '70%',
             }}
         >
-            <Box sx={{ flexBasis: '50%' }}></Box>
-            <Box sx={{ flexBasis: '50%' }}>
+            <Panel title="Issue details" sx={{ flexBasis: '50%' }}>
+                <Dummy />
+            </Panel>
+            <Panel title="3D" sx={{ flexBasis: '50%' }}>
                 <Three />
-            </Box>
-        </Panel>
+            </Panel>
+        </Box>
     );
 }
 
 function RightBottomFlexLayout() {
     return (
         <Panel
+            title="Issue sorter"
             sx={{
                 flexBasis: '30%',
                 // background: 'yellow'
