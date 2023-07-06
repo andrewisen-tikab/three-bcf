@@ -78,7 +78,7 @@ class _THREEViewer {
 
         this.renderer = new THREE.WebGLRenderer({ preserveDrawingBuffer: true });
         this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-        this.renderer.setClearColor(new THREE.Color(0x263238), 1);
+        this.renderer.setClearColor(new THREE.Color(), 0);
         this.container.appendChild(this.renderer.domElement);
 
         this.cameraControls = new CameraControls(this.camera, this.renderer.domElement);

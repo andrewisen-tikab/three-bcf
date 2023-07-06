@@ -72,8 +72,13 @@ export default function FlexLayout() {
     return (
         <Box
             sx={{
-                display: 'flex',
                 height: '100vh',
+                bgcolor: 'background.default',
+                boxSizing: 'border-box',
+                p: '20px',
+
+                // m: '20px',
+                display: 'flex',
             }}
         >
             <LeftFlexLayout />
