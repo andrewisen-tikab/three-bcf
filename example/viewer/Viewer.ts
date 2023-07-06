@@ -146,6 +146,14 @@ class _THREEViewer {
             }
         });
 
+        const resize = (): void => {
+            this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+        };
+
+        this.container.addEventListener('resize', resize);
+
         const animate = (): void => {
             const delta = this.clock.getDelta();
             const hasControlsUpdated = this.cameraControls.update(delta);
