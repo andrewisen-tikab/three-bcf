@@ -13,6 +13,9 @@ export default function Three() {
             await THREEViewer.load();
         };
         init();
+        return () => {
+            THREEViewer.dispose();
+        };
     }, []);
 
     return <Box id="three-container" ref={ref} sx={{ height: '100%' }} />;

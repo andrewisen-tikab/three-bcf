@@ -203,6 +203,9 @@ class _THREEViewer {
         });
     }
 
+    public dispose() {
+        this.container.innerHTML = '';
+    }
     public setCameraState() {
         this.cameraState = this.cameraControls.toJSON();
     }
