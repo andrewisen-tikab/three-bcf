@@ -78,7 +78,7 @@ class _THREEViewer {
 
         this.renderer = new THREE.WebGLRenderer({ preserveDrawingBuffer: true });
         this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-        this.renderer.setClearColor(new THREE.Color(0x263238), 1);
+        this.renderer.setClearColor(new THREE.Color(), 0);
         this.container.appendChild(this.renderer.domElement);
 
         this.cameraControls = new CameraControls(this.camera, this.renderer.domElement);
@@ -146,6 +146,14 @@ class _THREEViewer {
             }
         });
 
+        const resize = (): void => {
+            this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+        };
+
+        this.container.addEventListener('resize', resize);
+
         const animate = (): void => {
             const delta = this.clock.getDelta();
             const hasControlsUpdated = this.cameraControls.update(delta);
@@ -195,6 +203,9 @@ class _THREEViewer {
         });
     }
 
+    public dispose() {
+        this.container.innerHTML = '';
+    }
     public setCameraState() {
         this.cameraState = this.cameraControls.toJSON();
     }

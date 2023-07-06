@@ -580,6 +580,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource/roboto@npm:^5.0.4":
+  version: 5.0.4
+  resolution: "@fontsource/roboto@npm:5.0.4"
+  checksum: e86f6b92df4d79c1917b50ae75d431e770970f56ae203e3f579630a77e78985b23f179a5292284657ada8a5da071f3e2c539cf36d4b50f4abac13289860879f9
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -1241,6 +1248,13 @@ __metadata:
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
   checksum: a4a97ec07d7ea112c517036882b2ac22f3109b7b19077dc656316d07d308438aac28e4d9746dc4d84bf6b1e75b4a7b0a5f3cb30592419f128ca9a8cee3bcfa17
+  languageName: node
+  linkType: hard
+
+"add@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "add@npm:2.0.6"
+  checksum: e2d23d40494565dfed4acd65e478570c444db5ac6c053551ed429c39ea0f2c99d83df63e7befec936df601827d2254d06a2fb6f7dcfd2022e810b25eab818b8c
   languageName: node
   linkType: hard
 
@@ -3379,11 +3393,13 @@ __metadata:
   dependencies:
     "@emotion/react": ^11.11.1
     "@emotion/styled": ^11.11.0
+    "@fontsource/roboto": ^5.0.4
     "@mui/material": ^5.13.7
     "@reduxjs/toolkit": ^1.9.5
     "@types/file-saver": ^2.0.5
     "@types/three": ^0.152.1
     "@vitejs/plugin-react": ^4.0.1
+    add: ^2.0.6
     axios: ^1.4.0
     camera-controls: ^2.7.0
     file-saver: ^2.0.5
@@ -3399,6 +3415,7 @@ __metadata:
     vite-plugin-dts: ^3.0.3
     web-ifc-three: ^0.0.125
     xmlbuilder2: ^3.1.1
+    yarn: ^1.22.19
   languageName: unknown
   linkType: soft
 
@@ -3759,6 +3776,16 @@ __metadata:
   version: 1.10.2
   resolution: "yaml@npm:1.10.2"
   checksum: ce4ada136e8a78a0b08dc10b4b900936912d15de59905b2bf415b4d33c63df1d555d23acb2a41b23cf9fb5da41c256441afca3d6509de7247daa062fd2c5ea5f
+  languageName: node
+  linkType: hard
+
+"yarn@npm:^1.22.19":
+  version: 1.22.19
+  resolution: "yarn@npm:1.22.19"
+  bin:
+    yarn: bin/yarn.js
+    yarnpkg: bin/yarn.js
+  checksum: b43d2cc5fee7e933beb12a8aee7dfceca9e9ef2dd17c5d04d15a12ab7bec5f5744ea34a07b86e013da7f291a18c4e1ad8f70e150f5ed2f4666e6723c7f0a8452
   languageName: node
   linkType: hard
 
