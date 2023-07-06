@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 import Box from '@mui/material/Box';
 
-import THREEViewer from '../viewer/Viewer';
+import THREEViewer from '../../viewer/Viewer';
 
 export default function Three() {
     const ref = useRef(null);
@@ -15,12 +15,5 @@ export default function Three() {
         init();
     }, []);
 
-    return (
-        <Box
-            ref={ref}
-            sx={{
-                position: 'absolute',
-            }}
-        />
-    );
+    return <Box id="three-container" ref={ref} sx={{ height: '100%' }} />;
 }

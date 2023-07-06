@@ -7,11 +7,13 @@ import UI from './components/UI';
 import { store } from './state/store';
 import './style.css';
 
+import Box from '@mui/material/Box';
+import FlexLayout from './components/FlexLayout';
+
 export function App() {
     return (
         <Provider store={store}>
-            <Three />
-            <UI />
+            <FlexLayout />
         </Provider>
     );
 }
