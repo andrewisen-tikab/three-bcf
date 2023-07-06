@@ -9,7 +9,7 @@ import { IFCLoader } from 'web-ifc-three/IFCLoader';
 
 // @ts-ignore
 import ifc from '../../resources/example_4.ifc?url';
-import { CameraControlsStae, BCFCameraState } from '../types';
+import { CameraControlsState, BCFCameraState } from '../types';
 import initWorker from '../init/worker';
 
 CameraControls.install({ THREE: THREE });
@@ -230,7 +230,7 @@ export default class THREEViewer {
 
     public convertCameraStateToBCFState(): BCFCameraState {
         if (this.cameraState == null) throw new Error('Camera state is null');
-        const state = JSON.parse(this.cameraState) as CameraControlsStae;
+        const state = JSON.parse(this.cameraState) as CameraControlsState;
         const { position, target } = state;
 
         const direction = new THREE.Vector3();

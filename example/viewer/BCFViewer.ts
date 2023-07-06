@@ -1,4 +1,6 @@
-import { Topic, TopicParams } from '../../src/three/dev';
+import * as THREE from 'three';
+import { Topic, TopicParams } from '../../src/core/three/dev';
+import { BCFCameraState, CameraControlsState, TopicCameraState } from '../types';
 import THREEViewer from './Viewer';
 
 /**
@@ -11,31 +13,29 @@ class _BCFViewer extends THREEViewer {
 
     private static _instance: _BCFViewer;
 
-    public topics: Topic[];
-
     constructor() {
         super();
-        this.topics = [];
     }
 
     /**
      * @deprecated WIP
      */
-    public createTopicFromCurrentCameraState(): void {
+    public getTopicCameraState(): TopicCameraState {
         if (this.cameraState == null) {
             this.setCameraState();
         }
-        const params = JSON.parse(this.cameraState!);
-        this.createTopic(params);
-    }
+        const cameraControlsState = JSON.parse(this.cameraState!) as CameraControlsState;
+        const direction = new THREE.Vector3();
+        // @ts-ignore
+        this.cameraControls._getCameraDirection(direction);
 
-    /**
-     * @deprecated WIP
-     */
-    private createTopic(params: TopicParams): void {
-        const topic = new Topic();
-        topic.set(params);
-        this.topics.push(topic);
+        const BCFCameraState = {
+            position: cameraControlsState.position,
+            target: cameraControlsState.target,
+            direction: direction.toArray(),
+        };
+
+        return BCFCameraState;
     }
 }
 const BCFViewer = _BCFViewer.Instance;
