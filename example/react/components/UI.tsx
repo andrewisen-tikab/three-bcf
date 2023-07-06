@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import React from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { loadCameraState, setCameraState, stateAsObject } from '../init/three';
-import initWorker, { Vector3 } from '../init/worker';
-import THREEViewer from '../viewer/Viewer';
+
+import THREEViewer from '../../viewer/Viewer';
 
 export default function UI() {
     return (

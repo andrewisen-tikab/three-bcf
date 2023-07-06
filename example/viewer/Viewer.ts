@@ -71,13 +71,13 @@ class _THREEViewer {
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(
             75,
-            window.innerWidth / window.innerHeight,
+            this.container.clientWidth / this.container.clientHeight,
             0.1,
             1000,
         );
 
         this.renderer = new THREE.WebGLRenderer({ preserveDrawingBuffer: true });
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
         this.renderer.setClearColor(new THREE.Color(0x263238), 1);
         this.container.appendChild(this.renderer.domElement);
 
