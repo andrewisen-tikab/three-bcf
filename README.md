@@ -1,8 +1,30 @@
 # three-bcf
 
-A BIM Collaboration Format (BCF) for three.js
+A BIM Collaboration Format (BCF) writer for three.js
 
 [![PR Checker](https://github.com/andrewisen-tikab/three-bcf/actions/workflows/pr.yml/badge.svg)](https://github.com/andrewisen-tikab/three-bcf/actions/workflows/pr.yml)
+
+three-bcf is:
+
+-   Simple
+-   Opinionated
+-   Powerful
+
+## Design Structure
+
+The following diagram shows the design structure of `three-bcf`.
+
+![Design](./resources/design.png?raw=true)
+
+The source of the data should always (!) come from a database or state.
+This data should be highly searliazable.
+
+Next, all actions performed on the data should be done in a `three.js` context.
+This means that the models used, cameras position and math operations are done in terms of `three.js`.
+
+Finally, the data is passed to the `BCFWriter` which will create a BCF file.
+
+If this workflow doesn't fit your needs, you can always grab individual parts of the code and use them as you see fit.
 
 ## Usage
 
