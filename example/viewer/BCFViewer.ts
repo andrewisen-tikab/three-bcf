@@ -21,9 +21,8 @@ class _BCFViewer extends THREEViewer {
      * @deprecated WIP
      */
     public getTopicCameraState(): TopicCameraState {
-        if (this.cameraState == null) {
-            this.setCameraState();
-        }
+        this.setCameraState();
+
         const cameraControlsState = JSON.parse(this.cameraState!) as CameraControlsState;
         const direction = new THREE.Vector3();
         // @ts-ignore
@@ -36,6 +35,18 @@ class _BCFViewer extends THREEViewer {
         };
 
         return BCFCameraState;
+    }
+
+    public setTopicCameraState(topic: Topic) {
+        this.cameraControls.setLookAt(
+            topic.position[0],
+            topic.position[1],
+            topic.position[2],
+            topic.target[0],
+            topic.target[1],
+            topic.target[2],
+            true,
+        );
     }
 
     public convertTopicCameraStateToBCFState(json: TopicCameraState): BCFCameraState {
