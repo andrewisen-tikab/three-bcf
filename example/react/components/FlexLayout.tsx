@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Panel from './Panel';
 import Three from './Three';
 import Issues from './Issues';
+import IssueSorter from './IssueSorter';
 
 function Dummy() {
     return <Box sx={{ background: 'red' }} />;
@@ -18,7 +19,7 @@ function RightTopFlexLayout() {
         <Box
             sx={{
                 display: 'flex',
-                flexBasis: '70%',
+                flexBasis: '60%',
             }}
         >
             <Panel title="Issue details" sx={{ flexBasis: '50%' }}>
@@ -36,11 +37,11 @@ function RightBottomFlexLayout() {
         <Panel
             title="Issue sorter"
             sx={{
-                flexBasis: '30%',
+                flexBasis: '40%',
                 // background: 'yellow'
             }}
         >
-            <Dummy />
+            <IssueSorter />
         </Panel>
     );
 }
