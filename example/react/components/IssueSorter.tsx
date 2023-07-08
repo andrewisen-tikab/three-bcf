@@ -5,14 +5,14 @@ import { RootState } from '../state/store';
 import { Topic } from '../../../src/core/three/dev';
 import { Card, CardMedia } from '@mui/material';
 
-export function IssueItem() {
+type IssueItemProps = {
+    screenshot: string;
+};
+
+export function IssueItem({ screenshot: image }: IssueItemProps) {
     return (
         <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-                component="img"
-                height="194"
-                image="https://mui.com/static/images/cards/paella.jpg"
-            />
+            <CardMedia component="img" height="194" image={image} />
             <CardContent>Window</CardContent>
         </Card>
     );
@@ -21,11 +21,9 @@ export function IssueItem() {
 export default function IssueSorter() {
     const topics = useSelector((state: RootState) => state.bcf.topics);
 
-    const topicList = topics.map((input) => {
-        const topic = new Topic();
-        topic.fromJSON(input);
-
-        return <IssueItem key={topic.uuid} />;
+    const topicList = topics.map((topic) => {
+        const { uuid, screenshot } = topic;
+        return <IssueItem key={uuid} screenshot={screenshot} />;
     });
 
     return (

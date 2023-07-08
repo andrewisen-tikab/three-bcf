@@ -57,7 +57,6 @@ export default class THREEViewer {
     init(container: HTMLElement = document.body) {
         this.container = container;
         this.ifcModels = [];
-        this.topics = [];
 
         this.stats = new Stats();
         container.appendChild(this.stats.dom);
@@ -149,17 +148,36 @@ export default class THREEViewer {
 
         this.container.addEventListener('resize', resize);
 
-        const animate = (): void => {
-            const delta = this.clock.getDelta();
-            const hasControlsUpdated = this.cameraControls.update(delta);
-
-            requestAnimationFrame(animate);
-
-            this.stats.update();
-            this.renderer.render(this.scene, this.camera);
+        const _RAF = (): void => {
+            requestAnimationFrame(_RAF);
+            this.animate();
         };
 
-        animate();
+        _RAF();
+    }
+
+    /**
+     * Animate a single frame.
+     */
+    private animate() {
+        this.update();
+        this.render();
+    }
+
+    /**
+     * Update objects before rendering.
+     */
+    private update() {
+        this.stats.update();
+        const delta = this.clock.getDelta();
+        const hasControlsUpdated = this.cameraControls.update(delta);
+    }
+
+    /**
+     * Render a single frame.
+     */
+    private render() {
+        this.renderer.render(this.scene, this.camera);
     }
 
     private initLights(): void {
@@ -211,11 +229,39 @@ export default class THREEViewer {
     }
 
     /**
+     * Code that runs before {@link THREEViewer.generateScreenshot}.
+     */
+    public onBeforeScreenshot() {
+        this.renderer.setClearColor(new THREE.Color(0xffffff), 1);
+    }
+
+    /**
      * Returns the content of the current canvas as an image that you can use as a source for another canvas or an HTML element.
      */
     public generateScreenshot(): string {
+        // Update the scene before taking a screenshot
+        this.onBeforeScreenshot();
+
+        // Animate before taking a  screenshot
+        this.animate();
+
         const strMime = 'image/jpeg';
-        return this.renderer.domElement.toDataURL(strMime);
+        const screenshot = this.renderer.domElement.toDataURL(strMime);
+
+        // Reset everything to the status quo
+        this.onAfterScreenshot();
+
+        // Animate a single frame so everything is up to date
+        this.animate();
+
+        return screenshot;
+    }
+
+    /**
+     * Code that runs after {@link THREEViewer.generateScreenshot}.
+     */
+    public onAfterScreenshot() {
+        this.renderer.setClearColor(new THREE.Color(), 0);
     }
 
     public generateBCF() {
