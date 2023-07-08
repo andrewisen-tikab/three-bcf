@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { Topic, TopicParams } from '../../../src/core/three/dev';
+import { Topic, TopicJSON, TopicParams } from '../../../src/core/three/dev';
 import { TopicCameraState } from '../../types';
+import BCFViewer from '../../viewer/BCFViewer';
 
 export type BCFState = {
-    topics: string[];
+    topics: TopicJSON[];
 };
 
 const initialState: BCFState = {
@@ -23,6 +24,7 @@ export const bcfSlice = createSlice({
             const topic = new Topic();
             topic.set(action.payload.camera);
             topic.order = state.topics.length;
+            topic.setScreenshot(BCFViewer.generateScreenshot());
             state.topics.push(topic.toJSON());
         },
         removeTopic: (state, action: PayloadAction<Topic>) => {

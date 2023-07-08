@@ -61,7 +61,3 @@ Auto-generated docs can be found here:
 ## Status
 
 This is a work in progress. It's not production ready.
-
-```
-
-```
