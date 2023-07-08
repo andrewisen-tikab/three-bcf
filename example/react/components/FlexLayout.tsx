@@ -5,6 +5,7 @@ import Panel from './Panel';
 import Three from './Three';
 import Issues from './Issues';
 import IssueSorter from './IssueSorter';
+import IssueDetails from './IssueDetails';
 
 function Dummy() {
     return <Box sx={{ background: 'red' }} />;
@@ -23,7 +24,7 @@ function RightTopFlexLayout() {
             }}
         >
             <Panel title="Issue details" sx={{ flexBasis: '50%' }}>
-                <Dummy />
+                <IssueDetails />
             </Panel>
             <Panel title="3D" sx={{ flexBasis: '50%' }}>
                 <Three />

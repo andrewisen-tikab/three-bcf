@@ -37,8 +37,7 @@ function CreateBCF() {
     const onClick = () => {
         const state = store.getState().bcf.topics[0];
         if (state === undefined) return;
-        const json: TopicCameraState = JSON.parse(state);
-        const cameraState = BCFViewer.convertTopicCameraStateToBCFState(json);
+        const cameraState = BCFViewer.convertTopicCameraStateToBCFState(state);
 
         initWorker({
             type: 'begin',
