@@ -10,6 +10,8 @@ three-bcf is:
 -   Opinionated
 -   Powerful
 
+![Example](./resources/example.gif?raw=true)
+
 ## Design Structure
 
 The following diagram shows the design structure of `three-bcf`.

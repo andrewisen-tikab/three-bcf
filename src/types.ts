@@ -3,7 +3,7 @@ export type Nullable<T> = {
 };
 
 export type Extension = 'zip' | 'bcfzip' | 'bcf';
-export const extension: Extension = 'zip';
+export const extension: Extension = 'bcf';
 
 export type WorkerEventType = 'begin' | 'progress' | 'end' | 'error';
 
@@ -11,6 +11,7 @@ export type Vector3 = [number, number, number];
 
 export type WorkerEventPostMessageData = {
     type: WorkerEventType;
+    screenshot: string;
     cameraViewPoint: Vector3;
     cameraDirection: Vector3;
     cameraUpVector: Vector3;

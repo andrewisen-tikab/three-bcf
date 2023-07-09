@@ -245,7 +245,7 @@ export default class THREEViewer {
         // Animate before taking a  screenshot
         this.animate();
 
-        const strMime = 'image/jpeg';
+        const strMime = 'image/png';
         const screenshot = this.renderer.domElement.toDataURL(strMime);
 
         // Reset everything to the status quo
