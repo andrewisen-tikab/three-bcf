@@ -39,8 +39,12 @@ function CreateBCF() {
         if (state === undefined) return;
         const cameraState = BCFViewer.convertTopicCameraStateToBCFState(state);
 
+        // Create new object to avoid reference to the state
+        const screenshot = state.screenshot;
+
         initWorker({
             type: 'begin',
+            screenshot: screenshot,
             cameraViewPoint: cameraState.position,
             cameraDirection: cameraState.direction,
             cameraUpVector: cameraState.up,

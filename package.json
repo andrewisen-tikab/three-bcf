@@ -7,7 +7,8 @@
         "bcf",
         "ifc",
         "three",
-        "threejs"
+        "threejs",
+        "bim"
     ],
     "scripts": {
         "dev": "vite -c vite.config.example.ts",
