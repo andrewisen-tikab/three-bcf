@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import type { Topic as BCFTopic } from '../bcf/topic';
 import { Nullable } from '../../types';
 import { TopicCameraState } from '../../../example/types';
+
 const defaultVector3 = new THREE.Vector3(-1, -1, -1).toArray();
 
 export interface TopicParams extends BCFTopic {
@@ -31,6 +32,9 @@ export interface TopicJSON extends TopicParams {
     order: number;
 }
 
+/**
+ * Three.js wrapper for BCF topic.
+ */
 export class Topic implements TopicJSON {
     public uuid: string;
 

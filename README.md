@@ -47,10 +47,38 @@ const createBCF = (params: WorkerEventPostMessageData): void => {
 };
 ```
 
+You can test that it works by running the following code:
+
+```ts
+// TODO
+```
+
+Simply create a topic and add the relevant data (params) to it.
+
+```ts
+const topic = new Topic();
+topic.set(params);
+```
+
+Finally, serialize the topic and send it to the worker.
+
+```ts
+const object = topic.toJSON();
+
+const params = {}; // TODO
+
+worker.postMessage(params);
+```
+
 ## Example
 
-A simple example can be found in the `example` folder.
-It's a simple three.js scene with a hard-coded BCF file being created.
+A full SPA example can be found in the `example` folder.
+It's a simple three.js scene with React on top of it.
+
+You don't need to know React, but it helps if you want to understand the code.
+Check the `state` folder to see how the data is stored and manipulated.
+
+The so-called `slice` is a part of `react-redux`, but it contains all the bits and pieces needed to create a BCF file yourself.
 
 You can also try it out here:
 [https://andrewisen-tikab.github.io/three-bcf/example/](https://andrewisen-tikab.github.io/three-bcf/example/)
