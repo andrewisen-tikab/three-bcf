@@ -9,9 +9,8 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { createTopic } from '../state/bcfSlice';
+import { createBCF, createTopic } from '../state/bcfSlice';
 import BCFViewer from '../../viewer/BCFViewer';
-import { TopicParams } from '../../../src/core/three/dev';
 import initWorker from '../../init/worker';
 import { RootState, store } from '../state/store';
 import { TopicCameraState } from '../../types';
@@ -33,27 +32,12 @@ function NewIssue() {
 
 function CreateBCF() {
     const disabled = useSelector((state: RootState) => state.bcf.topics.length === 0);
+    const dispatch = useDispatch();
 
     const onClick = () => {
-        const state = store.getState().bcf.topics[0];
-        if (state === undefined) return;
-        const cameraState = BCFViewer.convertTopicCameraStateToBCFState(state);
-
-        // Create new object to avoid reference to the state
-        const screenshot = state.screenshot;
-        const title = state.title;
-        const description = state.description;
-
-        initWorker({
-            type: 'begin',
-            title: title,
-            description: description,
-            screenshot: screenshot,
-            cameraViewPoint: cameraState.position,
-            cameraDirection: cameraState.direction,
-            cameraUpVector: cameraState.up,
-        });
+        dispatch(createBCF());
     };
+
     return (
         <Button
             disabled={disabled}
