@@ -1,10 +1,7 @@
 export const dataURLtoBlob = (dataURL: string) => {
     const arr = dataURL.split(',');
-    const data = arr[0];
-    if (data) throw new Error('Invalid dataURL');
-    const match = data.match(/:(.*?);/);
-    if (!match) throw new Error('Invalid dataURL');
-    const mime = match[1];
+    // @ts-ignore
+    const mime = arr[0].match(/:(.*?);/)[1];
     const bstr = atob(arr[1]);
     let n = bstr.length;
     const u8arr = new Uint8Array(n);
