@@ -41,9 +41,13 @@ function CreateBCF() {
 
         // Create new object to avoid reference to the state
         const screenshot = state.screenshot;
+        const title = state.title;
+        const description = state.description;
 
         initWorker({
             type: 'begin',
+            title: title,
+            description: description,
             screenshot: screenshot,
             cameraViewPoint: cameraState.position,
             cameraDirection: cameraState.direction,

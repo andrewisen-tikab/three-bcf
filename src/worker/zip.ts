@@ -19,7 +19,7 @@ const createZipAsync = async (e: WorkerEventPostMessageData): Promise<Blob> => {
         binary: true,
     });
     topicFolder.file('a1cbfe86-2934-4bb4-9794-507b3034f2a3.bcfv', new Viewpoint_XML().create(e));
-    topicFolder.file('markup.bcf', new Markup_XML().create());
+    topicFolder.file('markup.bcf', new Markup_XML().create(e));
 
     const data = await zipFile.generateAsync({ type: 'blob' });
     return data;

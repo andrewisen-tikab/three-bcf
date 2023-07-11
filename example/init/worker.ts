@@ -1,8 +1,13 @@
 import saveAs from 'file-saver';
 
 import { Worker } from '../../src';
+
 import { WorkerEventOnMessageParams, WorkerEventPostMessageData, extension } from '../../src/types';
 
+/**
+ * See `src/worker/worker`.
+ * @param params
+ */
 const initWorker = (params: WorkerEventPostMessageData): void => {
     const worker = new Worker();
     worker.postMessage(params);
