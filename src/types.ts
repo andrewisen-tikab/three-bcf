@@ -11,6 +11,8 @@ export type Vector3 = [number, number, number];
 
 export type WorkerEventPostMessageData = {
     type: WorkerEventType;
+    title: string;
+    description: string;
     screenshot: string;
     cameraViewPoint: Vector3;
     cameraDirection: Vector3;

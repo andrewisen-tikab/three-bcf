@@ -1,6 +1,7 @@
 import { create } from 'xmlbuilder2';
 import { XML_WRITER_OPTIONS } from '../constants';
 import Topic_XML from './topic';
+import { WorkerEventPostMessageData } from '../../../../types';
 
 /**
  * ## Markup (.bcf) file
@@ -36,7 +37,7 @@ import Topic_XML from './topic';
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#markup-bcf-file](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#markup-bcf-file)
  */
 class Markup_XML extends Topic_XML {
-    public create(): string {
+    public create(e: WorkerEventPostMessageData): string {
         const doc = create({ version: '1.0', encoding: 'UTF-8', standalone: true })
             .ele('Markup', {
                 'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
@@ -63,7 +64,7 @@ class Markup_XML extends Topic_XML {
             .ele('ReferenceLinks')
             .up()
             .ele('Title')
-            .txt('Window')
+            .txt(e.title)
             .up()
             .ele('Index')
             .txt('1')
@@ -85,7 +86,7 @@ class Markup_XML extends Topic_XML {
             .ele('AssignedTo')
             .up()
             .ele('Description')
-            .txt('This is a window')
+            .txt(e.description)
             .up()
             .ele('DocumentReferences')
             .up()
