@@ -1,7 +1,7 @@
 import { create } from 'xmlbuilder2';
 import Topic_XML from './topic';
 import Markup_XML from './markup';
-import { WorkerEventPostMessageData } from '../../../../types';
+import type { CreateParams } from '../../../../types';
 
 /**
  * The {@link Markup_XML} can contain multiple viewpoints related to one or more comments.
@@ -22,11 +22,11 @@ import { WorkerEventPostMessageData } from '../../../../types';
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#viewpoints](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#viewpoints)
  */
 class Viewpoint_XML extends Topic_XML {
-    public create(e: WorkerEventPostMessageData): string {
+    public create(e: CreateParams): string {
         const root = create({ version: '1.0', encoding: 'UTF-8', standalone: true })
             .ele('VisualizationInfo')
             .att('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-            .att('Guid', 'a1cbfe86-2934-4bb4-9794-507b3034f2a3')
+            .att('Guid', e.viewpointGuid)
             .att(
                 'xsi:noNamespaceSchemaLocation',
                 'https://raw.githubusercontent.com/buildingSMART/BCF-XML/release_3_0/Schemas/visinfo.xsd',

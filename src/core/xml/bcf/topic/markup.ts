@@ -1,7 +1,7 @@
 import { create } from 'xmlbuilder2';
 import { XML_WRITER_OPTIONS } from '../constants';
 import Topic_XML from './topic';
-import { WorkerEventPostMessageData } from '../../../../types';
+import type { CreateParams } from '../../../../types';
 
 /**
  * ## Markup (.bcf) file
@@ -37,7 +37,7 @@ import { WorkerEventPostMessageData } from '../../../../types';
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#markup-bcf-file](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#markup-bcf-file)
  */
 class Markup_XML extends Topic_XML {
-    public create(e: WorkerEventPostMessageData): string {
+    public create(e: CreateParams): string {
         const doc = create({ version: '1.0', encoding: 'UTF-8', standalone: true })
             .ele('Markup', {
                 'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
@@ -57,7 +57,7 @@ class Markup_XML extends Topic_XML {
             .up()
             .up()
             .ele('Topic', {
-                Guid: 'a351f372-e082-4f47-af2b-cb511fc1ed5a',
+                Guid: e.topicGuid,
                 TopicType: 'Error',
                 TopicStatus: 'Open',
             })
@@ -95,12 +95,12 @@ class Markup_XML extends Topic_XML {
             .ele('Comments')
             .up()
             .ele('Viewpoints')
-            .ele('ViewPoint', { Guid: 'a1cbfe86-2934-4bb4-9794-507b3034f2a3' })
+            .ele('ViewPoint', { Guid: e.viewpointGuid })
             .ele('Viewpoint')
-            .txt('a1cbfe86-2934-4bb4-9794-507b3034f2a3.bcfv')
+            .txt(`${e.viewpointGuid}.bcfv`)
             .up()
             .ele('Snapshot')
-            .txt('a1cbfe86-2934-4bb4-9794-507b3034f2a3.png')
+            .txt(`${e.viewpointGuid}.png`)
             .up()
             .ele('Index')
             .txt('0')

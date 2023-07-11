@@ -114,23 +114,27 @@ export const bcfSlice = createSlice({
          * @param _state {@link BCFState}
          */
         createBCF: (_state): void => {
-            const state = _state.topics[0];
-            if (state == null) throw new Error('state is undefined');
-            const cameraState = BCFViewer.convertTopicCameraStateToBCFState(state);
+            const topics = _state.topics.map((state) => {
+                const cameraState = BCFViewer.convertTopicCameraStateToBCFState(state);
 
-            // Create new object to avoid reference to the state
-            const screenshot = state.screenshot;
-            const title = state.title;
-            const description = state.description;
+                // Create new object to avoid reference to the state
+                const screenshot = state.screenshot;
+                const title = state.title;
+                const description = state.description;
+
+                return {
+                    title: title,
+                    description: description,
+                    screenshot: screenshot,
+                    cameraViewPoint: cameraState.position,
+                    cameraDirection: cameraState.direction,
+                    cameraUpVector: cameraState.up,
+                };
+            });
 
             initWorker({
                 type: 'begin',
-                title: title,
-                description: description,
-                screenshot: screenshot,
-                cameraViewPoint: cameraState.position,
-                cameraDirection: cameraState.direction,
-                cameraUpVector: cameraState.up,
+                topics,
             });
         },
     },
