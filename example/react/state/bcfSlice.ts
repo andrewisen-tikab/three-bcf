@@ -121,11 +121,13 @@ export const bcfSlice = createSlice({
                 const screenshot = state.screenshot;
                 const title = state.title;
                 const description = state.description;
+                const order = state.order;
 
                 return {
                     title: title,
                     description: description,
                     screenshot: screenshot,
+                    order: order,
                     cameraViewPoint: cameraState.position,
                     cameraDirection: cameraState.direction,
                     cameraUpVector: cameraState.up,
