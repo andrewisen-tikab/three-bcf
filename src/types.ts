@@ -13,6 +13,7 @@ export type WorkerTopic = {
     title: string;
     description: string;
     screenshot: string;
+    order: number;
     cameraViewPoint: Vector3;
     cameraDirection: Vector3;
     cameraUpVector: Vector3;

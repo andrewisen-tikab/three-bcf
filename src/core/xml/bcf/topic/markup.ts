@@ -67,7 +67,7 @@ class Markup_XML extends Topic_XML {
             .txt(e.title)
             .up()
             .ele('Index')
-            .txt('1')
+            .txt(`${e.order}`)
             .up()
             .ele('Labels')
             .up()
