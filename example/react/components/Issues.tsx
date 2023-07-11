@@ -11,7 +11,6 @@ import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTopic } from '../state/bcfSlice';
 import BCFViewer from '../../viewer/BCFViewer';
-import { TopicParams } from '../../../src/core/three/dev';
 import initWorker from '../../init/worker';
 import { RootState, store } from '../state/store';
 import { TopicCameraState } from '../../types';
