@@ -68,7 +68,7 @@ export class Topic_Three implements TopicJSON {
     /**
      * Description of the topic.
      */
-    description: string | null;
+    description: string;
 
     /**
      * Date when the topic was created.
