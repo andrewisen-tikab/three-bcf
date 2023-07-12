@@ -7,10 +7,6 @@ import Issues from './Issues';
 import IssueSorter from './IssueSorter';
 import IssueDetails from './IssueDetails';
 
-function Dummy() {
-    return <Box sx={{ background: 'red' }} />;
-}
-
 function LeftFlexLayout() {
     return <Issues />;
 }

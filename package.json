@@ -27,6 +27,7 @@
         "@mui/material": "^5.13.7",
         "@reduxjs/toolkit": "^1.9.5",
         "@types/file-saver": "^2.0.5",
+        "@types/react-dom": "^18.2.7",
         "@types/three": "^0.152.1",
         "@vitejs/plugin-react": "^4.0.1",
         "add": "^2.0.6",

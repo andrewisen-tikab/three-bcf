@@ -1,43 +1,15 @@
 import * as THREE from 'three';
-import * as z from 'zod';
-import type { Nullable } from '../types';
+import type { Nullable, Topic_ThreeJSON, TopicBase_Three } from '../types';
+import { DEFAULT_VECTOR3_TUPLE } from '../types';
+
 import type { TopicCameraState } from '../../example/types';
-import TopicSchema_Core from '../core/bcf/topic';
-
-export const defaultVector3 = new THREE.Vector3(-1, -1, -1).toArray();
-
-export const Vector3TupleSchema = z.tuple([z.number(), z.number(), z.number()]);
-
-export const ThreeTopicSchemaBase = TopicSchema_Core.extend({
-    /**
-     * Position of the camera in local three.js space.
-     */
-    position: Vector3TupleSchema,
-    /**
-     * Direction of the camera in local three.js space.
-     */
-    direction: Vector3TupleSchema,
-    /**
-     * target vector of the camera in local three.js space.
-     */
-    target: Vector3TupleSchema,
-});
-
-export type ThreeTopicBase = z.infer<typeof ThreeTopicSchemaBase>;
-
-export const ThreeTopicSchema = ThreeTopicSchemaBase.extend({
-    uuid: z.string(),
-    screenshot: z.string(),
-});
-
-export type TopicJSON = z.infer<typeof ThreeTopicSchema>;
 
 /**
  * Three.js wrapper for BCF topic.
  *
  * Use this class to create a new BCF Topic that temporary lives in three.js space.
  */
-export class Topic_Three implements TopicJSON {
+export class Topic_Three implements Topic_ThreeJSON {
     public uuid: string;
 
     public index: number;
@@ -87,9 +59,9 @@ export class Topic_Three implements TopicJSON {
         this.uuid = THREE.MathUtils.generateUUID();
         this.index = 0;
 
-        this.direction = defaultVector3;
-        this.position = defaultVector3;
-        this.target = defaultVector3;
+        this.direction = DEFAULT_VECTOR3_TUPLE;
+        this.position = DEFAULT_VECTOR3_TUPLE;
+        this.target = DEFAULT_VECTOR3_TUPLE;
         this.screenshot = '';
         this.title = '';
         this.description = '';
@@ -100,7 +72,7 @@ export class Topic_Three implements TopicJSON {
     /**
      * Set topic.
      */
-    public set(params: Nullable<ThreeTopicBase>) {
+    public set(params: Nullable<TopicBase_Three>) {
         this.checkJSON(params);
         Object.assign(this, params);
     }
@@ -109,8 +81,8 @@ export class Topic_Three implements TopicJSON {
      * Get topic.
      * It will throw an error if topic is not set.
      */
-    public get(): TopicJSON {
-        const topic: Nullable<TopicJSON> = {
+    public get(): Topic_ThreeJSON {
+        const topic: Nullable<Topic_ThreeJSON> = {
             direction: this.direction,
             position: this.position,
             target: this.target,
@@ -125,7 +97,7 @@ export class Topic_Three implements TopicJSON {
 
         this.checkJSON(topic);
 
-        return topic as TopicJSON;
+        return topic as Topic_ThreeJSON;
     }
 
     public setScreenshot(screenshot: string) {
@@ -136,8 +108,8 @@ export class Topic_Three implements TopicJSON {
     /**
      * Return topic as JSON string.
      */
-    public toJSON(): TopicJSON {
-        const json: Nullable<TopicJSON> = {
+    public toJSON(): Topic_ThreeJSON {
+        const json: Nullable<Topic_ThreeJSON> = {
             uuid: this.uuid,
             direction: this.direction,
             position: this.position,
@@ -152,13 +124,13 @@ export class Topic_Three implements TopicJSON {
 
         this.checkJSON(json);
 
-        return json as TopicJSON;
+        return json as Topic_ThreeJSON;
     }
 
     /**
      * Create topic from JSON string.
      */
-    public fromJSON(json: Nullable<TopicJSON>): void {
+    public fromJSON(json: Nullable<Topic_ThreeJSON>): void {
         if (json == null) throw new Error('json is null');
 
         const { uuid } = json;
@@ -166,7 +138,7 @@ export class Topic_Three implements TopicJSON {
 
         this.checkJSON(json);
 
-        const { direction, position, target, title, description, index } = json as TopicJSON;
+        const { direction, position, target, title, description, index } = json as Topic_ThreeJSON;
 
         this.uuid = uuid;
         this.position = position;
@@ -180,7 +152,7 @@ export class Topic_Three implements TopicJSON {
     /**
      * Check if JSON is valid.
      */
-    private checkJSON(json: Nullable<ThreeTopicBase>): void {
+    private checkJSON(json: Nullable<TopicBase_Three>): void {
         const { title, description, index, creationDate, creationAuthor } = json;
         this.checkCamera(json);
         if (title == null) throw new Error('title is null');

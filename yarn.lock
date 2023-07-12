@@ -1080,6 +1080,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-dom@npm:^18.2.7":
+  version: 18.2.7
+  resolution: "@types/react-dom@npm:18.2.7"
+  dependencies:
+    "@types/react": "*"
+  checksum: e02ea908289a7ad26053308248d2b87f6aeafd73d0e2de2a3d435947bcea0422599016ffd1c3e38ff36c42f5e1c87c7417f05b0a157e48649e4a02f21727d54f
+  languageName: node
+  linkType: hard
+
 "@types/react-is@npm:^18.2.1":
   version: 18.2.1
   resolution: "@types/react-is@npm:18.2.1"
@@ -3414,6 +3423,7 @@ __metadata:
     "@mui/material": ^5.13.7
     "@reduxjs/toolkit": ^1.9.5
     "@types/file-saver": ^2.0.5
+    "@types/react-dom": ^18.2.7
     "@types/three": ^0.152.1
     "@vitejs/plugin-react": ^4.0.1
     add: ^2.0.6

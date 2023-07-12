@@ -1,5 +1,4 @@
 import React from 'react';
-import * as THREE from 'three';
 
 import Panel from './Panel';
 import CardContent from '@mui/material/CardContent';
@@ -11,7 +10,7 @@ import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createBCF, createTopic } from '../state/bcfSlice';
 import BCFViewer from '../../viewer/BCFViewer';
-import { RootState, store } from '../state/store';
+import { RootState } from '../state/store';
 import { TopicCameraState } from '../../types';
 
 function NewIssue() {

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { WorkerEventOnMessageParams, WorkerEventPostMessageData, extension } from './types';
+import { WorkerEventOnMessageParams, WorkerEventPostMessageData, EXTENSION } from './types';
 import saveAs from 'file-saver';
 
 export type ThreeBCFParams = {
@@ -14,7 +14,7 @@ export type ThreeBCFParams = {
     /**
      * The worker instance.
      */
-    worker?: Worker;
+    worker?: new () => Worker;
 };
 
 /**
@@ -30,8 +30,7 @@ class ThreeBCF extends THREE.EventDispatcher {
         if (workerURL === undefined && _Worker === undefined)
             throw new Error('Either workerURL or worker must be provided');
 
-        // @ts-ignore
-        this.worker = new _Worker() || new Worker(workerURL!);
+        this.worker = new _Worker!() || new Worker(workerURL!);
 
         this.worker.onmessage = (event: { data: WorkerEventOnMessageParams }) => {
             switch (event.data.type) {
@@ -40,7 +39,7 @@ class ThreeBCF extends THREE.EventDispatcher {
                     break;
                 case 'begin':
                     console.log('Got message from worker thread. Saving ZIP');
-                    saveAs(event.data.data, `presentation.${extension}`);
+                    saveAs(event.data.data, `presentation.${EXTENSION}`);
                     break;
             }
         };

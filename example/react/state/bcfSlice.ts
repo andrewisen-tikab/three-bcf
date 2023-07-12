@@ -2,18 +2,19 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 // @ts-ignore
 import worker from '../../../src/worker/worker?worker';
-import { ThreeTopicBase, Topic_Three, TopicJSON } from '../../../src/three/topic';
+import { Topic_Three } from '../../../src/three/topic';
 import { TopicCameraState } from '../../types';
 import BCFViewer from '../../viewer/BCFViewer';
 import { ThreeBCF } from '../../../src';
+import type { TopicBase_Three, Topic_ThreeJSON } from '../../../src/types';
 
 const bcf = new ThreeBCF({
     worker,
 });
 
 export type BCFState = {
-    topics: TopicJSON[];
-    selectedTopic: TopicJSON | null;
+    topics: Topic_ThreeJSON[];
+    selectedTopic: Topic_ThreeJSON | null;
 };
 
 const initialState: BCFState = {
@@ -45,7 +46,7 @@ export const bcfSlice = createSlice({
 
             // The topic is empty by default.
             // We need to supply it with the correct data.
-            const params: ThreeTopicBase = {
+            const params: TopicBase_Three = {
                 index: -1,
                 title: '',
                 description: '',
@@ -80,7 +81,9 @@ export const bcfSlice = createSlice({
             if (topic == null) throw new Error('topic is null');
 
             // Update both references
+            // @ts-ignore
             topic[action.payload.key] = action.payload.value;
+            // @ts-ignore
             selectedTopic[action.payload.key] = action.payload.value;
         },
         /**
