@@ -49,6 +49,8 @@ export const bcfSlice = createSlice({
                 index: -1,
                 title: '',
                 description: '',
+                creationDate: new Date().toISOString(),
+                creationAuthor: 'André Wisén',
                 ...action.payload.camera,
             };
             topic.set(params);
@@ -129,12 +131,16 @@ export const bcfSlice = createSlice({
                 const title = state.title;
                 const description = state.description;
                 const index = state.index;
+                const creationDate = state.creationDate;
+                const creationAuthor = state.creationAuthor;
 
                 return {
-                    title: title,
-                    description: description,
-                    screenshot: screenshot,
-                    index: index,
+                    title,
+                    description,
+                    screenshot,
+                    index,
+                    creationDate,
+                    creationAuthor,
                     cameraViewPoint: cameraState.position,
                     cameraDirection: cameraState.direction,
                     cameraUpVector: cameraState.up,

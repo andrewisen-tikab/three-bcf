@@ -64,10 +64,24 @@ export class Topic_Three implements TopicJSON {
      * Title of the topic.
      */
     title: string;
+
     /**
      * Description of the topic.
      */
     description: string;
+
+    /**
+     * Date when the topic was created.
+     *
+     * E.g. `2023-07-03T21:02:50+02:00`
+     */
+    creationDate: string;
+    /**
+     * User who created the topic.
+     *
+     * E.g. `André Wisén` (or an email address)
+     */
+    creationAuthor: string;
 
     public constructor() {
         this.uuid = THREE.MathUtils.generateUUID();
@@ -79,6 +93,8 @@ export class Topic_Three implements TopicJSON {
         this.screenshot = '';
         this.title = '';
         this.description = '';
+        this.creationDate = '';
+        this.creationAuthor = '';
     }
 
     /**
@@ -103,6 +119,8 @@ export class Topic_Three implements TopicJSON {
             index: this.index,
             uuid: this.uuid,
             screenshot: this.screenshot,
+            creationDate: this.creationDate,
+            creationAuthor: this.creationAuthor,
         };
 
         this.checkJSON(topic);
@@ -128,6 +146,8 @@ export class Topic_Three implements TopicJSON {
             title: this.title,
             description: this.description,
             index: this.index,
+            creationDate: this.creationDate,
+            creationAuthor: this.creationAuthor,
         };
 
         this.checkJSON(json);
@@ -153,7 +173,7 @@ export class Topic_Three implements TopicJSON {
         this.direction = direction;
         this.target = target;
         this.title = title;
-        this.description = description;
+        this.description = description ?? '';
         this.index = index;
     }
 
@@ -161,10 +181,13 @@ export class Topic_Three implements TopicJSON {
      * Check if JSON is valid.
      */
     private checkJSON(json: Nullable<ThreeTopicBase>): void {
-        const { title, description } = json;
+        const { title, description, index, creationDate, creationAuthor } = json;
         this.checkCamera(json);
         if (title == null) throw new Error('title is null');
         if (description == null) throw new Error('description is null');
+        if (index == null) throw new Error('index is null');
+        if (creationDate == null) throw new Error('index is null');
+        if (creationAuthor == null) throw new Error('creationAuthor is null');
     }
 
     private checkCamera(json: Nullable<TopicCameraState>): void {
