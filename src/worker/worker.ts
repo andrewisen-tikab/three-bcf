@@ -19,7 +19,9 @@ const onBeginAsync = async (e: WorkerEventPostMessageData): Promise<void> => {
 };
 
 const onBeginTest = (): void => {
-    console.log('Got test message from main thread. Sending response to main thread');
+    console.log(
+        'THREE.BCF.WORKER: Got test message from main thread. Sending response to main thread',
+    );
     const message: WorkerEventOnMessageParams = { type: 'test', data: 'test' };
     postMessage(message);
 };

@@ -36,7 +36,7 @@ class ThreeBCF extends THREE.EventDispatcher {
         this.worker.onmessage = (event: { data: WorkerEventOnMessageParams }) => {
             switch (event.data.type) {
                 case 'test':
-                    console.log('Got test message from worker thread!');
+                    console.log("THREE.BCF: Got message from worker thread. Everything's fine!");
                     break;
                 case 'begin':
                     console.log('Got message from worker thread. Saving ZIP');
@@ -45,6 +45,7 @@ class ThreeBCF extends THREE.EventDispatcher {
             }
         };
 
+        console.log("THREE.BCF: Sending 'test' message to worker thread");
         this.worker.postMessage({ type: 'test' });
     }
 
