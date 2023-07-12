@@ -9,7 +9,7 @@ import type { TopicCameraState } from '../../example/types';
  *
  * Use this class to create a new BCF Topic that temporary lives in three.js space.
  */
-export class Topic_Three implements Topic_ThreeJSON {
+export default class Topic_Three implements Topic_ThreeJSON {
     public uuid: string;
 
     public index: number;

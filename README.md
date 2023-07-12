@@ -13,49 +13,75 @@ three-bcf is:
 
 ## Design Structure
 
-The following diagram shows the design structure of `three-bcf`.
+The following diagram shows the intended design structure of `three-bcf`.
 
 ![Design](./resources/design.png?raw=true)
 
-The source of the data should always (!) come from a database or state.s
+The source of the data should always (!) come from a database or state.
 This data should be highly serializable.
 
-Next, all actions performed on the data should be done in a `three.js` context.
+The structure of the code mimics this design.
+
+![Structure](./resources/struture.png?raw=true)
+
+### Core
+
+At the bottom you'll find the core. It contains the main functionality of `three-bcf`.
+Mainly the creation of the BCF file. Use parts of this code to write your own BCF writer.
+
+### Three
+
+On top of the core, you'll find the `three` layer.
+Al actions performed on the "data" should be done in a `three.js` context.
 This means that the models used, cameras position, math operations, etc. etc. are done in terms of `three.js`.
+This layer is highly opinionated!
 
-Finally, the data is passed to the `BCFWriter` which will create a BCF file that is intended for export only.
+### ThreeBCF
 
-If this workflow doesn't fit your needs, you can always grab individual parts of the code and use them as you see fit.
+Finally, on top of the `three` layer, you'll find the `ThreeBCF` layer.
+This layers is the main entry point for `three-bcf` and is a high-level "API"for creating BCF files.
 
-## Code Structure
+If this workflow doesn't fit your needs, you can always grab individual parts from each layer use them as you see fit.
 
-The so-called `core` features the main functionality of `three-bcf`. You should not need to touch this code or use this code directly.
+## Getting Started
 
-Instead, the `src/three` folder contains all the code you need to create BCF topics.
-This code is highly opinionated and is intended to be used in a `three.js` context.
-
-Finally, the `src/worker` folder contains the code needed to create a BCF file.
-
-## Usage
+### Web Worker
 
 Copy the `worker.js` file into your project.
 You can find it in the `dist` folder.
 
 Once added, simply create a new ThreeBCF object and reference the worker's path.
 
+#### Example
+
 ```ts
-import { ThreeBCF } from 'three-bcf';
+import * as BCF from 'three-bcf';
 
 const workerUrl = 'path/to/worker.js';
 
-const bcf = new ThreeBCF({
+const bcf = new BCF.ThreeBCF({
     workerURL,
 });
 ```
 
-## Checking that the worker is working
+### Namespaces
 
-`ThreeBCF` will send a message to the worker to check if everything is working as intended.
+This library uses namespaces to avoid name collisions.
+Begin by importing everything from `three-bcf`.
+
+```ts
+import * as BCF from 'three-bcf';
+```
+
+Then, use the namespace to access the different parts of the library.
+
+```ts
+const topic = new BCF.THREE.Topic_Three();
+```
+
+### Checking that the worker is working
+
+`ThreeBCF` will send a message to the worker to check that everything is working as intended.
 
 > THREE.BCF: Sending 'test' message to worker thread
 
@@ -69,19 +95,21 @@ Finally, the main thread should receive the response and tell you that everythin
 
 If that works, then you can continue to the next step.
 
-## Creating a topic
+## Usage
+
+### Creating a topic
 
 Simply create a topic and add the relevant data (params) to it.
 
 ```ts
-const topic = new Topic();
+const topic = new BCF.THREE.Topic_Three(); // The topic is empty at this point§
 topic.set(params);
 
 // Store the topic somewhere
 topics.push(topic);
 ```
 
-## Create a BCF
+### Create a BCF
 
 When you are ready to create a BCF file, begin by serializing all topic.
 
@@ -100,7 +128,7 @@ bcf.createBCF({
 ## Example
 
 A full SPA example can be found in the `example` folder.
-It's a simple three.js scene with React on top of it.
+It's a somewhat complicated three.js scene with React on top of it.
 
 You don't need to know React, but it helps if you want to understand the code.
 Check the `state` folder to see how the data is stored and manipulated.
@@ -118,7 +146,8 @@ Auto-generated docs can be found here:
 ## Status
 
 This is a work in progress. It's not production ready.
+There are still a lot of things that needs to be done!
 
-```
+## Remarks
 
-```
+This uses BCF version 3.0.

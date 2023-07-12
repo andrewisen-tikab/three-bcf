@@ -16,7 +16,6 @@ const createZipAsync = async (e: WorkerEventPostMessageData): Promise<Blob> => {
 
     for (let i = 0; i < e.topics.length; i++) {
         const topic = e.topics[i];
-        console.log('topic', topic);
 
         TopicSchema_Worker.parse(topic);
 

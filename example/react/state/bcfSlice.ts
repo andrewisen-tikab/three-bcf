@@ -2,13 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 // @ts-ignore
 import worker from '../../../src/worker/worker?worker';
-import { Topic_Three } from '../../../src/three/topic';
 import { TopicCameraState } from '../../types';
 import BCFViewer from '../../viewer/BCFViewer';
-import { ThreeBCF } from '../../../src';
+import * as BCF from '../../../src';
 import type { TopicBase_Three, Topic_ThreeJSON } from '../../../src/types';
 
-const bcf = new ThreeBCF({
+const bcf = new BCF.ThreeBCF({
     worker,
 });
 
@@ -42,7 +41,7 @@ export const bcfSlice = createSlice({
          */
         createTopic: (state, action: PayloadAction<CreateTopicParams>): void => {
             // Create a new topic
-            const topic = new Topic_Three();
+            const topic = new BCF.THREE.Topic_Three();
 
             // The topic is empty by default.
             // We need to supply it with the correct data.
@@ -92,13 +91,13 @@ export const bcfSlice = createSlice({
          * @param state {@link BCFState}
          * @param action {@link CreateTopicParams}
          */
-        removeTopic: (state, action: PayloadAction<Topic_Three>) => {
+        removeTopic: (state, action: PayloadAction<BCF.THREE.Topic_Three>) => {
             const index = action.payload.index;
             state.topics.splice(index, 1);
 
             for (let i = index; i < state.topics.length; i++) {
                 const input = state.topics[i];
-                const topic = new Topic_Three();
+                const topic = new BCF.THREE.Topic_Three();
                 topic.fromJSON(input);
                 topic.index--;
                 state.topics[i] = topic.toJSON();

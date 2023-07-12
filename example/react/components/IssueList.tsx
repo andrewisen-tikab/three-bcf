@@ -5,11 +5,11 @@ import Button from '@mui/material/Button';
 import BCFViewer from '../../viewer/BCFViewer';
 import { RootState } from '../state/store';
 import { selectTopic } from '../state/bcfSlice';
-import { Topic_Three } from '../../../src/three/topic';
+import * as BCF from '../../../src';
 
 type IssueItemProps = {
     isSelected?: boolean;
-    topic: Topic_Three;
+    topic: BCF.THREE.Topic_Three;
     children: React.ReactNode;
 };
 function IssueItem({ children, topic, isSelected }: IssueItemProps) {
@@ -31,7 +31,7 @@ export default function IssueList() {
     const selected = useSelector((state: RootState) => state.bcf.selectedTopic);
 
     const topicList = topics.map((input) => {
-        const topic = new Topic_Three();
+        const topic = new BCF.THREE.Topic_Three();
         topic.fromJSON(input);
         const { uuid } = topic;
 
