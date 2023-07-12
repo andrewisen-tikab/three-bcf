@@ -4,13 +4,13 @@ import Button from '@mui/material/Button';
 
 import BCFViewer from '../../viewer/BCFViewer';
 import { RootState } from '../state/store';
-import { Topic } from '../../../src/core/three/dev';
 import { SxProps } from '@mui/material';
 import { selectTopic } from '../state/bcfSlice';
+import { Topic_Three } from '../../../src/three/topic';
 
 type IssueItemProps = {
     isSelected?: boolean;
-    topic: Topic;
+    topic: Topic_Three;
     children: React.ReactNode;
 };
 function IssueItem({ children, topic, isSelected }: IssueItemProps) {
@@ -18,7 +18,7 @@ function IssueItem({ children, topic, isSelected }: IssueItemProps) {
     const onClick = () => {
         BCFViewer.setTopicCameraState(topic);
 
-        dispatch(selectTopic(topic.order));
+        dispatch(selectTopic(topic.index));
     };
     return (
         <Button variant={isSelected ? 'outlined' : 'text'} onClick={onClick}>
@@ -32,7 +32,7 @@ export default function IssueList() {
     const selected = useSelector((state: RootState) => state.bcf.selectedTopic);
 
     const topicList = topics.map((input) => {
-        const topic = new Topic();
+        const topic = new Topic_Three();
         topic.fromJSON(input);
         const { uuid } = topic;
 
