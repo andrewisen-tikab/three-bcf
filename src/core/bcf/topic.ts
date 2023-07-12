@@ -18,12 +18,24 @@ const TopicSchema_Core = BCFBaseSchema.extend({
     /**
      * Description of the topic.
      */
-    description: z.string(),
+    description: z.string().optional(),
     /**
      * Number to maintain the order of the topics.
      * This property is deprecated and will be removed in a future release
      */
     index: z.number(),
+    /**
+     * Date when the topic was created.
+     *
+     * E.g. `2023-07-03T21:02:50+02:00`
+     */
+    creationDate: z.string(),
+    /**
+     * User who created the topic.
+     *
+     * E.g. `andre.wisen@gmail.com`
+     */
+    creationAuthor: z.string(),
 });
 
 export type Topic_Core = z.infer<typeof TopicSchema_Core>;
