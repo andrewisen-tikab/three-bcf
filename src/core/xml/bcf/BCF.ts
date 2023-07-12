@@ -1,4 +1,5 @@
 import XMLCreator from '../../xml/xml';
+
 /**
  * A BCF file is a zip containing one folder for each topic with its file extension:
  * - `bcfzip` for BCFv1.0 and BCFv2.0.

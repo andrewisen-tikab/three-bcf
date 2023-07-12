@@ -1,3 +1,9 @@
+/**
+ * Convert a dataURL to a blob.
+ * Intended use is converting a three.js screenshot to a blob.
+ * @param dataURL
+ * @returns
+ */
 export const dataURLtoBlob = (dataURL: string) => {
     const arr = dataURL.split(',');
     // @ts-ignore

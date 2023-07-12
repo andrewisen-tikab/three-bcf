@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { BCFCameraState, CameraControlsState, TopicCameraState } from '../types';
 import THREEViewer from './Viewer';
-import { Topic_Three } from '../../src/three/topic';
+import * as BCF from '../../src';
 
 /**
  * Class for handling BCF in a three.js environment.
@@ -37,7 +37,7 @@ class _BCFViewer extends THREEViewer {
         return BCFCameraState;
     }
 
-    public setTopicCameraState(topic: Topic_Three) {
+    public setTopicCameraState(topic: BCF.THREE.Topic_Three) {
         this.cameraControls.setLookAt(
             topic.position[0],
             topic.position[1],
