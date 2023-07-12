@@ -8,7 +8,6 @@ three-bcf is:
 
 -   Simple
 -   Opinionated
--   Powerful
 
 ![Example](./resources/example.gif?raw=true)
 
@@ -18,15 +17,24 @@ The following diagram shows the design structure of `three-bcf`.
 
 ![Design](./resources/design.png?raw=true)
 
-The source of the data should always (!) come from a database or state.
-This data should be highly searliazable.
+The source of the data should always (!) come from a database or state.s
+This data should be highly serializable.
 
 Next, all actions performed on the data should be done in a `three.js` context.
-This means that the models used, cameras position and math operations are done in terms of `three.js`.
+This means that the models used, cameras position, math operations, etc. etc. are done in terms of `three.js`.
 
-Finally, the data is passed to the `BCFWriter` which will create a BCF file.
+Finally, the data is passed to the `BCFWriter` which will create a BCF file that is intended for export only.
 
 If this workflow doesn't fit your needs, you can always grab individual parts of the code and use them as you see fit.
+
+## Code Structure
+
+The so-called `core` features the main functionality of `three-bcf`. You should not need to touch this code or use this code directly.
+
+Instead, the `src/three` folder contains all the code you need to create BCF topics.
+This code is highly opinionated and is intended to be used in a `three.js` context.
+
+Finally, the `src/worker` folder contains the code needed to create a BCF file.
 
 ## Usage
 
@@ -50,8 +58,19 @@ const createBCF = (params: WorkerEventPostMessageData): void => {
 You can test that it works by running the following code:
 
 ```ts
-// TODO
+worker.postMessage({ type: 'test' });
+
+// The worker should respond with a message
+worker.onmessage = (event: WorkerEventOnMessageParams) => {
+    switch (event.data.type) {
+        case 'test':
+            console.log('Got test message from worker thread!');
+            break;
+    }
+};
 ```
+
+If that works, then you can continue to the next step:
 
 Simply create a topic and add the relevant data (params) to it.
 

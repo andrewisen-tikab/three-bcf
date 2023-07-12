@@ -10,10 +10,18 @@ import { WorkerEventOnMessageParams, WorkerEventPostMessageData, extension } fro
  */
 const initWorker = (params: WorkerEventPostMessageData): void => {
     const worker = new Worker();
+    worker.postMessage({ type: 'test' });
     worker.postMessage(params);
-    worker.onmessage = (event: WorkerEventOnMessageParams) => {
-        console.log('Got message from worker thread. Saving ZIP');
-        saveAs(event.data, `presentation.${extension}`);
+    worker.onmessage = (event: { data: WorkerEventOnMessageParams }) => {
+        switch (event.data.type) {
+            case 'test':
+                console.log('Got test message from worker thread!');
+                break;
+            case 'begin':
+                console.log('Got message from worker thread. Saving ZIP');
+                saveAs(event.data.data, `presentation.${extension}`);
+                break;
+        }
     };
 };
 

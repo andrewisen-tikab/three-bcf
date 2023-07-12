@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { Topic, TopicJSON, TopicParams } from '../../../src/core/three/dev';
+import { ThreeTopicBase, Topic_Three, TopicJSON } from '../../../src/three/topic';
 import { TopicCameraState } from '../../types';
 import BCFViewer from '../../viewer/BCFViewer';
 import initWorker from '../../init/worker';
@@ -35,19 +35,20 @@ export const bcfSlice = createSlice({
          */
         createTopic: (state, action: PayloadAction<CreateTopicParams>): void => {
             // Create a new topic
-            const topic = new Topic();
+            const topic = new Topic_Three();
 
             // The topic is empty by default.
             // We need to supply it with the correct data.
-            const params: TopicParams = {
+            const params: ThreeTopicBase = {
+                index: -1,
                 title: '',
                 description: '',
                 ...action.payload.camera,
             };
             topic.set(params);
 
-            // The order is dictated by the rest of the topics.
-            topic.order = state.topics.length;
+            // The index is dictated by the rest of the topics.
+            topic.index = state.topics.length;
 
             // Finally, we order the Viewer to generate a screenshot.
             topic.setScreenshot(BCFViewer.generateScreenshot());
@@ -66,7 +67,7 @@ export const bcfSlice = createSlice({
         updateTopic: (state, action: PayloadAction<UpdateTopicParams>): void => {
             const { selectedTopic } = state;
             if (selectedTopic == null) throw new Error('selectedTopic is null');
-            const index = selectedTopic.order;
+            const index = selectedTopic.index;
             const topic = state.topics[index];
             if (topic == null) throw new Error('topic is null');
 
@@ -80,15 +81,15 @@ export const bcfSlice = createSlice({
          * @param state {@link BCFState}
          * @param action {@link CreateTopicParams}
          */
-        removeTopic: (state, action: PayloadAction<Topic>) => {
-            const index = action.payload.order;
+        removeTopic: (state, action: PayloadAction<Topic_Three>) => {
+            const index = action.payload.index;
             state.topics.splice(index, 1);
 
             for (let i = index; i < state.topics.length; i++) {
                 const input = state.topics[i];
-                const topic = new Topic();
+                const topic = new Topic_Three();
                 topic.fromJSON(input);
-                topic.order--;
+                topic.index--;
                 state.topics[i] = topic.toJSON();
             }
         },
@@ -121,13 +122,13 @@ export const bcfSlice = createSlice({
                 const screenshot = state.screenshot;
                 const title = state.title;
                 const description = state.description;
-                const order = state.order;
+                const index = state.index;
 
                 return {
                     title: title,
                     description: description,
                     screenshot: screenshot,
-                    order: order,
+                    index: index,
                     cameraViewPoint: cameraState.position,
                     cameraDirection: cameraState.direction,
                     cameraUpVector: cameraState.up,

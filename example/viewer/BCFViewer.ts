@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Topic, TopicParams } from '../../src/core/three/dev';
+import { Topic_Three, TopicParams } from '../../src/core/three/dev';
 import { BCFCameraState, CameraControlsState, TopicCameraState } from '../types';
 import THREEViewer from './Viewer';
 
@@ -37,7 +37,7 @@ class _BCFViewer extends THREEViewer {
         return BCFCameraState;
     }
 
-    public setTopicCameraState(topic: Topic) {
+    public setTopicCameraState(topic: Topic_Three) {
         this.cameraControls.setLookAt(
             topic.position[0],
             topic.position[1],
