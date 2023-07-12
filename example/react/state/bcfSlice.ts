@@ -1,9 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+// @ts-ignore
+import worker from '../../../src/worker/worker?worker';
 import { ThreeTopicBase, Topic_Three, TopicJSON } from '../../../src/three/topic';
 import { TopicCameraState } from '../../types';
 import BCFViewer from '../../viewer/BCFViewer';
-import initWorker from '../../init/worker';
+import { ThreeBCF } from '../../../src';
+
+const bcf = new ThreeBCF({
+    worker,
+});
 
 export type BCFState = {
     topics: TopicJSON[];
@@ -135,7 +141,7 @@ export const bcfSlice = createSlice({
                 };
             });
 
-            initWorker({
+            bcf.createBCF({
                 type: 'begin',
                 topics,
             });

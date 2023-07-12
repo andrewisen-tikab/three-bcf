@@ -10,7 +10,6 @@ import { IFCLoader } from 'web-ifc-three/IFCLoader';
 // @ts-ignore
 import ifc from '../../resources/example_4.ifc?url';
 import { CameraControlsState, BCFCameraState } from '../types';
-import initWorker from '../init/worker';
 
 CameraControls.install({ THREE: THREE });
 THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
@@ -262,16 +261,6 @@ export default class THREEViewer {
      */
     public onAfterScreenshot() {
         this.renderer.setClearColor(new THREE.Color(), 0);
-    }
-
-    public generateBCF() {
-        const cameraState = this.convertCameraStateToBCFState();
-        initWorker({
-            type: 'begin',
-            cameraViewPoint: cameraState.position,
-            cameraDirection: cameraState.direction,
-            cameraUpVector: cameraState.up,
-        });
     }
 
     public convertCameraStateToBCFState(): BCFCameraState {
