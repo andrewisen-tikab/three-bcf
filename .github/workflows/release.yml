@@ -42,6 +42,7 @@ jobs:
             - name: 🛠️ Publish
               run: |
                   yarn install
+                  yarn version
                   yarn build
                   yarn build:example
                   yarn build:worker
