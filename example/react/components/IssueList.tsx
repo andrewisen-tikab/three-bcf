@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 
 import BCFViewer from '../../viewer/BCFViewer';
 import { RootState } from '../state/store';
-import { SxProps } from '@mui/material';
 import { selectTopic } from '../state/bcfSlice';
 import { Topic_Three } from '../../../src/three/topic';
 

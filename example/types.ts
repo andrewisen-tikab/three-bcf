@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { Vector3 } from '../src/types';
 
 export interface CameraControlsState {
     position: THREE.Vector3Tuple;
@@ -13,7 +12,7 @@ export interface TopicCameraState {
 }
 
 export interface BCFCameraState {
-    direction: Vector3;
-    position: Vector3;
-    up: Vector3;
+    direction: THREE.Vector3Tuple;
+    position: THREE.Vector3Tuple;
+    up: THREE.Vector3Tuple;
 }

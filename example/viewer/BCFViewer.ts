@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import { Topic_Three, TopicParams } from '../../src/core/three/dev';
 import { BCFCameraState, CameraControlsState, TopicCameraState } from '../types';
 import THREEViewer from './Viewer';
+import { Topic_Three } from '../../src/three/topic';
 
 /**
  * Class for handling BCF in a three.js environment.

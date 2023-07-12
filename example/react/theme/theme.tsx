@@ -9,7 +9,7 @@ const theme = createTheme({
         mode: 'light',
         // @ts-ignore
     },
-
+    // @ts-ignore
     shadows: shadows(),
     customShadows: customShadows(),
 });

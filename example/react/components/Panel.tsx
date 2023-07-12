@@ -1,8 +1,5 @@
 import React from 'react';
-import Paper from '@mui/material/Paper';
 import { SxProps } from '@mui/system';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import theme from '../theme/theme';
 import CardHeader from '@mui/material/CardHeader';

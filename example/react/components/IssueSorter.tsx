@@ -2,7 +2,6 @@ import CardContent from '@mui/material/CardContent';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../state/store';
-import { Topic } from '../../../src/core/three/dev';
 import { Card, CardMedia } from '@mui/material';
 
 type IssueItemProps = {

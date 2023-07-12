@@ -1,7 +1,7 @@
 import { create } from 'xmlbuilder2';
 import Topic_XML from './topic';
 import Markup_XML from './markup';
-import type { CreateParams } from '../../../../types';
+import type { CreateParams_Worker } from '../../../../types';
 
 /**
  * The {@link Markup_XML} can contain multiple viewpoints related to one or more comments.
@@ -22,7 +22,7 @@ import type { CreateParams } from '../../../../types';
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#viewpoints](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#viewpoints)
  */
 class Viewpoint_XML extends Topic_XML {
-    public create(e: CreateParams): string {
+    public create(e: CreateParams_Worker): string {
         const root = create({ version: '1.0', encoding: 'UTF-8', standalone: true })
             .ele('VisualizationInfo')
             .att('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')

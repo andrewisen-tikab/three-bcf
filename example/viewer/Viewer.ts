@@ -12,7 +12,9 @@ import ifc from '../../resources/example_4.ifc?url';
 import { CameraControlsState, BCFCameraState } from '../types';
 
 CameraControls.install({ THREE: THREE });
+// @ts-ignore
 THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
+// @ts-ignore
 THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
 
@@ -28,30 +30,30 @@ export default class THREEViewer {
     /**
      * Container to append the canvas.
      */
-    private container: HTMLElement;
+    private container!: HTMLElement;
 
     /**
      * References to models loaded.
      */
-    public ifcModels: THREE.Object3D[];
+    public ifcModels!: THREE.Object3D[];
 
-    public stats: Stats;
+    public stats!: Stats;
 
-    public clock: THREE.Clock;
+    public clock!: THREE.Clock;
 
-    public scene: THREE.Scene;
+    public scene!: THREE.Scene;
 
-    public camera: THREE.PerspectiveCamera;
+    public camera!: THREE.PerspectiveCamera;
 
-    public renderer: THREE.WebGLRenderer;
+    public renderer!: THREE.WebGLRenderer;
 
-    public cameraControls: CameraControls;
+    public cameraControls!: CameraControls;
 
-    public raycaster: THREE.Raycaster;
+    public raycaster!: THREE.Raycaster;
 
-    public pointer: THREE.Vector2;
+    public pointer!: THREE.Vector2;
 
-    public ifcLoader: IFCLoader;
+    public ifcLoader!: IFCLoader;
 
     init(container: HTMLElement = document.body) {
         this.container = container;
@@ -82,6 +84,7 @@ export default class THREEViewer {
         this.ifcLoader = new IFCLoader();
 
         this.raycaster = new THREE.Raycaster();
+        // @ts-ignore
         this.raycaster.firstHitOnly = true;
         this.pointer = new THREE.Vector2();
 
@@ -169,7 +172,7 @@ export default class THREEViewer {
     private update() {
         this.stats.update();
         const delta = this.clock.getDelta();
-        const hasControlsUpdated = this.cameraControls.update(delta);
+        this.cameraControls.update(delta);
     }
 
     /**
