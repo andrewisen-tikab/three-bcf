@@ -41,52 +41,60 @@ Finally, the `src/worker` folder contains the code needed to create a BCF file.
 Copy the `worker.js` file into your project.
 You can find it in the `dist` folder.
 
-Once added, simply create a new worker and post a message to it.
+Once added, simply create a new ThreeBCF object and reference the worker's path.
 
 ```ts
-const worker = new Worker();
+import { ThreeBCF } from 'three-bcf';
 
-const createBCF = (params: WorkerEventPostMessageData): void => {
-    worker.postMessage(params);
-    worker.onmessage = (event: WorkerEventOnMessageParams) => {
-        console.log('Got message from worker thread. Saving ZIP');
-        saveAs(event.data, 'presentation.bcf');
-    };
-};
+const workerUrl = 'path/to/worker.js';
+
+const bcf = new ThreeBCF({
+    workerURL,
+});
 ```
 
-You can test that it works by running the following code:
+## Checking that the worker is working
 
-```ts
-worker.postMessage({ type: 'test' });
+`ThreeBCF` will send a message to the worker to check if everything is working as intended.
 
-// The worker should respond with a message
-worker.onmessage = (event: WorkerEventOnMessageParams) => {
-    switch (event.data.type) {
-        case 'test':
-            console.log('Got test message from worker thread!');
-            break;
-    }
-};
-```
+> THREE.BCF: Sending 'test' message to worker thread
 
-If that works, then you can continue to the next step:
+If everything is working as intended, the worker should respond with:
+
+> THREE.BCF.WORKER: Got test message from main thread. Sending response to main thread
+
+Finally, the main thread should receive the response and tell you that everything is working as intended.
+
+> THREE.BCF: Got message from worker thread. Everything's fine!
+
+If that works, then you can continue to the next step.
+
+## Creating a topic
 
 Simply create a topic and add the relevant data (params) to it.
 
 ```ts
 const topic = new Topic();
 topic.set(params);
+
+// Store the topic somewhere
+topics.push(topic);
 ```
 
-Finally, serialize the topic and send it to the worker.
+## Create a BCF
+
+When you are ready to create a BCF file, begin by serializing all topic.
 
 ```ts
-const object = topic.toJSON();
+const data = topics.map((topic) => {
+    topic.toJSON();
+});
 
-const params = {}; // TODO
-
-worker.postMessage(params);
+// Then, call the createBCF method
+bcf.createBCF({
+    type: 'begin',
+    topics: data,
+});
 ```
 
 ## Example
@@ -110,3 +118,7 @@ Auto-generated docs can be found here:
 ## Status
 
 This is a work in progress. It's not production ready.
+
+```
+
+```
