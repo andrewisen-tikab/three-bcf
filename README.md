@@ -11,38 +11,6 @@ three-bcf is:
 
 ![Example](./resources/example.gif?raw=true)
 
-## Design Structure
-
-The following diagram shows the intended design structure of `three-bcf`.
-
-![Design](./resources/design.png?raw=true)
-
-The source of the data should always (!) come from a database or state.
-This data should be highly serializable.
-
-The structure of the code mimics this design.
-
-![Structure](./resources/struture.png?raw=true)
-
-### Core
-
-At the bottom you'll find the core. It contains the main functionality of `three-bcf`.
-Mainly the creation of the BCF file. Use parts of this code to write your own BCF writer.
-
-### Three
-
-On top of the core, you'll find the `three` layer.
-Al actions performed on the "data" should be done in a `three.js` context.
-This means that the models used, cameras position, math operations, etc. etc. are done in terms of `three.js`.
-This layer is highly opinionated!
-
-### ThreeBCF
-
-Finally, on top of the `three` layer, you'll find the `ThreeBCF` layer.
-This layers is the main entry point for `three-bcf` and is a high-level "API"for creating BCF files.
-
-If this workflow doesn't fit your needs, you can always grab individual parts from each layer use them as you see fit.
-
 ## Getting Started
 
 ### Web Worker
@@ -142,6 +110,38 @@ You can also try it out here:
 
 Auto-generated docs can be found here:
 [https://andrewisen-tikab.github.io/three-bcf/docs/](https://andrewisen-tikab.github.io/three-bcf/docs/)
+
+## Design Structure
+
+The following diagram shows the intended design structure of `three-bcf`.
+
+![Design](./resources/design.png?raw=true)
+
+The source of the data should always (!) come from a database or state.
+This data should be highly serializable.
+
+The structure of the code mimics this design.
+
+![Structure](./resources/struture.png?raw=true)
+
+### Core
+
+At the bottom you'll find the core. It contains the main functionality of `three-bcf`.
+Mainly the creation of the BCF file. Use parts of this code to write your own BCF writer.
+
+### Three
+
+On top of the core, you'll find the `three` layer.
+Al actions performed on the "data" should be done in a `three.js` context.
+This means that the models used, cameras position, math operations, etc. etc. are done in terms of `three.js`.
+This layer is highly opinionated!
+
+### ThreeBCF
+
+Finally, on top of the `three` layer, you'll find the `ThreeBCF` layer.
+This layers is the main entry point for `three-bcf` and is a high-level "API"for creating BCF files.
+
+If this workflow doesn't fit your needs, you can always grab individual parts from each layer use them as you see fit.
 
 ## Status
 

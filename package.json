@@ -17,7 +17,8 @@
         "build:worker": "node buildWorker.js",
         "preview": "vite preview",
         "ts": "tsc",
-        "docs": "typedoc"
+        "docs": "typedoc",
+        "version": "node setVersion.cjs"
     },
     "devDependencies": {
         "@emotion/react": "^11.11.1",

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { WorkerEventOnMessageParams, WorkerEventPostMessageData, EXTENSION } from './types';
 import saveAs from 'file-saver';
+import { VERSION } from './version';
 
 export type ThreeBCFParams = {
     /**
@@ -25,6 +26,8 @@ export type ThreeBCFParams = {
 class ThreeBCF extends THREE.EventDispatcher {
     private worker: Worker;
 
+    public version: string = VERSION;
+
     constructor({ workerURL, worker: _Worker }: ThreeBCFParams) {
         super();
         if (workerURL === undefined && _Worker === undefined)
@@ -44,6 +47,13 @@ class ThreeBCF extends THREE.EventDispatcher {
             }
         };
 
+        this.testWorker();
+    }
+
+    /**
+     * Test the worker thread.
+     */
+    private testWorker(): void {
         console.log("THREE.BCF: Sending 'test' message to worker thread");
         this.worker.postMessage({ type: 'test' });
     }
