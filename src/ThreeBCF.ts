@@ -33,7 +33,7 @@ class ThreeBCF extends THREE.EventDispatcher {
         if (workerURL === undefined && _Worker === undefined)
             throw new Error('Either workerURL or worker must be provided');
 
-        this.worker = new _Worker!() || new Worker(workerURL!);
+        this.worker = _Worker ? new _Worker() : new Worker(workerURL!);
 
         this.worker.onmessage = (event: { data: WorkerEventOnMessageParams }) => {
             switch (event.data.type) {
