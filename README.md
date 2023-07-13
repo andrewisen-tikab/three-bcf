@@ -13,12 +13,25 @@ three-bcf is:
 
 ## Getting Started
 
+### Installing
+
+```bash
+npm install three-bcf
+```
+
+or
+
+```bash
+yarn add three-bcf
+```
+
 ### Web Worker
 
-Copy the `worker.js` file into your project.
+Copy the `worker.js` file into your project's public folder.
+I.e. `worker.js` should be treated as a static file.
 You can find it in the `dist` folder.
 
-Once added, simply create a new ThreeBCF object and reference the worker's path.
+Once added, simply create a new `ThreeBCF` object and reference the worker's path.
 
 #### Example
 
