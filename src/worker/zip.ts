@@ -25,6 +25,7 @@ const createZipAsync = async (e: WorkerEventPostMessageData): Promise<Blob> => {
             ...topic,
             topicGuid,
             viewpointGuid,
+            index: i,
         } as const;
 
         const topicFolder = zipFile.folder(topicGuid);

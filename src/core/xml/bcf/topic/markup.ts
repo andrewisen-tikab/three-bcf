@@ -103,7 +103,7 @@ class Markup_XML extends Topic_XML {
             .txt(`${e.viewpointGuid}.png`)
             .up()
             .ele('Index')
-            .txt('0')
+            .txt(`${e.index ?? 0}`)
             .up()
             .up()
             .up()

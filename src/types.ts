@@ -80,6 +80,7 @@ export type Topic_Worker = z.infer<typeof TopicSchema_Worker>;
 export interface CreateParams_Worker extends Topic_Worker {
     topicGuid: string;
     viewpointGuid: string;
+    index: number;
 }
 /**
  * Params for creating BCF file.
