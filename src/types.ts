@@ -44,6 +44,14 @@ export const TopicBaseSchema_Three = TopicSchema_Core.extend({
      * target vector of the camera in local three.js space.
      */
     target: Vector3TupleSchema,
+    /**
+     * Field of view of the perspective camera.
+     */
+    fieldOfView: z.number().min(1).max(140),
+    /**
+     * Aspect ratio of the perspective camera.
+     */
+    aspectRatio: z.number().min(0.1).max(4),
 });
 /**
  * `TopicBase` indented for the `three.js`.
@@ -69,6 +77,14 @@ export const TopicSchema_Worker = TopicSchema_Core.merge(
     cameraViewPoint: Vector3TupleSchema,
     cameraDirection: Vector3TupleSchema,
     cameraUpVector: Vector3TupleSchema,
+    /**
+     * Field of view of the perspective camera.
+     */
+    fieldOfView: z.number(),
+    /**
+     * Aspect ratio of the perspective camera.
+     */
+    aspectRatio: z.number(),
 });
 /**
  * `Topic` indented for the `worker`.

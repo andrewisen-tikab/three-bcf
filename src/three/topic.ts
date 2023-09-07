@@ -54,6 +54,8 @@ export default class Topic_Three implements Topic_ThreeJSON {
      * E.g. `André Wisén` (or an email address)
      */
     creationAuthor: string;
+    fieldOfView: number;
+    aspectRatio: number;
 
     public constructor() {
         this.uuid = THREE.MathUtils.generateUUID();
@@ -62,6 +64,8 @@ export default class Topic_Three implements Topic_ThreeJSON {
         this.direction = DEFAULT_VECTOR3_TUPLE;
         this.position = DEFAULT_VECTOR3_TUPLE;
         this.target = DEFAULT_VECTOR3_TUPLE;
+        this.fieldOfView = 0;
+        this.aspectRatio = 0;
         this.screenshot = '';
         this.title = '';
         this.description = '';
@@ -93,6 +97,8 @@ export default class Topic_Three implements Topic_ThreeJSON {
             screenshot: this.screenshot,
             creationDate: this.creationDate,
             creationAuthor: this.creationAuthor,
+            fieldOfView: this.fieldOfView,
+            aspectRatio: this.aspectRatio,
         };
 
         this.checkJSON(topic);
@@ -120,6 +126,8 @@ export default class Topic_Three implements Topic_ThreeJSON {
             index: this.index,
             creationDate: this.creationDate,
             creationAuthor: this.creationAuthor,
+            fieldOfView: this.fieldOfView,
+            aspectRatio: this.aspectRatio,
         };
 
         this.checkJSON(json);

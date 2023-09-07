@@ -5,7 +5,7 @@ import worker from '../../../src/worker/worker?worker';
 import { TopicCameraState } from '../../types';
 import BCFViewer from '../../viewer/BCFViewer';
 import * as BCF from '../../../src';
-import type { TopicBase_Three, Topic_ThreeJSON } from '../../../src/types';
+import type { TopicBase_Three, Topic_ThreeJSON, Topic_Worker } from '../../../src/types';
 
 const bcf = new BCF.ThreeBCF({
     worker,
@@ -125,7 +125,7 @@ export const bcfSlice = createSlice({
          * @param _state {@link BCFState}
          */
         createBCF: (_state): void => {
-            const topics = _state.topics.map((state) => {
+            const topics: Topic_Worker[] = _state.topics.map((state) => {
                 const cameraState = BCFViewer.convertTopicCameraStateToBCFState(state);
 
                 // Create new object to avoid reference to the state
@@ -135,8 +135,10 @@ export const bcfSlice = createSlice({
                 const index = state.index;
                 const creationDate = state.creationDate;
                 const creationAuthor = state.creationAuthor;
+                const fieldOfView = state.fieldOfView;
+                const aspectRatio = state.aspectRatio;
 
-                return {
+                const object: Topic_Worker = {
                     title,
                     description,
                     screenshot,
@@ -146,7 +148,11 @@ export const bcfSlice = createSlice({
                     cameraViewPoint: cameraState.position,
                     cameraDirection: cameraState.direction,
                     cameraUpVector: cameraState.up,
+                    fieldOfView,
+                    aspectRatio,
                 };
+
+                return object;
             });
 
             bcf.createBCF({
