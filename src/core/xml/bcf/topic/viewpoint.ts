@@ -72,8 +72,8 @@ class Viewpoint_XML extends Topic_XML {
         cameraUpVector.ele('Y').txt(`${e.cameraUpVector[1]}`);
         cameraUpVector.ele('Z').txt(`${e.cameraUpVector[2]}`);
 
-        perspectiveCamera.ele('FieldOfView').txt('59.99999999999999');
-        perspectiveCamera.ele('AspectRatio').txt('1.9611829944547134');
+        perspectiveCamera.ele('FieldOfView').txt(`${e.fieldOfView}`);
+        perspectiveCamera.ele('AspectRatio').txt(`${e.aspectRatio}`);
 
         // Add Bitmaps element
         root.ele('Bitmaps');

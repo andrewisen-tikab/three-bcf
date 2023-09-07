@@ -32,6 +32,8 @@ class _BCFViewer extends THREEViewer {
             position: cameraControlsState.position,
             target: cameraControlsState.target,
             direction: direction.toArray(),
+            fieldOfView: this.camera.fov,
+            aspectRatio: this.camera.aspect,
         };
 
         return BCFCameraState;
