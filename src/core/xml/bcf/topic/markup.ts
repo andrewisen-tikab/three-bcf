@@ -36,7 +36,7 @@ import type { CreateParams_Worker } from '../../../../types';
  *
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#markup-bcf-file](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#markup-bcf-file)
  */
-class Markup_XML extends Topic_XML {
+class MarkupFactory_XML extends Topic_XML {
     public create(e: CreateParams_Worker): string {
         const doc = create({ version: '1.0', encoding: 'UTF-8', standalone: true })
             .ele('Markup', {
@@ -114,4 +114,4 @@ class Markup_XML extends Topic_XML {
     }
 }
 
-export default Markup_XML;
+export default MarkupFactory_XML;

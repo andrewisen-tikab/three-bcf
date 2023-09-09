@@ -1,1 +1,1 @@
-export { default as BCFVersion_XML } from './bcf.version';
+export { default as BCFVersionFactory_XML } from './bcf.version';
