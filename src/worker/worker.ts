@@ -7,6 +7,10 @@ import {
 } from '../types';
 import createZipAsync from './zip';
 
+/**
+ * Begin event
+ * @param e {@link WorkerEventPostMessageData}
+ */
 const onBeginAsync = async (e: WorkerEventPostMessageData): Promise<void> => {
     console.log('Got message from main thread. Creating ZIP');
     const content = await createZipAsync(e);
@@ -18,6 +22,9 @@ const onBeginAsync = async (e: WorkerEventPostMessageData): Promise<void> => {
     postMessage(message);
 };
 
+/**
+ * Debug event
+ */
 const onBeginTest = (): void => {
     console.log(
         'THREE.BCF.WORKER: Got test message from main thread. Sending response to main thread',

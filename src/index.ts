@@ -3,7 +3,8 @@
 export { default as ThreeBCF } from './ThreeBCF';
 export * from './ThreeBCF';
 /**
- * `three.js` namespace where you can create a `Topic` in a `three.js` context.
+ * The `three.js` namespace is  where you can create a `Topic` in a `three.js` context.
+ * These topics lives temporary in the `three.js` space.
  */
 export * as THREE from './three';
 /**
@@ -11,8 +12,9 @@ export * as THREE from './three';
  */
 export * as WORKER from './worker';
 /**
- * `core` namespace where you find everything related to the core of the library.
+ * The `core` namespace is where you find everything related to the core of the library.
  * The core features most of the BCF creation functionality. Mainly the XML generation.
+ * XMLs are generated using factory classes.
  *
  * Use parts of this namespace to create your own implementation of the library.
  */

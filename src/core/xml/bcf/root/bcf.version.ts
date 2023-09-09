@@ -12,7 +12,7 @@ import { ENCODING, SCHEMA_LOCATION, XML_WRITER_OPTIONS } from '../constants';
  *
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#bcf-file-structure](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#bcf-file-structure)
  */
-class BCFVersion_XML extends XMLCreator {
+class BCFVersionFactory_XML extends XMLCreator {
     /**
      * Example XML:
      * ```xml
@@ -31,4 +31,4 @@ class BCFVersion_XML extends XMLCreator {
     }
 }
 
-export default BCFVersion_XML;
+export default BCFVersionFactory_XML;

@@ -1,26 +1,30 @@
 import JSZip from 'jszip';
 import * as THREE from 'three';
-import BCFVersion_XML from '../core/xml/bcf/root/bcf.version';
+import BCFVersionFactory_XML from '../core/xml/bcf/root/bcf.version';
 
-import Markup_XML from '../core/xml/bcf/topic/markup';
-import Viewpoint_XML from '../core/xml/bcf/topic/viewpoint';
+import MarkupFactory_XML from '../core/xml/bcf/topic/markup';
+import ViewpointFactory_XML from '../core/xml/bcf/topic/viewpoint';
 import { TopicSchema_Worker, WorkerEventPostMessageData } from '../types';
 import { dataURLtoBlob } from './utils';
 
 /**
+ * Create a BCF zip file from a list of topics.
+ * N.B: To be used inside a web worker!
+ *
  * @returns {Promise<Blob>} A promise that resolves to a Blob containing the BCF zip file
  */
 const createZipAsync = async (e: WorkerEventPostMessageData): Promise<Blob> => {
     const zipFile = new JSZip();
-    zipFile.file('bcf.version', new BCFVersion_XML().create());
+    zipFile.file('bcf.version', new BCFVersionFactory_XML().create());
 
     for (let i = 0; i < e.topics.length; i++) {
         const topic = e.topics[i];
 
         TopicSchema_Worker.parse(topic);
 
-        const topicGuid = THREE.MathUtils.generateUUID(); // 'a351f372-e082-4f47-af2b-cb511fc1ed5a';
-        const viewpointGuid = THREE.MathUtils.generateUUID(); //'a1cbfe86-2934-4bb4-9794-507b3034f2a3';
+        const topicGuid = THREE.MathUtils.generateUUID();
+        const viewpointGuid = THREE.MathUtils.generateUUID();
+
         const params = {
             ...topic,
             topicGuid,
@@ -33,8 +37,8 @@ const createZipAsync = async (e: WorkerEventPostMessageData): Promise<Blob> => {
         topicFolder.file(`${viewpointGuid}.png`, dataURLtoBlob(topic.screenshot), {
             binary: true,
         });
-        topicFolder.file(`${viewpointGuid}.bcfv`, new Viewpoint_XML().create(params));
-        topicFolder.file('markup.bcf', new Markup_XML().create(params));
+        topicFolder.file(`${viewpointGuid}.bcfv`, new ViewpointFactory_XML().create(params));
+        topicFolder.file('markup.bcf', new MarkupFactory_XML().create(params));
     }
 
     const data = await zipFile.generateAsync({ type: 'blob' });
