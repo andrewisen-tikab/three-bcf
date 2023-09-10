@@ -31,15 +31,16 @@ function RightTopFlexLayout() {
 
 function RightBottomFlexLayout() {
     return (
-        <Panel
-            title="Issue sorter"
+        <Box
             sx={{
                 flexBasis: '40%',
-                // background: 'yellow'
+                // background: 'yellow',
             }}
         >
-            <IssueSorter />
-        </Panel>
+            <Panel title="Issue sorter">
+                <IssueSorter />
+            </Panel>
+        </Box>
     );
 }
 
