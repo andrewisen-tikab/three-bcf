@@ -240,7 +240,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.15.4":
+"@babel/runtime@npm:^7.15.4, @babel/runtime@npm:^7.22.10, @babel/runtime@npm:^7.22.15":
   version: 7.22.15
   resolution: "@babel/runtime@npm:7.22.15"
   dependencies:
@@ -880,6 +880,39 @@ __metadata:
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
   checksum: 80d50b3453f98ee708db0c0264ea530b3c9a75fe97d26b509d1f228bd06ebe9eb203b01e019f8ba9d2bd10ef864b9d523405c0fcdccccb74d5a93350722eb359
+  languageName: node
+  linkType: hard
+
+"@mui/utils@npm:^5.14.7":
+  version: 5.14.8
+  resolution: "@mui/utils@npm:5.14.8"
+  dependencies:
+    "@babel/runtime": ^7.22.10
+    "@types/prop-types": ^15.7.5
+    "@types/react-is": ^18.2.1
+    prop-types: ^15.8.1
+    react-is: ^18.2.0
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0
+  checksum: 2fb29c9d7908a47276b4f4a31a7e76d5a7d437afe95d2c0d6cd9c07f04beea89857f763c4f5c546fe243539d9986181815bfded42e516077122ed373d11a7ebf
+  languageName: node
+  linkType: hard
+
+"@mui/x-data-grid@npm:^6.13.0":
+  version: 6.13.0
+  resolution: "@mui/x-data-grid@npm:6.13.0"
+  dependencies:
+    "@babel/runtime": ^7.22.15
+    "@mui/utils": ^5.14.7
+    clsx: ^2.0.0
+    prop-types: ^15.8.1
+    reselect: ^4.1.8
+  peerDependencies:
+    "@mui/material": ^5.4.1
+    "@mui/system": ^5.4.1
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  checksum: 756d1b6bdccff60e209b4970ed3e74825377dba91764abfc7aa5084c33abaa37b4874c05bbfdafe13f3f191a4194723b0bbfb9b02f00cf677ecd8ca782af57f0
   languageName: node
   linkType: hard
 
@@ -1568,6 +1601,13 @@ __metadata:
   version: 1.2.1
   resolution: "clsx@npm:1.2.1"
   checksum: 30befca8019b2eb7dbad38cff6266cf543091dae2825c856a62a8ccf2c3ab9c2907c4d12b288b73101196767f66812365400a227581484a05f968b0307cfaf12
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "clsx@npm:2.0.0"
+  checksum: a2cfb2351b254611acf92faa0daf15220f4cd648bdf96ce369d729813b85336993871a4bf6978ddea2b81b5a130478339c20d9d0b5c6fc287e5147f0c059276e
   languageName: node
   linkType: hard
 
@@ -3527,6 +3567,7 @@ __metadata:
     "@fontsource/roboto": ^5.0.4
     "@mui/icons-material": ^5.13.7
     "@mui/material": ^5.13.7
+    "@mui/x-data-grid": ^6.13.0
     "@reduxjs/toolkit": ^1.9.5
     "@types/file-saver": ^2.0.5
     "@types/react-beautiful-dnd": ^13.1.4
