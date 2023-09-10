@@ -18,3 +18,7 @@ jobs:
             - name: ⏳ Checking TypeScript...
               run: |
                   yarn ts
+                  yarn build
+                  yarn build:example
+                  yarn build:worker
+                  yarn docs
