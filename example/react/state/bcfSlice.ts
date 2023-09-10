@@ -86,6 +86,36 @@ export const bcfSlice = createSlice({
             selectedTopic[action.payload.key] = action.payload.value;
         },
         /**
+         * Update the index of a specific topic.
+         * This will automatically re-order the rest of the topics.
+         * @param state
+         * @param action
+         */
+        updateTopicIndex: (
+            state,
+            action: PayloadAction<{ oldIndex: number; newIndex: number }>,
+        ): void => {
+            const { oldIndex, newIndex } = action.payload;
+
+            // Update the index of the topic first
+            const updatedTopic = state.topics[oldIndex];
+            updatedTopic.index = newIndex;
+
+            // Re-order the rest of the topics
+            state.topics
+                .filter((obj) => obj.uuid !== updatedTopic.uuid)
+                .forEach((obj) => {
+                    if (obj.index >= newIndex && obj.index < oldIndex) {
+                        obj.index++;
+                    } else if (obj.index <= newIndex && obj.index > oldIndex) {
+                        obj.index--;
+                    }
+                });
+
+            // Finally, sort the topics based on their index
+            state.topics.sort((a, b) => a.index - b.index);
+        },
+        /**
          * Remove a topic.
          * Re-order the rest of the topics.
          * @param state {@link BCFState}
@@ -163,7 +193,14 @@ export const bcfSlice = createSlice({
     },
 });
 
-export const { createTopic, updateTopic, removeTopic, selectTopic, deselectTopic, createBCF } =
-    bcfSlice.actions;
+export const {
+    createTopic,
+    updateTopic,
+    removeTopic,
+    selectTopic,
+    deselectTopic,
+    createBCF,
+    updateTopicIndex,
+} = bcfSlice.actions;
 
 export default bcfSlice.reducer;

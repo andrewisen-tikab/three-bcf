@@ -8,7 +8,7 @@ type PanelProps = {
     title?: string;
     action?: React.ReactNode;
     children: React.ReactNode;
-    sx: SxProps;
+    sx?: SxProps;
 };
 export default function Panel({ title, children, action, sx = {} }: PanelProps) {
     return (
