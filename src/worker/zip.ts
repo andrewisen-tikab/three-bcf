@@ -4,7 +4,7 @@ import BCFVersionFactory_XML from '../core/xml/bcf/root/bcf.version';
 
 import MarkupFactory_XML from '../core/xml/bcf/topic/markup';
 import ViewpointFactory_XML from '../core/xml/bcf/topic/viewpoint';
-import { TopicSchema_Worker, WorkerEventPostMessageData } from '../types';
+import { TopicFolderSchema_Worker, WorkerEventPostMessageData } from '../types';
 import { dataURLtoBlob } from './utils';
 
 /**
@@ -20,7 +20,7 @@ const createZipAsync = async (e: WorkerEventPostMessageData): Promise<Blob> => {
     for (let i = 0; i < e.topics.length; i++) {
         const topic = e.topics[i];
 
-        TopicSchema_Worker.parse(topic);
+        TopicFolderSchema_Worker.parse(topic);
 
         const topicGuid = THREE.MathUtils.generateUUID();
         const viewpointGuid = THREE.MathUtils.generateUUID();

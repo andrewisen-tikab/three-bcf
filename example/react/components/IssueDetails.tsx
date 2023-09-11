@@ -4,19 +4,29 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import NativeSelect from '@mui/material/NativeSelect';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../state/store';
 import { updateTopic } from '../state/bcfSlice';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Grid from '@mui/material/Unstable_Grid2';
+import { TOPIC_STATUSES, TOPIC_TYPES } from '../../../src/core';
+import { TopicFolder_ThreeJSON } from '../../../src/types';
 
 export default function IssueDetails() {
     const dispatch = useDispatch();
     const disabled = useSelector((state: RootState) => state.bcf.selectedTopic == null);
     const title = useSelector((state: RootState) => state.bcf.selectedTopic?.title);
     const description = useSelector((state: RootState) => state.bcf.selectedTopic?.description);
+    const status = useSelector((state: RootState) => state.bcf.selectedTopic?.topicStatus);
+    const type = useSelector((state: RootState) => state.bcf.selectedTopic?.topicType);
 
     if (disabled) return null;
 
-    const update = (key: string, value: string) => {
+    const update = (key: keyof TopicFolder_ThreeJSON, value: string) => {
         dispatch(updateTopic({ key, value }));
     };
 
@@ -46,7 +56,57 @@ export default function IssueDetails() {
                         update('description', event.target.value);
                     }}
                 />
-                <Divider />
+                <Divider textAlign="left" role="presentation">
+                    <Typography variant="subtitle1"> Coordination</Typography>
+                </Divider>
+                <Grid container spacing={2}>
+                    <Grid xs={6}>
+                        <FormControl fullWidth>
+                            <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                                Status
+                            </InputLabel>
+                            <NativeSelect
+                                value={status}
+                                inputProps={{
+                                    name: 'status',
+                                    id: 'uncontrolled-native',
+                                }}
+                                onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                                    update('topicStatus', event.target.value);
+                                }}
+                            >
+                                {Object.values(TOPIC_STATUSES).map((key) => (
+                                    <option key={key} value={key}>
+                                        {key}
+                                    </option>
+                                ))}
+                            </NativeSelect>
+                        </FormControl>
+                    </Grid>
+                    <Grid xs={6}>
+                        <FormControl fullWidth>
+                            <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                                Issue Type
+                            </InputLabel>
+                            <NativeSelect
+                                value={type}
+                                inputProps={{
+                                    name: 'type',
+                                    id: 'uncontrolled-native',
+                                }}
+                                onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                                    update('topicType', event.target.value);
+                                }}
+                            >
+                                {Object.values(TOPIC_TYPES).map((key) => (
+                                    <option key={key} value={key}>
+                                        {key}
+                                    </option>
+                                ))}
+                            </NativeSelect>
+                        </FormControl>
+                    </Grid>
+                </Grid>
             </Box>
         </CardContent>
     );
