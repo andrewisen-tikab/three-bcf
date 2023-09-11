@@ -47,14 +47,18 @@ export const bcfSlice = createSlice({
             // Create a new topic
             const topic = new BCF.THREE.Topic_Three();
 
+            const author = 'André Wisén' as const;
+            const date = new Date().toISOString();
             // The topic is empty by default.
             // We need to supply it with the correct data.
             const params: TopicFolderBase_Three = {
                 index: -1,
                 title: '',
                 description: '',
-                creationDate: new Date().toISOString(),
-                creationAuthor: 'André Wisén',
+                creationDate: date,
+                creationAuthor: author,
+                modifiedDate: date,
+                modifiedAuthor: author,
                 topicStatus: BCF.CORE.TOPIC_STATUSES.OPEN,
                 topicType: BCF.CORE.TOPIC_TYPES.ERROR,
                 ...action.payload.camera,
@@ -90,6 +94,11 @@ export const bcfSlice = createSlice({
             topic[action.payload.key] = action.payload.value;
             // @ts-ignore
             selectedTopic[action.payload.key] = action.payload.value;
+
+            // Update the modified date. Keep the same author.
+            const date = new Date().toISOString();
+            topic.modifiedDate = date;
+            selectedTopic.modifiedDate = date;
         },
         /**
          * Update the index of a specific topic.
@@ -171,6 +180,8 @@ export const bcfSlice = createSlice({
                 const index = state.index;
                 const creationDate = state.creationDate;
                 const creationAuthor = state.creationAuthor;
+                const modifiedDate = state.modifiedDate;
+                const modifiedAuthor = state.modifiedAuthor;
                 const fieldOfView = state.fieldOfView;
                 const aspectRatio = state.aspectRatio;
                 const topicType = state.topicType;
@@ -183,6 +194,8 @@ export const bcfSlice = createSlice({
                     index,
                     creationDate,
                     creationAuthor,
+                    modifiedDate,
+                    modifiedAuthor,
                     cameraViewPoint: cameraState.position,
                     cameraDirection: cameraState.direction,
                     cameraUpVector: cameraState.up,
