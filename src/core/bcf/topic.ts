@@ -37,6 +37,19 @@ const TopicSchema_Core = BCFBaseSchema.extend({
      */
     creationAuthor: z.string(),
     /**
+     * Date when the topic was last modified. Exists only when Topic has been modified after creation.
+     *
+     * E.g. `2023-07-03T21:02:50+02:00`
+     */
+    modifiedDate: z.string(),
+    /**
+     * User who modified the topic.
+     * Exists only when Topic has been modified after creation.
+     *
+     * E.g. `andre.wisen@gmail.com`
+     */
+    modifiedAuthor: z.string(),
+    /**
      * Type of the topic.
      */
     topicType: z.string(),

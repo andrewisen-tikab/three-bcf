@@ -31,6 +31,10 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
 
     public creationAuthor: string;
 
+    public modifiedDate: string;
+
+    public modifiedAuthor: string;
+
     public fieldOfView: number;
 
     public aspectRatio: number;
@@ -53,6 +57,8 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         this.description = '';
         this.creationDate = '';
         this.creationAuthor = '';
+        this.modifiedDate = '';
+        this.modifiedAuthor = '';
         this.topicType = TOPIC_STATUSES.OPEN;
         this.topicStatus = TOPIC_TYPES.ERROR;
     }
@@ -82,6 +88,8 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             screenshot: this.screenshot,
             creationDate: this.creationDate,
             creationAuthor: this.creationAuthor,
+            modifiedDate: this.modifiedDate,
+            modifiedAuthor: this.modifiedAuthor,
             fieldOfView: this.fieldOfView,
             aspectRatio: this.aspectRatio,
             topicType: this.topicType,
@@ -114,6 +122,8 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             index: this.index,
             creationDate: this.creationDate,
             creationAuthor: this.creationAuthor,
+            modifiedDate: this.modifiedDate,
+            modifiedAuthor: this.modifiedAuthor,
             fieldOfView: this.fieldOfView,
             aspectRatio: this.aspectRatio,
             topicType: this.topicType,
