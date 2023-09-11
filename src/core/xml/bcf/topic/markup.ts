@@ -58,8 +58,8 @@ class MarkupFactory_XML extends Topic_XML {
             .up()
             .ele('Topic', {
                 Guid: e.topicGuid,
-                TopicType: 'Error',
-                TopicStatus: 'Open',
+                TopicType: e.topicType,
+                TopicStatus: e.topicStatus,
             })
             .ele('ReferenceLinks')
             .up()
