@@ -13,6 +13,7 @@ const columns: GridColDef[] = [
     { field: 'index', headerName: 'No.', type: 'number', width: 80 },
     { field: 'title', headerName: 'Title', width: 200 },
     { field: 'description', headerName: 'Description', flex: 1 },
+    { field: 'topicStatus', headerName: 'Status', flex: 1 },
 ];
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({

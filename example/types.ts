@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { TopicBase_Three } from '../src/types';
+import type { TopicFolderBase_Three } from '../src/types';
 
 export interface CameraControlsState {
     position: THREE.Vector3Tuple;
@@ -7,7 +7,7 @@ export interface CameraControlsState {
 }
 
 export type TopicCameraState = Pick<
-    TopicBase_Three,
+    TopicFolderBase_Three,
     'position' | 'target' | 'direction' | 'fieldOfView' | 'aspectRatio'
 >;
 

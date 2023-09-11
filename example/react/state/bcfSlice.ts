@@ -5,15 +5,19 @@ import worker from '../../../src/worker/worker?worker';
 import { TopicCameraState } from '../../types';
 import BCFViewer from '../../viewer/BCFViewer';
 import * as BCF from '../../../src';
-import type { TopicBase_Three, Topic_ThreeJSON, Topic_Worker } from '../../../src/types';
+import type {
+    TopicFolderBase_Three,
+    TopicFolder_ThreeJSON,
+    TopicFolder_Worker,
+} from '../../../src/types';
 
 const bcf = new BCF.ThreeBCF({
     worker,
 });
 
 export type BCFState = {
-    topics: Topic_ThreeJSON[];
-    selectedTopic: Topic_ThreeJSON | null;
+    topics: TopicFolder_ThreeJSON[];
+    selectedTopic: TopicFolder_ThreeJSON | null;
 };
 
 const initialState: BCFState = {
@@ -45,12 +49,14 @@ export const bcfSlice = createSlice({
 
             // The topic is empty by default.
             // We need to supply it with the correct data.
-            const params: TopicBase_Three = {
+            const params: TopicFolderBase_Three = {
                 index: -1,
                 title: '',
                 description: '',
                 creationDate: new Date().toISOString(),
                 creationAuthor: 'André Wisén',
+                topicStatus: BCF.CORE.TOPIC_STATUSES.OPEN,
+                topicType: BCF.CORE.TOPIC_TYPES.ERROR,
                 ...action.payload.camera,
             };
             topic.set(params);
@@ -155,7 +161,7 @@ export const bcfSlice = createSlice({
          * @param _state {@link BCFState}
          */
         createBCF: (_state): void => {
-            const topics: Topic_Worker[] = _state.topics.map((state) => {
+            const topics: TopicFolder_Worker[] = _state.topics.map((state) => {
                 const cameraState = BCFViewer.convertTopicCameraStateToBCFState(state);
 
                 // Create new object to avoid reference to the state
@@ -167,8 +173,10 @@ export const bcfSlice = createSlice({
                 const creationAuthor = state.creationAuthor;
                 const fieldOfView = state.fieldOfView;
                 const aspectRatio = state.aspectRatio;
+                const topicType = state.topicType;
+                const topicStatus = state.topicStatus;
 
-                const object: Topic_Worker = {
+                const object: TopicFolder_Worker = {
                     title,
                     description,
                     screenshot,
@@ -180,6 +188,8 @@ export const bcfSlice = createSlice({
                     cameraUpVector: cameraState.up,
                     fieldOfView,
                     aspectRatio,
+                    topicType,
+                    topicStatus,
                 };
 
                 return object;

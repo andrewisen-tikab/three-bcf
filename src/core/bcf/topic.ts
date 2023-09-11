@@ -36,6 +36,14 @@ const TopicSchema_Core = BCFBaseSchema.extend({
      * E.g. `andre.wisen@gmail.com`
      */
     creationAuthor: z.string(),
+    /**
+     * Type of the topic.
+     */
+    topicType: z.string(),
+    /**
+     * Type of the topic.
+     */
+    topicStatus: z.string(),
 });
 
 export type Topic_Core = z.infer<typeof TopicSchema_Core>;

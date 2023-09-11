@@ -1,15 +1,16 @@
 import * as THREE from 'three';
-import type { Nullable, Topic_ThreeJSON, TopicBase_Three } from '../types';
+import type { Nullable, TopicFolder_ThreeJSON, TopicFolderBase_Three } from '../types';
 import { DEFAULT_VECTOR3_TUPLE } from '../types';
 
 import type { TopicCameraState } from '../../example/types';
+import { TOPIC_STATUSES, TOPIC_TYPES } from '../core';
 
 /**
  * Three.js wrapper for `BCF topic`.
  *
  * Use this class to create a new `BCF Topic` that temporary lives in three.js space.
  */
-export default class Topic_Three implements Topic_ThreeJSON {
+export default class Topic_Three implements TopicFolder_ThreeJSON {
     public uuid: string;
 
     public index: number;
@@ -34,6 +35,10 @@ export default class Topic_Three implements Topic_ThreeJSON {
 
     public aspectRatio: number;
 
+    public topicType: string;
+
+    public topicStatus: string;
+
     public constructor() {
         this.uuid = THREE.MathUtils.generateUUID();
         this.index = 0;
@@ -48,13 +53,15 @@ export default class Topic_Three implements Topic_ThreeJSON {
         this.description = '';
         this.creationDate = '';
         this.creationAuthor = '';
+        this.topicType = TOPIC_STATUSES.OPEN;
+        this.topicStatus = TOPIC_TYPES.ERROR;
     }
 
     /**
      * Set the topic.
-     * @param params {@link TopicBase_Three}
+     * @param params {@link TopicFolderBase_Three}
      */
-    public set(params: Nullable<TopicBase_Three>): void {
+    public set(params: Nullable<TopicFolderBase_Three>): void {
         this.checkJSON(params);
         Object.assign(this, params);
     }
@@ -63,8 +70,8 @@ export default class Topic_Three implements Topic_ThreeJSON {
      * Get topic.
      * N.B: It will throw an error if topic is not set.
      */
-    public get(): Topic_ThreeJSON {
-        const topic: Nullable<Topic_ThreeJSON> = {
+    public get(): TopicFolder_ThreeJSON {
+        const topic: Nullable<TopicFolder_ThreeJSON> = {
             direction: this.direction,
             position: this.position,
             target: this.target,
@@ -77,11 +84,13 @@ export default class Topic_Three implements Topic_ThreeJSON {
             creationAuthor: this.creationAuthor,
             fieldOfView: this.fieldOfView,
             aspectRatio: this.aspectRatio,
+            topicType: this.topicType,
+            topicStatus: this.topicStatus,
         };
 
         this.checkJSON(topic);
 
-        return topic as Topic_ThreeJSON;
+        return topic as TopicFolder_ThreeJSON;
     }
 
     public setScreenshot(screenshot: string) {
@@ -93,8 +102,8 @@ export default class Topic_Three implements Topic_ThreeJSON {
      * Return topic as JSON string.
      * @returns JSON string.
      */
-    public toJSON(): Topic_ThreeJSON {
-        const json: Nullable<Topic_ThreeJSON> = {
+    public toJSON(): TopicFolder_ThreeJSON {
+        const json: Nullable<TopicFolder_ThreeJSON> = {
             uuid: this.uuid,
             direction: this.direction,
             position: this.position,
@@ -107,18 +116,20 @@ export default class Topic_Three implements Topic_ThreeJSON {
             creationAuthor: this.creationAuthor,
             fieldOfView: this.fieldOfView,
             aspectRatio: this.aspectRatio,
+            topicType: this.topicType,
+            topicStatus: this.topicStatus,
         };
 
         this.checkJSON(json);
 
-        return json as Topic_ThreeJSON;
+        return json as TopicFolder_ThreeJSON;
     }
 
     /**
      *  Create topic from JSON string.
-     * @param json {@link Topic_ThreeJSON}
+     * @param json {@link TopicFolder_ThreeJSON}
      */
-    public fromJSON(json: Nullable<Topic_ThreeJSON>): void {
+    public fromJSON(json: Nullable<TopicFolder_ThreeJSON>): void {
         if (json == null) throw new Error('json is null');
 
         const { uuid } = json;
@@ -126,7 +137,8 @@ export default class Topic_Three implements Topic_ThreeJSON {
 
         this.checkJSON(json);
 
-        const { direction, position, target, title, description, index } = json as Topic_ThreeJSON;
+        const { direction, position, target, title, description, index } =
+            json as TopicFolder_ThreeJSON;
 
         this.uuid = uuid;
         this.position = position;
@@ -139,9 +151,9 @@ export default class Topic_Three implements Topic_ThreeJSON {
 
     /**
      * Check if JSON is valid.
-     * @param json {@link TopicBase_Three}
+     * @param json {@link TopicFolderBase_Three}
      */
-    private checkJSON(json: Nullable<TopicBase_Three>): void {
+    private checkJSON(json: Nullable<TopicFolderBase_Three>): void {
         const { title, description, index, creationDate, creationAuthor } = json;
         this.checkCamera(json);
         if (title == null) throw new Error('title is null');
@@ -155,7 +167,7 @@ export default class Topic_Three implements Topic_ThreeJSON {
      * Check if camera is valid.
      * @param json {@link TopicCameraState}
      */
-    private checkCamera(json: Nullable<TopicBase_Three>): void {
+    private checkCamera(json: Nullable<TopicFolderBase_Three>): void {
         const { direction, position, target, fieldOfView, aspectRatio } = json;
 
         if (direction == null) throw new Error('direction is null');
