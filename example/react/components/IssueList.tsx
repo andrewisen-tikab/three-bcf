@@ -25,6 +25,9 @@ export default function IssueList() {
     const selected = useSelector((state: RootState) => state.bcf.selectedTopic);
     const dispatch = useDispatch();
 
+    if (!topics) return null;
+    if (topics.length === 0) return null;
+
     return (
         <div style={{ height: '100%', width: '100%' }}>
             <StyledDataGrid
