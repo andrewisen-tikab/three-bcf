@@ -1,4 +1,4 @@
-import XMLCreator from '../../xml/xml';
+import XMLCreator from './xml';
 
 /**
  * A BCF file is a zip containing one folder for each topic with its file extension:

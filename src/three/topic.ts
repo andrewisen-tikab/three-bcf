@@ -3,7 +3,7 @@ import type { Nullable, TopicFolder_ThreeJSON, TopicFolderBase_Three } from '../
 import { DEFAULT_VECTOR3_TUPLE } from '../types';
 
 import type { TopicCameraState } from '../../example/types';
-import { TOPIC_STATUSES, TOPIC_TYPES } from '../core';
+import { TOPIC_STATUSES, TOPIC_TYPES } from '../constants';
 
 /**
  * Three.js wrapper for `BCF topic`.

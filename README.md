@@ -175,7 +175,7 @@ Modify the code is somewhat complicated. For example, if you want to edit the `c
 
 1. Modify the `core`.
 
-Update `TopicSchema_Core` found inside `src/core/bcf/topic.ts`.
+Update `TopicSchema_Core` found inside `src/core/topic.ts`.
 N.B: The library used `zod` to create a schema for the BCF file.
 
 ```ts
@@ -200,7 +200,7 @@ Simply:
 
 3. Modify the `ThreeBCF` layer.
 
-Finally, navigate to the `createZipAsync` function inside `src/worker/zip.ts`.
+Finally, navigate to the `createZipAsync` function inside `src/three-bcf/zip.ts`.
 Depending on the type of property you added, you need to update the `factory`.
 
 E.g. `MarkupFactory_XML`.

@@ -1,6 +1,6 @@
 import { create } from 'xmlbuilder2';
-import XMLCreator from '../../../xml/xml';
-import { ENCODING, SCHEMA_LOCATION, XML_WRITER_OPTIONS } from '../constants';
+import XMLCreator from '../xml';
+import { ENCODING, SCHEMA_LOCATION, XML_WRITER_OPTIONS } from '../../constants';
 
 /**
  * bcf.version
