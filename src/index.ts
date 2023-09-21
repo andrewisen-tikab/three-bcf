@@ -23,3 +23,4 @@ export * as CORE from './core';
  * TypeScript types and interfaces.
  */
 export * as TYPES from './types';
+export * as CONSTANTS from './constants';

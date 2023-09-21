@@ -1,4 +1,4 @@
-import XMLCreator from '../../../xml/xml';
+import XMLCreator from '../xml';
 
 /**
  * The folder name is the GUID of the topic.

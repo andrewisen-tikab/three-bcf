@@ -5,7 +5,7 @@ import {
     WorkerEventPostMessageData,
     WorkerEventPostMessageParams,
 } from '../types';
-import createZipAsync from './zip';
+import createZipAsync from '../three-bcf/zip';
 
 /**
  * Begin event

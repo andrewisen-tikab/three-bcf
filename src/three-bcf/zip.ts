@@ -1,11 +1,11 @@
 import JSZip from 'jszip';
 import * as THREE from 'three';
-import BCFVersionFactory_XML from '../core/xml/bcf/root/bcf.version';
+import BCFVersionFactory_XML from './root/bcf.version';
 
-import MarkupFactory_XML from '../core/xml/bcf/topic/markup';
-import ViewpointFactory_XML from '../core/xml/bcf/topic/viewpoint';
+import MarkupFactory_XML from './topic/markup';
+import ViewpointFactory_XML from './topic/viewpoint';
 import { TopicFolderSchema_Worker, WorkerEventPostMessageData } from '../types';
-import { dataURLtoBlob } from './utils';
+import { dataURLtoBlob } from '../worker/utils';
 
 /**
  * Create a BCF zip file from a list of topics.

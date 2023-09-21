@@ -14,7 +14,7 @@ import { updateTopic } from '../state/bcfSlice';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Grid from '@mui/material/Unstable_Grid2';
-import { TOPIC_STATUSES, TOPIC_TYPES } from '../../../src/core';
+import { TOPIC_STATUSES, TOPIC_TYPES } from '../../../src/constants';
 import { TopicFolder_ThreeJSON } from '../../../src/types';
 import dayjs from 'dayjs';
 

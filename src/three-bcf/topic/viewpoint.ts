@@ -1,7 +1,7 @@
 import { create } from 'xmlbuilder2';
 import Topic_XML from './topic';
 import MarkupFactory_XML from './markup';
-import type { CreateParams_Worker } from '../../../../types';
+import type { CreateParams_Worker } from '../../types';
 
 /**
  * The {@link MarkupFactory_XML} can contain multiple viewpoints related to one or more comments.
