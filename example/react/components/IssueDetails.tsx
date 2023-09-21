@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import NativeSelect from '@mui/material/NativeSelect';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../state/store';
@@ -15,6 +16,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Grid from '@mui/material/Unstable_Grid2';
 import { TOPIC_STATUSES, TOPIC_TYPES } from '../../../src/core';
 import { TopicFolder_ThreeJSON } from '../../../src/types';
+import dayjs from 'dayjs';
 
 export default function IssueDetails() {
     const dispatch = useDispatch();
@@ -23,6 +25,7 @@ export default function IssueDetails() {
     const description = useSelector((state: RootState) => state.bcf.selectedTopic?.description);
     const status = useSelector((state: RootState) => state.bcf.selectedTopic?.topicStatus);
     const type = useSelector((state: RootState) => state.bcf.selectedTopic?.topicType);
+    const dueDate = useSelector((state: RootState) => state.bcf.selectedTopic?.dueDate);
 
     if (disabled) return null;
 
@@ -59,7 +62,7 @@ export default function IssueDetails() {
                 <Divider textAlign="left" role="presentation">
                     <Typography variant="subtitle1"> Coordination</Typography>
                 </Divider>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} sx={{ px: 1 }}>
                     <Grid xs={6}>
                         <FormControl fullWidth>
                             <InputLabel variant="standard" htmlFor="uncontrolled-native">
@@ -104,6 +107,23 @@ export default function IssueDetails() {
                                     </option>
                                 ))}
                             </NativeSelect>
+                        </FormControl>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                    <Grid xs={12}>
+                        <FormControl fullWidth>
+                            <DatePicker
+                                label="Due date"
+                                // @ts-ignore
+                                value={dueDate === null ? null : dayjs(dueDate)}
+                                // @ts-ignore
+                                onChange={(newValue: Date) => {
+                                    const newDate = dayjs(newValue).toString();
+                                    update('dueDate', newDate);
+                                }}
+                                timezone="UTC"
+                            />
                         </FormControl>
                     </Grid>
                 </Grid>

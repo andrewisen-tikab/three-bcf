@@ -57,6 +57,12 @@ const TopicSchema_Core = BCFBaseSchema.extend({
      * Type of the topic.
      */
     topicStatus: z.string(),
+    /**
+     * Date until when the topics issue needs to be resolved.
+     *
+     * E.g. `2023-09-19T00:00:00+02:00`
+     */
+    dueDate: z.string().nullable(),
 });
 
 export type Topic_Core = z.infer<typeof TopicSchema_Core>;
