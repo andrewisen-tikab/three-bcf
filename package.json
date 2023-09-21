@@ -10,6 +10,7 @@
         "threejs",
         "bim"
     ],
+    "license": "MIT",
     "scripts": {
         "dev": "vite -c vite.config.example.ts",
         "build": "tsc && vite build",
