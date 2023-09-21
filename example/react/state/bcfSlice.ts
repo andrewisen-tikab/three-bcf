@@ -62,6 +62,7 @@ export const bcfSlice = createSlice({
                 topicStatus: BCF.CORE.TOPIC_STATUSES.OPEN,
                 topicType: BCF.CORE.TOPIC_TYPES.ERROR,
                 dueDate: null,
+                assignedTo: null,
                 ...action.payload.camera,
             };
             topic.set(params);
@@ -188,6 +189,7 @@ export const bcfSlice = createSlice({
                 const topicType = state.topicType;
                 const topicStatus = state.topicStatus;
                 const dueDate = state.dueDate;
+                const assignedTo = state.assignedTo;
 
                 const object: TopicFolder_Worker = {
                     title,
@@ -206,6 +208,7 @@ export const bcfSlice = createSlice({
                     topicType,
                     topicStatus,
                     dueDate,
+                    assignedTo,
                 };
 
                 return object;

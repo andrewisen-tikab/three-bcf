@@ -45,6 +45,8 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
 
     public dueDate: string | null;
 
+    public assignedTo: string | null;
+
     public constructor() {
         this.uuid = THREE.MathUtils.generateUUID();
         this.index = 0;
@@ -62,6 +64,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         this.modifiedDate = '';
         this.modifiedAuthor = '';
         this.dueDate = null;
+        this.assignedTo = null;
         this.topicType = TOPIC_STATUSES.OPEN;
         this.topicStatus = TOPIC_TYPES.ERROR;
     }
@@ -98,6 +101,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             topicType: this.topicType,
             topicStatus: this.topicStatus,
             dueDate: this.dueDate,
+            assignedTo: this.assignedTo,
         };
 
         this.checkJSON(topic);
@@ -133,6 +137,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             topicType: this.topicType,
             topicStatus: this.topicStatus,
             dueDate: this.dueDate,
+            assignedTo: this.assignedTo,
         };
 
         this.checkJSON(json);
