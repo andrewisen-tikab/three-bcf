@@ -220,6 +220,25 @@ This part can be a bit tricky depending on the property you added.
 
 Simply ask for help if you get stuck!
 
+## Dependency Graph
+
+As stated before, everything consists of three layers.
+
+-   Core
+-   Three
+-   ThreeBCF
+
+<img src="https://github.com/andrewisen-tikab/three-bcf/blob/dev/resources/dependency-graph-01.svg?raw=true" width="100%" />
+
+Inside each folder, you'll find a `index.ts` file.
+It should export everything that's is needed from that layer if you want to make your own library.
+
+<img src="https://github.com/andrewisen-tikab/three-bcf/blob/dev/resources/dependency-graph-02.svg?raw=true" width="100%" />
+
+This image below shows the dependency graph of the all the code.
+
+<img src="https://github.com/andrewisen-tikab/three-bcf/blob/dev/resources/dependency-graph-02.svg?raw=true" width="100%" />
+
 ## Status
 
 This is a work in progress. It's not production ready.
