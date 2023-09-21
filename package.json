@@ -19,7 +19,11 @@
         "preview": "vite preview",
         "ts": "tsc",
         "docs": "typedoc",
-        "version": "node setVersion.cjs"
+        "version": "node setVersion.cjs",
+        "cruise": "yarn cruise:1 && yarn cruise:2",
+        "cruise:1": "npx depcruise src --include-only '^src' --config --collapse 2 --output-type dot | dot -T svg > ./resources/dependency-graph-01.svg",
+        "cruise:2": "npx depcruise src --include-only '^src' --config --collapse 3 --output-type dot | dot -T svg > ./resources/dependency-graph-02.svg",
+        "cruise:3": "npx depcruise src --include-only '^src' --config --collapse 4 --output-type dot | dot -T svg > ./resources/dependency-graph-03.svg"
     },
     "devDependencies": {
         "@emotion/react": "^11.11.1",
@@ -38,6 +42,7 @@
         "add": "^2.0.6",
         "camera-controls": "^2.7.0",
         "dayjs": "^1.11.10",
+        "dependency-cruiser": "^13.1.5",
         "react": "^18.2.0",
         "react-beautiful-dnd": "^13.1.1",
         "react-dom": "^18.2.0",
