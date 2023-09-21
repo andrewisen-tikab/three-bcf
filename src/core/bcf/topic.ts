@@ -75,6 +75,14 @@ const TopicSchema_Core = BCFBaseSchema.extend({
      *
      */
     dueDate: z.string().nullable(),
+    /**
+     * The user(s) to whom this topic is assigned to. Recommended to be in email format (Predefined list in “extensions.xml”).
+     *
+     * E.g. `andre.wisen@gmail.com`
+     *
+     * Or, with multiple users: `foo@example.com, bar@example.comm, lorem@example.com`
+     */
+    assignedTo: z.string().nullable(),
 });
 
 export type Topic_Core = z.infer<typeof TopicSchema_Core>;

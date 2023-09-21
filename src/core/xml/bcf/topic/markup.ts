@@ -84,6 +84,7 @@ class MarkupFactory_XML extends Topic_XML {
             .txt(e.modifiedDate)
             .up()
             .ele('AssignedTo')
+            .txt(e.assignedTo ?? '')
             .up()
             .ele('Description')
             .txt(e.description ?? '')

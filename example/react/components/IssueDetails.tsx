@@ -20,12 +20,15 @@ import dayjs from 'dayjs';
 
 export default function IssueDetails() {
     const dispatch = useDispatch();
+
+    // TODO: Refactor `useSelector`
     const disabled = useSelector((state: RootState) => state.bcf.selectedTopic == null);
     const title = useSelector((state: RootState) => state.bcf.selectedTopic?.title);
     const description = useSelector((state: RootState) => state.bcf.selectedTopic?.description);
     const status = useSelector((state: RootState) => state.bcf.selectedTopic?.topicStatus);
     const type = useSelector((state: RootState) => state.bcf.selectedTopic?.topicType);
     const dueDate = useSelector((state: RootState) => state.bcf.selectedTopic?.dueDate);
+    const assignedTo = useSelector((state: RootState) => state.bcf.selectedTopic?.assignedTo);
 
     if (disabled) return null;
 
@@ -125,6 +128,21 @@ export default function IssueDetails() {
                                 timezone="UTC"
                             />
                         </FormControl>
+                    </Grid>
+                </Grid>
+                <Divider textAlign="left" role="presentation">
+                    <Typography variant="subtitle1"> Responsibilities </Typography>
+                </Divider>
+                <Grid container spacing={2}>
+                    <Grid xs={12}>
+                        <TextField
+                            label="Assigned to"
+                            value={assignedTo}
+                            fullWidth
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                update('assignedTo', event.target.value);
+                            }}
+                        />
                     </Grid>
                 </Grid>
             </Box>
