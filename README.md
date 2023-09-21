@@ -9,7 +9,7 @@ three-bcf is:
 -   Simple
 -   Opinionated
 
-![Example](./resources/example.gif?raw=true)
+<img src="https://github.com/andrewisen-tikab/three-bcf/blob/dev/resources/example.gif?raw=true" width="100%" />
 
 ## Getting Started
 
@@ -128,14 +128,14 @@ Auto-generated docs can be found here:
 
 The following diagram shows the intended design structure of `three-bcf`.
 
-![Design](./resources/design.png?raw=true)
+<img src="https://github.com/andrewisen-tikab/three-bcf/blob/dev/resources/design.png?raw=true" width="100%" />
 
 The source of the data should always (!) come from a database or state.
 This data should be highly serializable.
 
 The structure of the code mimics this design.
 
-![Structure](./resources/struture.png?raw=true)
+<img src="https://github.com/andrewisen-tikab/three-bcf/blob/dev/resources/structure.png?raw=true" width="100%" />
 
 ### Core
 
