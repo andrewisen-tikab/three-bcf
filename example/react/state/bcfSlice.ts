@@ -61,6 +61,7 @@ export const bcfSlice = createSlice({
                 modifiedAuthor: author,
                 topicStatus: BCF.CORE.TOPIC_STATUSES.OPEN,
                 topicType: BCF.CORE.TOPIC_TYPES.ERROR,
+                dueDate: null,
                 ...action.payload.camera,
             };
             topic.set(params);
@@ -186,6 +187,7 @@ export const bcfSlice = createSlice({
                 const aspectRatio = state.aspectRatio;
                 const topicType = state.topicType;
                 const topicStatus = state.topicStatus;
+                const dueDate = state.dueDate;
 
                 const object: TopicFolder_Worker = {
                     title,
@@ -203,6 +205,7 @@ export const bcfSlice = createSlice({
                     aspectRatio,
                     topicType,
                     topicStatus,
+                    dueDate,
                 };
 
                 return object;

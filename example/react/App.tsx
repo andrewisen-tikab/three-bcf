@@ -2,6 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
+import dayjs from 'dayjs';
+
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault();
 
 import theme from './theme/theme';
 import { store } from './state/store';
@@ -17,9 +28,11 @@ import FlexLayout from './components/FlexLayout';
 export function App() {
     return (
         <ThemeProvider theme={theme}>
-            <Provider store={store}>
-                <FlexLayout />
-            </Provider>
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en">
+                <Provider store={store}>
+                    <FlexLayout />
+                </Provider>
+            </LocalizationProvider>
         </ThemeProvider>
     );
 }

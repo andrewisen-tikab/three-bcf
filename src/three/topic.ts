@@ -43,6 +43,8 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
 
     public topicStatus: string;
 
+    public dueDate: string | null;
+
     public constructor() {
         this.uuid = THREE.MathUtils.generateUUID();
         this.index = 0;
@@ -59,6 +61,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         this.creationAuthor = '';
         this.modifiedDate = '';
         this.modifiedAuthor = '';
+        this.dueDate = null;
         this.topicType = TOPIC_STATUSES.OPEN;
         this.topicStatus = TOPIC_TYPES.ERROR;
     }
@@ -94,6 +97,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             aspectRatio: this.aspectRatio,
             topicType: this.topicType,
             topicStatus: this.topicStatus,
+            dueDate: this.dueDate,
         };
 
         this.checkJSON(topic);
@@ -128,6 +132,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             aspectRatio: this.aspectRatio,
             topicType: this.topicType,
             topicStatus: this.topicStatus,
+            dueDate: this.dueDate,
         };
 
         this.checkJSON(json);
@@ -147,7 +152,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
 
         this.checkJSON(json);
 
-        const { direction, position, target, title, description, index } =
+        const { direction, position, target, title, description, index, dueDate } =
             json as TopicFolder_ThreeJSON;
 
         this.uuid = uuid;
@@ -157,6 +162,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         this.title = title;
         this.description = description ?? '';
         this.index = index;
+        this.dueDate = dueDate ?? null;
     }
 
     /**
