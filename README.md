@@ -239,6 +239,10 @@ This image below shows the dependency graph of the all the code.
 
 <img src="https://github.com/andrewisen-tikab/three-bcf/blob/dev/resources/dependency-graph-02.svg?raw=true" width="100%" />
 
+## Tests
+
+Testing is done locally with `cypress`.
+
 ## Status
 
 This is a work in progress. It's not production ready.

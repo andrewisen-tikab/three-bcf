@@ -13,6 +13,8 @@ import BCFViewer from '../../viewer/BCFViewer';
 import { RootState } from '../state/store';
 import { TopicCameraState } from '../../types';
 
+import * as TEST from '../../test';
+
 function NewIssue() {
     const dispatch = useDispatch();
 
@@ -22,7 +24,12 @@ function NewIssue() {
     };
 
     return (
-        <Button aria-label="settings" startIcon={<AddCommentIcon />} onClick={onClick}>
+        <Button
+            id={TEST.NEW_ISSUE}
+            aria-label="settings"
+            startIcon={<AddCommentIcon />}
+            onClick={onClick}
+        >
             New issue
         </Button>
     );
@@ -38,6 +45,7 @@ function CreateBCF() {
 
     return (
         <Button
+            id={TEST.CREATE_BCF}
             disabled={disabled}
             aria-label="settings"
             startIcon={<SaveAltIcon />}
