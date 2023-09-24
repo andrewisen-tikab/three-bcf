@@ -61,14 +61,15 @@ describe('BCF spec', () => {
 
         // Create new topic.
         cy.visit('/');
+
+        // Wait for scene to render a single frame.
+        cy.wait(1_000);
+
         cy.get(`#${TEST.NEW_TOPIC}`).click();
 
         // Export file
         cy.get(`#${TEST.CREATE_BCF}`).click();
 
-        // Wait 2 seconds for file to be created.
-        cy.wait(2_000);
-
-        cy.readFile('cypress/downloads/presentation.bcf').should('exist');
+        cy.readFile('cypress/downloads/presentation.bcf', { timeout: 20_000 }).should('exist');
     });
 });
