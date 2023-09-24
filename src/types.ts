@@ -101,20 +101,67 @@ export const TopicFolderSchema_Worker = TopicSchema_Core.merge(
 export type TopicFolder_Worker = z.infer<typeof TopicFolderSchema_Worker>;
 
 /**
+ * Header node contains information about the IFC files relevant to this topic.
+ * The "files" should be used to match which models to be opened when displaying the topic viewpoints.
+ * As IFC-files don't have an unique id, this matching might not be fully automated.
+ * Therefore the software importing the BCF file should give the user a possibility to match these files, with the internal models.
+ */
+export const HeaderSchema_Worker = z.object({
+    /**
+     * IfcGuid Reference to the project to which this topic is related in the IFC file
+     */
+    ifcProject: z.string().uuid().optional(),
+    /**
+     * IfcGuid Reference to the spatial structure element, e.g. IfcBuildingStorey, to which this topic is related.
+     */
+    ifcSpatialStructureElement: z.string().uuid().optional(),
+    /**
+     *  Is the IFC file external or within the bcfzip. (Default = true).
+     */
+    isExternal: z.boolean().optional(),
+    /**
+     *  The BIM file related to this topic. For IFC files this is the first item in the FILE_NAME entry in the IFC file's [header](https://standards.buildingsmart.org/documents/Implementation/ImplementationGuide_IFCHeaderData_Version_1.0.2.pdf).
+     */
+    fileName: z.string().optional(),
+    /**
+     *  Date of the BIM file. For IFC files this is the second entry of the FILE_NAME entry in the IFC file's [header](https://standards.buildingsmart.org/documents/Implementation/ImplementationGuide_IFCHeaderData_Version_1.0.2.pdf). When the timestamp given in the header does not provide timezone, it is interpreted as UTC.
+     */
+    date: z.string().optional(),
+    /**
+     * URI to IfcFile. <br> IsExternal=false “..\example.ifc“ (within bcfzip) <br> IsExternal=true  “https://.../example.ifc“
+     */
+    reference: z.string().optional(),
+});
+
+/**
+ * Header node contains information about the IFC files relevant to this topic.
+ * The "files" should be used to match which models to be opened when displaying the topic viewpoints.
+ * As IFC-files don't have an unique id, this matching might not be fully automated.
+ * Therefore the software importing the BCF file should give the user a possibility to match these files, with the internal models.
+ */
+export type Header_Worker = z.infer<typeof HeaderSchema_Worker>;
+
+/**
  * Params for creating BCF topic inside a worker.
+ *
+ * N.B: This is used to create a single topic, not the entire file.
  */
 export interface CreateParams_Worker extends TopicFolder_Worker {
     topicGuid: string;
     viewpointGuid: string;
     index: number;
+    header: Header_Worker;
 }
 
 /**
  * Params for creating BCF file.
+ *
+ * N.B: This is used to create the entire file.
  */
 export type WorkerEventPostMessageData = {
     type: WorkerEventType;
     topics: TopicFolder_Worker[];
+    header: Header_Worker;
 };
 
 /**

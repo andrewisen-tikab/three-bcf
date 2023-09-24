@@ -4,7 +4,11 @@ import BCFVersionFactory_XML from './root/bcf.version';
 
 import MarkupFactory_XML from './topic/markup';
 import ViewpointFactory_XML from './topic/viewpoint';
-import { TopicFolderSchema_Worker, WorkerEventPostMessageData } from '../types';
+import {
+    CreateParams_Worker,
+    TopicFolderSchema_Worker,
+    WorkerEventPostMessageData,
+} from '../types';
 import { dataURLtoBlob } from '../worker/utils';
 
 /**
@@ -25,12 +29,13 @@ const createZipAsync = async (e: WorkerEventPostMessageData): Promise<Blob> => {
         const topicGuid = THREE.MathUtils.generateUUID();
         const viewpointGuid = THREE.MathUtils.generateUUID();
 
-        const params = {
+        const params: CreateParams_Worker = {
             ...topic,
             topicGuid,
             viewpointGuid,
             index: i,
-        } as const;
+            header: e.header,
+        };
 
         const topicFolder = zipFile.folder(topicGuid);
         if (topicFolder === null) throw new Error('Could not create topic folder');

@@ -6,6 +6,7 @@ import { TopicCameraState } from '../../types';
 import BCFViewer from '../../viewer/BCFViewer';
 import * as BCF from '../../../src';
 import type {
+    Header_Worker,
     TopicFolderBase_Three,
     TopicFolder_ThreeJSON,
     TopicFolder_Worker,
@@ -214,9 +215,15 @@ export const bcfSlice = createSlice({
                 return object;
             });
 
+            const header: Header_Worker = {
+                ifcProject: '16ptFjkWnCdh4kqFvB0NRX',
+                isExternal: true,
+                fileName: '0001',
+            };
             bcf.createBCF({
                 type: 'begin',
                 topics,
+                header,
             });
         },
     },

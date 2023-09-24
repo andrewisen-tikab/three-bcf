@@ -46,12 +46,15 @@ class MarkupFactory_XML extends Topic_XML {
             })
             .ele('Header')
             .ele('Files')
-            .ele('File', { IfcProject: '16ptFjkWnCdh4kqFvB0NRX', IsExternal: 'true' })
+            .ele('File', {
+                IfcProject: e.header.ifcProject ?? '',
+                IsExternal: e.header.isExternal?.toString() ?? 'true',
+            })
             .ele('Filename')
-            .txt('0001')
+            .txt(e.header.fileName ?? '')
             .up()
             .ele('Date')
-            .txt('2023-07-03T21:00:35+02:00')
+            .txt(e.header.date ?? '')
             .up()
             .up()
             .up()
