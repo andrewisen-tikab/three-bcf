@@ -28,10 +28,6 @@ class _BCFViewer extends THREEViewer {
         // @ts-ignore
         this.cameraControls._getCameraDirection(direction);
 
-        // Temporary fix for NaN values that Cypress get.
-        // TODO: Fix this.
-        if (Number.isNaN(direction.x)) direction.set(0, 0, 0);
-
         const BCFCameraState = {
             position: cameraControlsState.position,
             target: cameraControlsState.target,
