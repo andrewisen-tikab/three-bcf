@@ -25,7 +25,7 @@ function NewIssue() {
 
     return (
         <Button
-            id={TEST.NEW_ISSUE}
+            id={TEST.NEW_TOPIC}
             aria-label="settings"
             startIcon={<AddCommentIcon />}
             onClick={onClick}

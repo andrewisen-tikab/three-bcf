@@ -17,6 +17,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { TOPIC_STATUSES, TOPIC_TYPES } from '../../../src/constants';
 import { TopicFolder_ThreeJSON } from '../../../src/types';
 import dayjs from 'dayjs';
+import * as TEST from '../../test';
 
 function useUpdate() {
     const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function Title() {
 
     return (
         <TextField
+            id={TEST.BCF_TITLE}
             label="Title"
             value={title}
             fullWidth
