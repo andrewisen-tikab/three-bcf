@@ -94,7 +94,6 @@ export const TopicFolderSchema_Worker = TopicSchema_Core.merge(
         cameraUpVector: Vector3TupleSchema,
     })
     .merge(TopicFolderBaseSchema_Three.pick({ fieldOfView: true, aspectRatio: true }));
-
 /**
  * `TopicFolder` indented for the `worker`.
  */

@@ -11,6 +11,7 @@ import type {
     TopicFolder_ThreeJSON,
     TopicFolder_Worker,
 } from '../../../src/types';
+import { TopicComment_Core } from '../../../src/core/topic';
 
 const bcf = new BCF.ThreeBCF({
     worker,
@@ -173,6 +174,15 @@ export const bcfSlice = createSlice({
          * @param _state {@link BCFState}
          */
         createBCF: (_state): void => {
+            const comments: TopicComment_Core[] = [
+                {
+                    guid: '0aa61552-ad36-4458-96c8-a847b5ee0871',
+                    date: '2021-05-11T13:00:00Z',
+                    author: 'test@gmail.com',
+                    comment: 'This is a comment',
+                },
+            ];
+
             const topics: TopicFolder_Worker[] = _state.topics.map((state) => {
                 const cameraState = BCFViewer.convertTopicCameraStateToBCFState(state);
 
@@ -210,6 +220,7 @@ export const bcfSlice = createSlice({
                     topicStatus,
                     dueDate,
                     assignedTo,
+                    comments,
                 };
 
                 return object;
@@ -220,6 +231,7 @@ export const bcfSlice = createSlice({
                 isExternal: true,
                 fileName: '0001',
             };
+
             bcf.createBCF({
                 type: 'begin',
                 topics,

@@ -2,6 +2,49 @@ import { z } from 'zod';
 
 import BCFBaseSchema from './zod';
 
+/**
+ * The markup file can contain comments related to the topic.
+ * Their purpose is to record discussion between different parties related to the topic.
+ * Each Comment has a Guid attribute for identifying it uniquely.
+ * A comment can reference a viewpoint to support the discussion.
+ * At least one of Viewpoint and/or Comment (text) must be provided.
+ */
+export const TopicCommentSchema_Core = BCFBaseSchema.extend({
+    /**
+     * Date of the comment
+     */
+    date: z.string(),
+    /**
+     * Comment author.
+     */
+    author: z.string(),
+    /**
+     * The comment text, must not be empty if provided.
+     */
+    comment: z.string().optional(),
+    /**
+     * Back reference to the viewpoint GUID.
+     */
+    viewpoint: z.string().uuid().optional(),
+    /**
+     * The date when comment was modified.
+     */
+    modifiedDate: z.string().optional(),
+    /**
+     * The author who modified the comment.
+     */
+    modifiedAuthor: z.string().optional(),
+});
+
+/**
+ * The markup file can contain comments related to the topic.
+ * Their purpose is to record discussion between different parties related to the topic.
+ * Each Comment has a Guid attribute for identifying it uniquely.
+ * A comment can reference a viewpoint to support the discussion.
+ * At least one of Viewpoint and/or Comment (text) must be provided.
+ */
+export type TopicComment_Core = z.infer<typeof TopicCommentSchema_Core>;
+
 /*
  * Topic node contains reference information of the topic.
  * It has one required attribute, which is the topic GUID (Guid).
@@ -83,6 +126,10 @@ const TopicSchema_Core = BCFBaseSchema.extend({
      * Or, with multiple users: `foo@example.com, bar@example.comm, lorem@example.com`
      */
     assignedTo: z.string().nullable(),
+    /**
+     * The markup file can contain comments related to the topic. Their purpose is to record discussion between different parties related to the topic.
+     */
+    comments: z.array(TopicCommentSchema_Core).optional(),
 });
 
 export type Topic_Core = z.infer<typeof TopicSchema_Core>;
