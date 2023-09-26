@@ -168,25 +168,89 @@ export const bcfSlice = createSlice({
         deselectTopic: (state) => {
             state.selectedTopic = null;
         },
+        addTopicComment: (state, action: PayloadAction<string>) => {
+            const { selectedTopic } = state;
+            if (selectedTopic == null) throw new Error('selectedTopic is null');
+            const index = selectedTopic.index;
+            const topic = state.topics[index];
+            if (topic == null) throw new Error('topic is null');
+
+            const topicObject = new BCF.THREE.Topic_Three();
+            topicObject.fromJSON(topic);
+            topicObject.addComment(new BCF.THREE.TopicComment_Three(action.payload));
+            const json = topicObject.toJSON();
+
+            // Update both references
+            // @ts-ignore
+            state.topics[index].comments = json.comments;
+            // @ts-ignore
+            state.selectedTopic!.comments = json.comments;
+
+            // Update the modified date. Keep the same author.
+            const date = new Date().toISOString();
+            topic.modifiedDate = date;
+            selectedTopic.modifiedDate = date;
+        },
+        updateTopicComment: (state, action: PayloadAction<{ uuid: string; comment: string }>) => {
+            const { selectedTopic } = state;
+            if (selectedTopic == null) throw new Error('selectedTopic is null');
+            const index = selectedTopic.index;
+            const topic = state.topics[index];
+            if (topic == null) throw new Error('topic is null');
+
+            const topicObject = new BCF.THREE.Topic_Three();
+            topicObject.fromJSON(topic);
+            const comment = topicObject.comments.find((obj) => obj.uuid === action.payload.uuid);
+
+            comment!.comment = action.payload.comment;
+
+            const json = JSON.parse(JSON.stringify(topicObject.toJSON()));
+
+            // Update both references
+            // @ts-ignore
+            state.topics[index].comments = json.comments;
+            // @ts-ignore
+            state.selectedTopic!.comments = json.comments;
+
+            // Update the modified date. Keep the same author.
+            const date = new Date().toISOString();
+            topic.modifiedDate = date;
+            selectedTopic.modifiedDate = date;
+        },
+        removeTopicComment: (state, action: PayloadAction<string>) => {
+            const { selectedTopic } = state;
+            if (selectedTopic == null) throw new Error('selectedTopic is null');
+            const index = selectedTopic.index;
+            const topic = state.topics[index];
+            if (topic == null) throw new Error('topic is null');
+
+            const topicObject = new BCF.THREE.Topic_Three();
+            topicObject.fromJSON(topic);
+            topicObject.removeComment(action.payload);
+            const json = topicObject.toJSON();
+
+            // Update both references
+            // @ts-ignore
+            state.topics[index].comments = json.comments;
+            // @ts-ignore
+            state.selectedTopic!.comments = json.comments;
+
+            // Update the modified date. Keep the same author.
+            const date = new Date().toISOString();
+            topic.modifiedDate = date;
+            selectedTopic.modifiedDate = date;
+        },
         /**
          * From the current {@link BCFState}, create a BCF file.
          * This will be done in a Web Worker and the resulting file will be downloaded.
          * @param _state {@link BCFState}
          */
         createBCF: (_state): void => {
-            const comments: TopicComment_Core[] = [
-                {
-                    guid: '0aa61552-ad36-4458-96c8-a847b5ee0871',
-                    date: '2021-05-11T13:00:00Z',
-                    author: 'test@gmail.com',
-                    comment: 'This is a comment',
-                },
-            ];
-
             const topics: TopicFolder_Worker[] = _state.topics.map((state) => {
                 const cameraState = BCFViewer.convertTopicCameraStateToBCFState(state);
 
                 // Create new object to avoid reference to the state
+                const uuid = state.uuid;
                 const screenshot = state.screenshot;
                 const title = state.title;
                 const description = state.description;
@@ -201,8 +265,10 @@ export const bcfSlice = createSlice({
                 const topicStatus = state.topicStatus;
                 const dueDate = state.dueDate;
                 const assignedTo = state.assignedTo;
+                const comments = state.comments.map((comment) => comment.toJSON());
 
                 const object: TopicFolder_Worker = {
+                    uuid,
                     title,
                     description,
                     screenshot,
@@ -249,6 +315,9 @@ export const {
     deselectTopic,
     createBCF,
     updateTopicIndex,
+    addTopicComment,
+    updateTopicComment,
+    removeTopicComment,
 } = bcfSlice.actions;
 
 export default bcfSlice.reducer;

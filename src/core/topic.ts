@@ -129,7 +129,7 @@ const TopicSchema_Core = BCFBaseSchema.extend({
     /**
      * The markup file can contain comments related to the topic. Their purpose is to record discussion between different parties related to the topic.
      */
-    comments: z.array(TopicCommentSchema_Core).optional(),
+    comments: z.array(TopicCommentSchema_Core),
 });
 
 export type Topic_Core = z.infer<typeof TopicSchema_Core>;

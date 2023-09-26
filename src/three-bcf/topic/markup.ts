@@ -110,7 +110,7 @@ class MarkupFactory_XML extends Topic_XML {
         if (e.comments) {
             e.comments.forEach((comment) => {
                 comments
-                    .ele('Comment', { Guid: comment.guid })
+                    .ele('Comment', { Guid: comment.uuid })
                     .ele('Date')
                     .txt(comment.date)
                     .up()

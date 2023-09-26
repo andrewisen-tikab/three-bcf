@@ -4,6 +4,52 @@ import { DEFAULT_VECTOR3_TUPLE } from '../types';
 
 import type { TopicCameraState } from '../../example/types';
 import { TOPIC_STATUSES, TOPIC_TYPES } from '../constants';
+import { TopicComment_Core } from '../core';
+
+export class TopicComment_Three implements TopicComment_Core {
+    public uuid: string;
+
+    public date: string;
+
+    public author: string;
+
+    public comment?: string;
+
+    public viewpoint?: string;
+
+    public modifiedDate?: string;
+
+    public modifiedAuthor?: string;
+
+    constructor(comment?: string, viewpoint?: string) {
+        this.uuid = THREE.MathUtils.generateUUID();
+        this.date = new Date().toISOString();
+        this.author = '';
+        this.comment = comment ?? '';
+
+        this.viewpoint = viewpoint ?? '';
+
+        this.modifiedDate = '';
+        this.modifiedAuthor = '';
+    }
+
+    fromJSON(json: TopicComment_Core): void {
+        Object.assign(this, json);
+    }
+
+    toJSON(): TopicComment_Core {
+        return {
+            uuid: this.uuid,
+            date: this.date,
+            author: this.author,
+            comment: this.comment,
+            // TODO: Fix guid
+            viewpoint: this.uuid,
+            modifiedDate: this.modifiedDate,
+            modifiedAuthor: this.modifiedAuthor,
+        };
+    }
+}
 
 /**
  * Three.js wrapper for `BCF topic`.
@@ -47,6 +93,8 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
 
     public assignedTo: string | null;
 
+    public comments: TopicComment_Core[];
+
     public constructor() {
         this.uuid = THREE.MathUtils.generateUUID();
         this.index = 0;
@@ -67,6 +115,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         this.assignedTo = null;
         this.topicType = TOPIC_STATUSES.OPEN;
         this.topicStatus = TOPIC_TYPES.ERROR;
+        this.comments = [];
     }
 
     /**
@@ -102,6 +151,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             topicStatus: this.topicStatus,
             dueDate: this.dueDate,
             assignedTo: this.assignedTo,
+            comments: this.comments,
         };
 
         this.checkJSON(topic);
@@ -138,6 +188,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             topicStatus: this.topicStatus,
             dueDate: this.dueDate,
             assignedTo: this.assignedTo,
+            comments: this.comments,
         };
 
         this.checkJSON(json);
@@ -157,7 +208,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
 
         this.checkJSON(json);
 
-        const { direction, position, target, title, description, index, dueDate } =
+        const { direction, position, target, title, description, index, dueDate, comments } =
             json as TopicFolder_ThreeJSON;
 
         this.uuid = uuid;
@@ -168,6 +219,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         this.description = description ?? '';
         this.index = index;
         this.dueDate = dueDate ?? null;
+        this.comments = comments ?? [];
     }
 
     /**
@@ -196,5 +248,33 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         if (target == null) throw new Error('position is null');
         if (fieldOfView == null) throw new Error('fieldOfView is null');
         if (aspectRatio == null) throw new Error('aspectRatio is null');
+    }
+
+    /**
+     * Add comment to topic.
+     * @param comment
+     */
+    public addComment(comment: TopicComment_Three): void {
+        this.comments.push(comment);
+    }
+
+    /**
+     * Update comment.
+     * @param comment
+     */
+    public updateComment(comment: TopicComment_Three): void {
+        const index = this.comments.findIndex((c) => c.uuid === comment.uuid);
+        if (index === -1) throw new Error('Comment not found');
+        this.comments[index] = comment;
+    }
+
+    /**
+     * Remove comment from topic.
+     * @param comment
+     */
+    public removeComment(uuid: string): void {
+        const index = this.comments.findIndex((c) => c.uuid === uuid);
+        if (index === -1) throw new Error('Comment not found');
+        this.comments.splice(index, 1);
     }
 }
