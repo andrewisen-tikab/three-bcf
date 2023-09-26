@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { Nullable, TopicFolder_ThreeJSON, TopicFolderBase_Three } from '../types';
+import type { Nullable, TopicFolderBaseNoUUID_Three, TopicFolder_ThreeJSON } from '../types';
 import { DEFAULT_VECTOR3_TUPLE } from '../types';
 
 import type { TopicCameraState } from '../../example/types';
@@ -93,7 +93,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
 
     public assignedTo: string | null;
 
-    public comments: TopicComment_Core[];
+    public comments: TopicComment_Three[];
 
     public constructor() {
         this.uuid = THREE.MathUtils.generateUUID();
@@ -120,9 +120,9 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
 
     /**
      * Set the topic.
-     * @param params {@link TopicFolderBase_Three}
+     * @param params {@link TopicFolderBaseNoUUID_Three}
      */
-    public set(params: Nullable<TopicFolderBase_Three>): void {
+    public set(params: Nullable<TopicFolderBaseNoUUID_Three>): void {
         this.checkJSON(params);
         Object.assign(this, params);
     }
@@ -188,7 +188,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             topicStatus: this.topicStatus,
             dueDate: this.dueDate,
             assignedTo: this.assignedTo,
-            comments: this.comments,
+            comments: this.comments.map((c) => c.toJSON()),
         };
 
         this.checkJSON(json);
@@ -219,14 +219,19 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         this.description = description ?? '';
         this.index = index;
         this.dueDate = dueDate ?? null;
-        this.comments = comments ?? [];
+        this.comments =
+            comments.map((c) => {
+                const comment = new TopicComment_Three();
+                comment.fromJSON(c);
+                return comment;
+            }) ?? [];
     }
 
     /**
      * Check if JSON is valid.
-     * @param json {@link TopicFolderBase_Three}
+     * @param json {@link TopicFolderBaseNoUUID_Three}
      */
-    private checkJSON(json: Nullable<TopicFolderBase_Three>): void {
+    private checkJSON(json: Nullable<TopicFolderBaseNoUUID_Three>): void {
         const { title, description, index, creationDate, creationAuthor } = json;
         this.checkCamera(json);
         if (title == null) throw new Error('title is null');
@@ -240,7 +245,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
      * Check if camera is valid.
      * @param json {@link TopicCameraState}
      */
-    private checkCamera(json: Nullable<TopicFolderBase_Three>): void {
+    private checkCamera(json: Nullable<TopicFolderBaseNoUUID_Three>): void {
         const { direction, position, target, fieldOfView, aspectRatio } = json;
 
         if (direction == null) throw new Error('direction is null');

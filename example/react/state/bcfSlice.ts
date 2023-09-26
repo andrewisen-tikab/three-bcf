@@ -7,11 +7,10 @@ import BCFViewer from '../../viewer/BCFViewer';
 import * as BCF from '../../../src';
 import type {
     Header_Worker,
-    TopicFolderBase_Three,
+    TopicFolderBaseNoUUID_Three,
     TopicFolder_ThreeJSON,
     TopicFolder_Worker,
 } from '../../../src/types';
-import { TopicComment_Core } from '../../../src/core/topic';
 
 const bcf = new BCF.ThreeBCF({
     worker,
@@ -53,7 +52,7 @@ export const bcfSlice = createSlice({
             const date = new Date().toISOString();
             // The topic is empty by default.
             // We need to supply it with the correct data.
-            const params: TopicFolderBase_Three = {
+            const params: TopicFolderBaseNoUUID_Three = {
                 index: -1,
                 title: '',
                 description: '',
@@ -65,6 +64,7 @@ export const bcfSlice = createSlice({
                 topicType: BCF.CONSTANTS.TOPIC_TYPES.ERROR,
                 dueDate: null,
                 assignedTo: null,
+                comments: [],
                 ...action.payload.camera,
             };
             topic.set(params);
@@ -265,7 +265,8 @@ export const bcfSlice = createSlice({
                 const topicStatus = state.topicStatus;
                 const dueDate = state.dueDate;
                 const assignedTo = state.assignedTo;
-                const comments = state.comments.map((comment) => comment.toJSON());
+                // TODO: Fix. Some reference is off. Sill referencing objeect!
+                const comments = JSON.parse(JSON.stringify(state.comments));
 
                 const object: TopicFolder_Worker = {
                     uuid,

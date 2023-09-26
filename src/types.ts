@@ -67,6 +67,11 @@ export const TopicFolderBaseSchema_Three = TopicSchema_Core.extend({
 export type TopicFolderBase_Three = z.infer<typeof TopicFolderBaseSchema_Three>;
 
 /**
+ * `TopicFolderBase` indented for the `three.js`.
+ */
+export type TopicFolderBaseNoUUID_Three = Omit<TopicFolderBase_Three, 'uuid'>;
+
+/**
  * `TopicFolder` as schema indented for the `three.js`.
  */
 export const TopicFolderSchema_Three = TopicFolderBaseSchema_Three.extend({

@@ -1,4 +1,4 @@
-import { create, fragment } from 'xmlbuilder2';
+import { create } from 'xmlbuilder2';
 import { XML_WRITER_OPTIONS } from '../../constants';
 import Topic_XML from './topic';
 import type { CreateParams_Worker } from '../../types';
