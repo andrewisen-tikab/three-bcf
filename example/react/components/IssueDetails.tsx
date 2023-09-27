@@ -18,6 +18,7 @@ import { TOPIC_STATUSES, TOPIC_TYPES } from '../../../src/constants';
 import { TopicFolder_ThreeJSON } from '../../../src/types';
 import dayjs from 'dayjs';
 import * as TEST from '../../test';
+import Communications from './Communications';
 
 function useUpdate() {
     const dispatch = useDispatch();
@@ -203,13 +204,28 @@ function ResponsibilitiesContainer() {
     );
 }
 
+function CommunicationContainer() {
+    return (
+        <>
+            <Divider textAlign="left" role="presentation">
+                <Typography variant="subtitle1"> Communication </Typography>
+            </Divider>
+            <Grid container spacing={2}>
+                <Grid xs={12}>
+                    <Communications />
+                </Grid>
+            </Grid>
+        </>
+    );
+}
+
 export default function IssueDetails() {
     const isDisabled = useSelector((state: RootState) => state.bcf.selectedTopic == null);
 
     if (isDisabled) return null;
 
     return (
-        <CardContent>
+        <CardContent sx={{ height: '100%' }}>
             <Box
                 component="form"
                 sx={{
@@ -221,6 +237,7 @@ export default function IssueDetails() {
                 <GeneralContainer />
                 <CoordinationContainer />
                 <ResponsibilitiesContainer />
+                <CommunicationContainer />
             </Box>
         </CardContent>
     );

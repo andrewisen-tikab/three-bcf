@@ -14,12 +14,14 @@ function LeftFlexLayout() {
 function RightTopFlexLayout() {
     return (
         <Box
+            className="force-show-scrollbars"
             sx={{
                 display: 'flex',
                 flexBasis: '60%',
+                maxHeight: '50vh',
             }}
         >
-            <Panel title="Issue details" sx={{ flexBasis: '50%' }}>
+            <Panel title="Issue details" sx={{ flexBasis: '50%', overflowY: 'scroll' }}>
                 <IssueDetails />
             </Panel>
             <Panel title="3D" sx={{ flexBasis: '50%' }}>

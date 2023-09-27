@@ -38,12 +38,15 @@ import type { CreateParams_Worker } from '../../types';
  */
 class MarkupFactory_XML extends Topic_XML {
     public create(e: CreateParams_Worker): string {
-        const doc = create({ version: '1.0', encoding: 'UTF-8', standalone: true })
-            .ele('Markup', {
-                'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-                'xsi:noNamespaceSchemaLocation':
-                    'https://raw.githubusercontent.com/buildingSMART/BCF-XML/release_3_0/Schemas/markup.xsd',
-            })
+        const doc = create({ version: '1.0', encoding: 'UTF-8', standalone: true });
+
+        const markup = doc.ele('Markup', {
+            'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+            'xsi:noNamespaceSchemaLocation':
+                'https://raw.githubusercontent.com/buildingSMART/BCF-XML/release_3_0/Schemas/markup.xsd',
+        });
+
+        markup
             .ele('Header')
             .ele('Files')
             .ele('File', {
@@ -58,9 +61,11 @@ class MarkupFactory_XML extends Topic_XML {
             .up()
             .up()
             .up()
-            .up()
+            .up();
+
+        const topic = markup
             .ele('Topic', {
-                Guid: e.topicGuid,
+                Guid: e.uuid,
                 TopicType: e.topicType,
                 TopicStatus: e.topicStatus,
             })
@@ -98,26 +103,49 @@ class MarkupFactory_XML extends Topic_XML {
             .ele('DocumentReferences')
             .up()
             .ele('RelatedTopics')
-            .up()
-            .ele('Comments')
-            .up()
+            .up();
+
+        const comments = topic.ele('Comments');
+
+        const viewpoints = e.viewpoints;
+        const [viewpoint] = viewpoints;
+
+        if (e.comments) {
+            e.comments.forEach((comment) => {
+                comments
+                    .ele('Comment', { Guid: comment.uuid })
+                    .ele('Date')
+                    .txt(comment.date)
+                    .up()
+                    .ele('Author')
+                    .txt(comment.author)
+                    .up()
+                    .ele('Comment')
+                    .txt(comment.comment ?? '')
+                    .up()
+                    .ele('Viewpoint', { Guid: viewpoint?.uuid ?? '' })
+                    .up();
+            });
+        }
+
+        topic
             .ele('Viewpoints')
-            .ele('ViewPoint', { Guid: e.viewpointGuid })
+            .ele('ViewPoint', { Guid: viewpoint.uuid })
             .ele('Viewpoint')
-            .txt(`${e.viewpointGuid}.bcfv`)
+            .txt(`${viewpoint.viewpoint}.bcfv`)
             .up()
             .ele('Snapshot')
-            .txt(`${e.viewpointGuid}.png`)
+            .txt(`${viewpoint.snapshot}.png`)
             .up()
             .ele('Index')
-            .txt(`${e.index ?? 0}`)
+            .txt(`${viewpoint.index ?? 0}`)
             .up()
             .up()
             .up()
             .up();
 
-        const markup = doc.end(XML_WRITER_OPTIONS);
-        return markup;
+        const output = doc.end(XML_WRITER_OPTIONS);
+        return output;
     }
 }
 
