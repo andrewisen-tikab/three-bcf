@@ -83,7 +83,9 @@ export default function IssueSorter() {
                             style={getListStyle(snapshot.isDraggingOver) as any}
                         >
                             {topics.map((topic, _index) => {
-                                const { uuid, screenshot, index } = topic;
+                                const { uuid, index, viewpoints } = topic;
+                                const [viewpoint] = viewpoints;
+                                const { snapshotImage } = viewpoint;
 
                                 return (
                                     <Draggable
@@ -105,7 +107,7 @@ export default function IssueSorter() {
                                             >
                                                 <IssueItem
                                                     key={uuid}
-                                                    screenshot={screenshot}
+                                                    screenshot={snapshotImage}
                                                     index={`${index}`}
                                                 />
                                             </div>

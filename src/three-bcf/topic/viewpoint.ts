@@ -22,11 +22,11 @@ import type { CreateParams_Worker } from '../../types';
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#viewpoints](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#viewpoints)
  */
 class ViewpointFactory_XML extends Topic_XML {
-    public create(e: CreateParams_Worker): string {
+    public create(e: CreateParams_Worker, guid?: string): string {
         const root = create({ version: '1.0', encoding: 'UTF-8', standalone: true })
             .ele('VisualizationInfo')
             .att('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-            .att('Guid', e.viewpointGuid)
+            .att('Guid', guid ?? '')
             .att(
                 'xsi:noNamespaceSchemaLocation',
                 'https://raw.githubusercontent.com/buildingSMART/BCF-XML/release_3_0/Schemas/visinfo.xsd',

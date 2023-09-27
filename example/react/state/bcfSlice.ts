@@ -11,6 +11,7 @@ import type {
     TopicFolder_ThreeJSON,
     TopicFolder_Worker,
 } from '../../../src/types';
+import { TopicViewpoint_Three } from '../../../src/three';
 
 const bcf = new BCF.ThreeBCF({
     worker,
@@ -65,6 +66,7 @@ export const bcfSlice = createSlice({
                 dueDate: null,
                 assignedTo: null,
                 comments: [],
+                viewpoints: [],
                 ...action.payload.camera,
             };
             topic.set(params);
@@ -73,7 +75,9 @@ export const bcfSlice = createSlice({
             topic.index = state.topics.length;
 
             // Finally, we order the Viewer to generate a screenshot.
-            topic.setScreenshot(BCFViewer.generateScreenshot());
+            const screenshot = BCFViewer.generateScreenshot();
+            const viewpoint = new TopicViewpoint_Three(screenshot);
+            topic.addViewpoint(viewpoint);
 
             // We serialize the topic and add it to the state.
             // This serialized data could be saved to a database.
@@ -251,7 +255,6 @@ export const bcfSlice = createSlice({
 
                 // Create new object to avoid reference to the state
                 const uuid = state.uuid;
-                const screenshot = state.screenshot;
                 const title = state.title;
                 const description = state.description;
                 const index = state.index;
@@ -265,14 +268,14 @@ export const bcfSlice = createSlice({
                 const topicStatus = state.topicStatus;
                 const dueDate = state.dueDate;
                 const assignedTo = state.assignedTo;
-                // TODO: Fix. Some reference is off. Sill referencing objeect!
+                // TODO: Fix. Some reference is off. Sill referencing object!
                 const comments = JSON.parse(JSON.stringify(state.comments));
+                const viewpoints = JSON.parse(JSON.stringify(state.viewpoints));
 
                 const object: TopicFolder_Worker = {
                     uuid,
                     title,
                     description,
-                    screenshot,
                     index,
                     creationDate,
                     creationAuthor,
@@ -288,6 +291,7 @@ export const bcfSlice = createSlice({
                     dueDate,
                     assignedTo,
                     comments,
+                    viewpoints,
                 };
 
                 return object;

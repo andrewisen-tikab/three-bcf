@@ -1,5 +1,4 @@
 import JSZip from 'jszip';
-import * as THREE from 'three';
 import BCFVersionFactory_XML from './root/bcf.version';
 
 import MarkupFactory_XML from './topic/markup';
@@ -23,26 +22,32 @@ const createZipAsync = async (e: WorkerEventPostMessageData): Promise<Blob> => {
 
     for (let i = 0; i < e.topics.length; i++) {
         const topic = e.topics[i];
+        const viewpoints = topic.viewpoints;
+        const [viewpoint] = viewpoints;
 
         TopicFolderSchema_Worker.parse(topic);
 
-        const topicGuid = THREE.MathUtils.generateUUID();
-        const viewpointGuid = THREE.MathUtils.generateUUID();
-
         const params: CreateParams_Worker = {
             ...topic,
-            topicGuid,
-            viewpointGuid,
             index: i,
             header: e.header,
         };
 
-        const topicFolder = zipFile.folder(topicGuid);
+        const topicFolder = zipFile.folder(topic.uuid);
         if (topicFolder === null) throw new Error('Could not create topic folder');
-        topicFolder.file(`${viewpointGuid}.png`, dataURLtoBlob(topic.screenshot), {
-            binary: true,
-        });
-        topicFolder.file(`${viewpointGuid}.bcfv`, new ViewpointFactory_XML().create(params));
+
+        if (viewpoint) {
+            console.log('Viewpoint', viewpoint);
+
+            topicFolder.file(`${viewpoint.snapshot}.png`, dataURLtoBlob(viewpoint.snapshotImage), {
+                binary: true,
+            });
+            topicFolder.file(
+                `${viewpoint.viewpoint}.bcfv`,
+                new ViewpointFactory_XML().create(params, viewpoint.uuid),
+            );
+        }
+
         topicFolder.file('markup.bcf', new MarkupFactory_XML().create(params));
     }
 

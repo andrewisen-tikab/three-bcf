@@ -4,7 +4,41 @@ import { DEFAULT_VECTOR3_TUPLE } from '../types';
 
 import type { TopicCameraState } from '../../example/types';
 import { TOPIC_STATUSES, TOPIC_TYPES } from '../constants';
-import { TopicComment_Core } from '../core';
+import { TopicComment_Core, TopicViewpoint_Core } from '../core';
+
+export class TopicViewpoint_Three implements TopicViewpoint_Core {
+    public uuid: string;
+    public viewpoint: string;
+    public snapshot: string;
+    public index: number;
+    public snapshotImage: string;
+
+    constructor(snapshotImage?: string) {
+        this.uuid = THREE.MathUtils.generateUUID();
+        this.viewpoint = `${this.uuid}.bcfv`;
+        this.snapshot = `${this.uuid}.png`;
+        this.snapshotImage = snapshotImage ?? '';
+        this.index = 0;
+    }
+
+    setSnapshotImage(snapshotImage: string) {
+        this.snapshotImage = snapshotImage;
+    }
+
+    fromJSON(json: TopicViewpoint_Core) {
+        Object.assign(this, json);
+    }
+
+    toJSON(): TopicViewpoint_Core {
+        return {
+            uuid: this.uuid,
+            viewpoint: this.viewpoint,
+            snapshot: this.snapshot,
+            snapshotImage: this.snapshotImage,
+            index: this.index,
+        };
+    }
+}
 
 export class TopicComment_Three implements TopicComment_Core {
     public uuid: string;
@@ -67,8 +101,6 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
 
     public target: THREE.Vector3Tuple;
 
-    public screenshot: string;
-
     public title: string;
 
     public description: string;
@@ -95,6 +127,8 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
 
     public comments: TopicComment_Three[];
 
+    public viewpoints: TopicViewpoint_Three[];
+
     public constructor() {
         this.uuid = THREE.MathUtils.generateUUID();
         this.index = 0;
@@ -104,7 +138,6 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         this.target = DEFAULT_VECTOR3_TUPLE;
         this.fieldOfView = 0;
         this.aspectRatio = 0;
-        this.screenshot = '';
         this.title = '';
         this.description = '';
         this.creationDate = '';
@@ -116,6 +149,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         this.topicType = TOPIC_STATUSES.OPEN;
         this.topicStatus = TOPIC_TYPES.ERROR;
         this.comments = [];
+        this.viewpoints = [];
     }
 
     /**
@@ -140,7 +174,6 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             description: this.description,
             index: this.index,
             uuid: this.uuid,
-            screenshot: this.screenshot,
             creationDate: this.creationDate,
             creationAuthor: this.creationAuthor,
             modifiedDate: this.modifiedDate,
@@ -152,16 +185,12 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             dueDate: this.dueDate,
             assignedTo: this.assignedTo,
             comments: this.comments,
+            viewpoints: this.viewpoints,
         };
 
         this.checkJSON(topic);
 
         return topic as TopicFolder_ThreeJSON;
-    }
-
-    public setScreenshot(screenshot: string) {
-        // TODO: Verify screenshot is a valid base64 string.
-        this.screenshot = screenshot;
     }
 
     /**
@@ -174,7 +203,6 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             direction: this.direction,
             position: this.position,
             target: this.target,
-            screenshot: this.screenshot,
             title: this.title,
             description: this.description,
             index: this.index,
@@ -189,6 +217,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             dueDate: this.dueDate,
             assignedTo: this.assignedTo,
             comments: this.comments.map((c) => c.toJSON()),
+            viewpoints: this.viewpoints.map((v) => v.toJSON()),
         };
 
         this.checkJSON(json);
@@ -208,8 +237,17 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
 
         this.checkJSON(json);
 
-        const { direction, position, target, title, description, index, dueDate, comments } =
-            json as TopicFolder_ThreeJSON;
+        const {
+            direction,
+            position,
+            target,
+            title,
+            description,
+            index,
+            dueDate,
+            comments,
+            viewpoints,
+        } = json as TopicFolder_ThreeJSON;
 
         this.uuid = uuid;
         this.position = position;
@@ -224,6 +262,12 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
                 const comment = new TopicComment_Three();
                 comment.fromJSON(c);
                 return comment;
+            }) ?? [];
+        this.viewpoints =
+            viewpoints.map((v) => {
+                const viewpoint = new TopicViewpoint_Three();
+                viewpoint.fromJSON(v);
+                return viewpoint;
             }) ?? [];
     }
 
@@ -281,5 +325,21 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         const index = this.comments.findIndex((c) => c.uuid === uuid);
         if (index === -1) throw new Error('Comment not found');
         this.comments.splice(index, 1);
+    }
+
+    public addViewpoint(viewpoint: TopicViewpoint_Three): void {
+        this.viewpoints.push(viewpoint);
+    }
+
+    public updateViewpoint(viewpoint: TopicViewpoint_Three): void {
+        const index = this.viewpoints.findIndex((v) => v.uuid === viewpoint.uuid);
+        if (index === -1) throw new Error('Viewpoint not found');
+        this.viewpoints[index] = viewpoint;
+    }
+
+    public removeViewpoint(uuid: string): void {
+        const index = this.viewpoints.findIndex((v) => v.uuid === uuid);
+        if (index === -1) throw new Error('Viewpoint not found');
+        this.viewpoints.splice(index, 1);
     }
 }
