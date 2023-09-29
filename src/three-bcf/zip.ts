@@ -39,11 +39,11 @@ const createZipAsync = async (e: WorkerEventPostMessageData): Promise<Blob> => {
         if (viewpoint) {
             console.log('Viewpoint', viewpoint);
 
-            topicFolder.file(`${viewpoint.snapshot}.png`, dataURLtoBlob(viewpoint.snapshotImage), {
+            topicFolder.file(`${viewpoint.snapshot}`, dataURLtoBlob(viewpoint.snapshotImage), {
                 binary: true,
             });
             topicFolder.file(
-                `${viewpoint.viewpoint}.bcfv`,
+                `${viewpoint.viewpoint}`,
                 new ViewpointFactory_XML().create(params, viewpoint.uuid),
             );
         }
