@@ -9,9 +9,7 @@ three-bcf is:
 -   Simple to use, yet
 -   Highly opinionated
 
-<video width="100%" controls autoplay muted>
-  <source src="https://github.com/andrewisen-tikab/three-bcf/blob/dev/resources/example.mp4?raw=true" type="video/mp4">
-</video>
+<img src="https://github.com/andrewisen-tikab/three-bcf/blob/dev/resources/example.gif?raw=true" width="100%" />
 
 ## Getting Started
 
