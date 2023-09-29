@@ -18,8 +18,8 @@
 <g id="node1" class="node">
 <title>src/ThreeBCF.ts</title>
 <g id="a_node1"><a xlink:href="src/ThreeBCF.ts" xlink:title="ThreeBCF.ts">
-<path fill="#ddfeff" stroke="black" d="M224,-76C224,-76 168,-76 168,-76 165,-76 162,-73 162,-70 162,-70 162,-64 162,-64 162,-61 165,-58 168,-58 168,-58 224,-58 224,-58 227,-58 230,-61 230,-64 230,-64 230,-70 230,-70 230,-73 227,-76 224,-76"/>
-<text text-anchor="start" x="170" y="-64.8" font-family="Helvetica,sans-Serif" font-size="9.00">ThreeBCF.ts</text>
+<path fill="#ddfeff" stroke="black" d="M224,-120C224,-120 168,-120 168,-120 165,-120 162,-117 162,-114 162,-114 162,-108 162,-108 162,-105 165,-102 168,-102 168,-102 224,-102 224,-102 227,-102 230,-105 230,-108 230,-108 230,-114 230,-114 230,-117 227,-120 224,-120"/>
+<text text-anchor="start" x="170" y="-108.8" font-family="Helvetica,sans-Serif" font-size="9.00">ThreeBCF.ts</text>
 </a>
 </g>
 </g>
@@ -27,221 +27,227 @@
 <g id="node2" class="node">
 <title>src/types.ts</title>
 <g id="a_node2"><a xlink:href="src/types.ts" xlink:title="types.ts">
-<path fill="#ddfeff" stroke="black" d="M292,-120C292,-120 250,-120 250,-120 247,-120 244,-117 244,-114 244,-114 244,-108 244,-108 244,-105 247,-102 250,-102 250,-102 292,-102 292,-102 295,-102 298,-105 298,-108 298,-108 298,-114 298,-114 298,-117 295,-120 292,-120"/>
-<text text-anchor="start" x="255.5" y="-108.8" font-family="Helvetica,sans-Serif" font-size="9.00">types.ts</text>
+<path fill="#ddfeff" stroke="black" d="M292,-92C292,-92 250,-92 250,-92 247,-92 244,-89 244,-86 244,-86 244,-80 244,-80 244,-77 247,-74 250,-74 250,-74 292,-74 292,-74 295,-74 298,-77 298,-80 298,-80 298,-86 298,-86 298,-89 295,-92 292,-92"/>
+<text text-anchor="start" x="255.5" y="-80.8" font-family="Helvetica,sans-Serif" font-size="9.00">types.ts</text>
 </a>
 </g>
 </g>
 <!-- src/ThreeBCF.ts&#45;&gt;src/types.ts -->
 <g id="edge1" class="edge">
 <title>src/ThreeBCF.ts&#45;&gt;src/types.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M227,-76.1C227,-88.18 227,-108 227,-108 227,-108 237.89,-108 237.89,-108"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="237.89,-110.1 243.89,-108 237.89,-105.9 237.89,-110.1"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M227,-101.86C227,-94.03 227,-84 227,-84 227,-84 237.89,-84 237.89,-84"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="237.89,-86.1 243.89,-84 237.89,-81.9 237.89,-86.1"/>
 </g>
 <!-- src/version.ts -->
 <g id="node3" class="node">
 <title>src/version.ts</title>
 <g id="a_node3"><a xlink:href="src/version.ts" xlink:title="version.ts">
-<path fill="#ddfeff" stroke="black" d="M293,-76C293,-76 249,-76 249,-76 246,-76 243,-73 243,-70 243,-70 243,-64 243,-64 243,-61 246,-58 249,-58 249,-58 293,-58 293,-58 296,-58 299,-61 299,-64 299,-64 299,-70 299,-70 299,-73 296,-76 293,-76"/>
-<text text-anchor="start" x="251" y="-64.8" font-family="Helvetica,sans-Serif" font-size="9.00">version.ts</text>
+<path fill="#ddfeff" stroke="black" d="M293,-122C293,-122 249,-122 249,-122 246,-122 243,-119 243,-116 243,-116 243,-110 243,-110 243,-107 246,-104 249,-104 249,-104 293,-104 293,-104 296,-104 299,-107 299,-110 299,-110 299,-116 299,-116 299,-119 296,-122 293,-122"/>
+<text text-anchor="start" x="251" y="-110.8" font-family="Helvetica,sans-Serif" font-size="9.00">version.ts</text>
 </a>
 </g>
 </g>
 <!-- src/ThreeBCF.ts&#45;&gt;src/version.ts -->
 <g id="edge2" class="edge">
 <title>src/ThreeBCF.ts&#45;&gt;src/version.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M230.43,-67C230.43,-67 236.85,-67 236.85,-67"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="236.85,-69.1 242.85,-67 236.85,-64.9 236.85,-69.1"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M230.43,-112C230.43,-112 236.85,-112 236.85,-112"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="236.85,-114.1 242.85,-112 236.85,-109.9 236.85,-114.1"/>
 </g>
 <!-- src/constants.ts -->
 <g id="node4" class="node">
 <title>src/constants.ts</title>
 <g id="a_node4"><a xlink:href="src/constants.ts" xlink:title="constants.ts">
-<path fill="#ddfeff" stroke="black" d="M371,-136C371,-136 318,-136 318,-136 315,-136 312,-133 312,-130 312,-130 312,-124 312,-124 312,-121 315,-118 318,-118 318,-118 371,-118 371,-118 374,-118 377,-121 377,-124 377,-124 377,-130 377,-130 377,-133 374,-136 371,-136"/>
-<text text-anchor="start" x="320" y="-124.8" font-family="Helvetica,sans-Serif" font-size="9.00">constants.ts</text>
+<path fill="#ddfeff" stroke="black" d="M371,-81C371,-81 318,-81 318,-81 315,-81 312,-78 312,-75 312,-75 312,-69 312,-69 312,-66 315,-63 318,-63 318,-63 371,-63 371,-63 374,-63 377,-66 377,-69 377,-69 377,-75 377,-75 377,-78 374,-81 371,-81"/>
+<text text-anchor="start" x="320" y="-69.8" font-family="Helvetica,sans-Serif" font-size="9.00">constants.ts</text>
 </a>
 </g>
 </g>
 <!-- src/types.ts&#45;&gt;src/constants.ts -->
-<g id="edge17" class="edge">
+<g id="edge18" class="edge">
 <title>src/types.ts&#45;&gt;src/constants.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M285,-120.2C285,-124.8 285,-129.4 285,-129.4 285,-129.4 305.96,-129.4 305.96,-129.4"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="305.96,-131.5 311.96,-129.4 305.96,-127.3 305.96,-131.5"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M298.37,-77.5C298.37,-77.5 305.89,-77.5 305.89,-77.5"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="305.89,-79.6 311.89,-77.5 305.89,-75.4 305.89,-79.6"/>
 </g>
 <!-- src/core/ -->
 <g id="node6" class="node">
 <title>src/core/</title>
 <g id="a_node6"><a xlink:href="src/core/" xlink:title="core">
-<polygon fill="#ffffcc" stroke="black" points="371.5,-40 319.5,-40 317.5,-38 317.5,-22 369.5,-22 371.5,-24 371.5,-40"/>
-<polyline fill="none" stroke="black" points="369.5,-38 317.5,-38 "/>
-<polyline fill="none" stroke="black" points="369.5,-38 369.5,-22 "/>
-<polyline fill="none" stroke="black" points="369.5,-38 371.5,-40 "/>
-<text text-anchor="start" x="335" y="-28.8" font-family="Helvetica,sans-Serif" font-size="9.00">core</text>
+<polygon fill="#ffffcc" stroke="black" points="371.5,-165 319.5,-165 317.5,-163 317.5,-147 369.5,-147 371.5,-149 371.5,-165"/>
+<polyline fill="none" stroke="black" points="369.5,-163 317.5,-163 "/>
+<polyline fill="none" stroke="black" points="369.5,-163 369.5,-147 "/>
+<polyline fill="none" stroke="black" points="369.5,-163 371.5,-165 "/>
+<text text-anchor="start" x="335" y="-153.8" font-family="Helvetica,sans-Serif" font-size="9.00">core</text>
 </a>
 </g>
 </g>
 <!-- src/types.ts&#45;&gt;src/core/ -->
-<g id="edge18" class="edge">
+<g id="edge19" class="edge">
 <title>src/types.ts&#45;&gt;src/core/</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M298.18,-110C322.38,-110 354,-110 354,-110 354,-110 354,-46.06 354,-46.06"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="356.1,-46.06 354,-40.06 351.9,-46.06 356.1,-46.06"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M298.05,-86.5C323.59,-86.5 358,-86.5 358,-86.5 358,-86.5 358,-140.91 358,-140.91"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="355.9,-140.91 358,-146.91 360.1,-140.91 355.9,-140.91"/>
 </g>
 <!-- src/contribute.ts -->
 <g id="node5" class="node">
 <title>src/contribute.ts</title>
 <g id="a_node5"><a xlink:href="src/contribute.ts" xlink:title="contribute.ts">
-<path fill="#ddfeff" stroke="black" d="M76,-125C76,-125 22,-125 22,-125 19,-125 16,-122 16,-119 16,-119 16,-113 16,-113 16,-110 19,-107 22,-107 22,-107 76,-107 76,-107 79,-107 82,-110 82,-113 82,-113 82,-119 82,-119 82,-122 79,-125 76,-125"/>
-<text text-anchor="start" x="24" y="-113.8" font-family="Helvetica,sans-Serif" font-size="9.00">contribute.ts</text>
+<path fill="#ddfeff" stroke="black" d="M76,-150C76,-150 22,-150 22,-150 19,-150 16,-147 16,-144 16,-144 16,-138 16,-138 16,-135 19,-132 22,-132 22,-132 76,-132 76,-132 79,-132 82,-135 82,-138 82,-138 82,-144 82,-144 82,-147 79,-150 76,-150"/>
+<text text-anchor="start" x="24" y="-138.8" font-family="Helvetica,sans-Serif" font-size="9.00">contribute.ts</text>
 </a>
 </g>
 </g>
 <!-- src/contribute.ts&#45;&gt;src/core/ -->
 <g id="edge3" class="edge">
 <title>src/contribute.ts&#45;&gt;src/core/</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M82.03,-113C86.18,-113 89,-113 89,-113 89,-113 89,-28 89,-28 89,-28 311.16,-28 311.16,-28"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="311.16,-30.1 317.16,-28 311.16,-25.9 311.16,-30.1"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M49,-150.18C49,-155.53 49,-161.25 49,-161.25 49,-161.25 311.49,-161.25 311.49,-161.25"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="311.49,-163.35 317.49,-161.25 311.49,-159.15 311.49,-163.35"/>
 </g>
 <!-- src/three&#45;bcf/ -->
 <g id="node7" class="node">
 <title>src/three&#45;bcf/</title>
 <g id="a_node7"><a xlink:href="src/three-bcf/" xlink:title="three&#45;bcf">
-<polygon fill="#ffffcc" stroke="black" points="149,-125 97,-125 95,-123 95,-107 147,-107 149,-109 149,-125"/>
-<polyline fill="none" stroke="black" points="147,-123 95,-123 "/>
-<polyline fill="none" stroke="black" points="147,-123 147,-107 "/>
-<polyline fill="none" stroke="black" points="147,-123 149,-125 "/>
-<text text-anchor="start" x="103.5" y="-113.8" font-family="Helvetica,sans-Serif" font-size="9.00">three&#45;bcf</text>
+<polygon fill="#ffffcc" stroke="black" points="149,-62 97,-62 95,-60 95,-44 147,-44 149,-46 149,-62"/>
+<polyline fill="none" stroke="black" points="147,-60 95,-60 "/>
+<polyline fill="none" stroke="black" points="147,-60 147,-44 "/>
+<polyline fill="none" stroke="black" points="147,-60 149,-62 "/>
+<text text-anchor="start" x="103.5" y="-50.8" font-family="Helvetica,sans-Serif" font-size="9.00">three&#45;bcf</text>
 </a>
 </g>
 </g>
 <!-- src/contribute.ts&#45;&gt;src/three&#45;bcf/ -->
 <g id="edge4" class="edge">
 <title>src/contribute.ts&#45;&gt;src/three&#45;bcf/</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M82.08,-119C82.08,-119 88.71,-119 88.71,-119"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="88.71,-121.1 94.71,-119 88.71,-116.9 88.71,-121.1"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M82.03,-136.5C86.18,-136.5 89,-136.5 89,-136.5 89,-136.5 89,-51.5 89,-51.5 89,-51.5 89.57,-51.5 89.57,-51.5"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="88.75,-53.6 94.75,-51.5 88.75,-49.4 88.75,-53.6"/>
 </g>
 <!-- src/three/ -->
 <g id="node8" class="node">
 <title>src/three/</title>
 <g id="a_node8"><a xlink:href="src/three/" xlink:title="three">
-<polygon fill="#ffffcc" stroke="black" points="223,-164 171,-164 169,-162 169,-146 221,-146 223,-148 223,-164"/>
-<polyline fill="none" stroke="black" points="221,-162 169,-162 "/>
-<polyline fill="none" stroke="black" points="221,-162 221,-146 "/>
-<polyline fill="none" stroke="black" points="221,-162 223,-164 "/>
-<text text-anchor="start" x="185" y="-152.8" font-family="Helvetica,sans-Serif" font-size="9.00">three</text>
+<polygon fill="#ffffcc" stroke="black" points="223,-150 171,-150 169,-148 169,-132 221,-132 223,-134 223,-150"/>
+<polyline fill="none" stroke="black" points="221,-148 169,-148 "/>
+<polyline fill="none" stroke="black" points="221,-148 221,-132 "/>
+<polyline fill="none" stroke="black" points="221,-148 223,-150 "/>
+<text text-anchor="start" x="185" y="-138.8" font-family="Helvetica,sans-Serif" font-size="9.00">three</text>
 </a>
 </g>
 </g>
 <!-- src/contribute.ts&#45;&gt;src/three/ -->
 <g id="edge5" class="edge">
 <title>src/contribute.ts&#45;&gt;src/three/</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M49,-125.32C49,-137.69 49,-158 49,-158 49,-158 162.69,-158 162.69,-158"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="162.69,-160.1 168.69,-158 162.69,-155.9 162.69,-160.1"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M82.36,-145.5C82.36,-145.5 162.68,-145.5 162.68,-145.5"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="162.68,-147.6 168.68,-145.5 162.68,-143.4 162.68,-147.6"/>
 </g>
 <!-- src/three&#45;bcf/&#45;&gt;src/types.ts -->
 <g id="edge13" class="edge">
 <title>src/three&#45;bcf/&#45;&gt;src/types.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M131,-125.04C131,-126.31 131,-127.2 131,-127.2 131,-127.2 258,-127.2 258,-127.2 258,-127.2 258,-126.24 258,-126.24"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="260.1,-126.24 258,-120.24 255.9,-126.24 260.1,-126.24"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M113,-62C113,-70.02 113,-80.5 113,-80.5 113,-80.5 237.84,-80.5 237.84,-80.5"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="237.84,-82.6 243.84,-80.5 237.84,-78.4 237.84,-82.6"/>
 </g>
 <!-- src/three&#45;bcf/&#45;&gt;src/constants.ts -->
 <g id="edge12" class="edge">
 <title>src/three&#45;bcf/&#45;&gt;src/constants.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M113,-125.25C113,-128.61 113,-131.6 113,-131.6 113,-131.6 305.82,-131.6 305.82,-131.6"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="305.82,-133.7 311.82,-131.6 305.82,-129.5 305.82,-133.7"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M131,-62.2C131,-65.53 131,-68.5 131,-68.5 131,-68.5 305.61,-68.5 305.61,-68.5"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="305.61,-70.6 311.61,-68.5 305.61,-66.4 305.61,-70.6"/>
 </g>
 <!-- src/worker/ -->
 <g id="node10" class="node">
 <title>src/worker/</title>
 <g id="a_node10"><a xlink:href="src/worker/" xlink:title="worker">
-<polygon fill="#ffffcc" stroke="black" points="223,-120 171,-120 169,-118 169,-102 221,-102 223,-104 223,-120"/>
-<polyline fill="none" stroke="black" points="221,-118 169,-118 "/>
-<polyline fill="none" stroke="black" points="221,-118 221,-102 "/>
-<polyline fill="none" stroke="black" points="221,-118 223,-120 "/>
-<text text-anchor="start" x="182" y="-108.8" font-family="Helvetica,sans-Serif" font-size="9.00">worker</text>
+<polygon fill="#ffffcc" stroke="black" points="223,-62 171,-62 169,-60 169,-44 221,-44 223,-46 223,-62"/>
+<polyline fill="none" stroke="black" points="221,-60 169,-60 "/>
+<polyline fill="none" stroke="black" points="221,-60 221,-44 "/>
+<polyline fill="none" stroke="black" points="221,-60 223,-62 "/>
+<text text-anchor="start" x="182" y="-50.8" font-family="Helvetica,sans-Serif" font-size="9.00">worker</text>
 </a>
 </g>
 </g>
 <!-- src/three&#45;bcf/&#45;&gt;src/worker/ -->
 <g id="edge14" class="edge">
 <title>src/three&#45;bcf/&#45;&gt;src/worker/</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M149.13,-115.67C149.13,-115.67 162.87,-115.67 162.87,-115.67"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="162.87,-117.77 168.87,-115.67 162.87,-113.57 162.87,-117.77"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M149.13,-50C149.13,-50 162.87,-50 162.87,-50"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="162.87,-52.1 168.87,-50 162.87,-47.9 162.87,-52.1"/>
 </g>
 <!-- src/three/&#45;&gt;src/types.ts -->
-<g id="edge16" class="edge">
+<g id="edge17" class="edge">
 <title>src/three/&#45;&gt;src/types.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M223.08,-155C244.56,-155 271,-155 271,-155 271,-155 271,-126.33 271,-126.33"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="273.1,-126.33 271,-120.33 268.9,-126.33 273.1,-126.33"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M223.12,-137C230.74,-137 237,-137 237,-137 237,-137 237,-87.5 237,-87.5 237,-87.5 237.88,-87.5 237.88,-87.5"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="237.88,-89.6 243.88,-87.5 237.88,-85.4 237.88,-89.6"/>
 </g>
 <!-- src/three/&#45;&gt;src/constants.ts -->
 <g id="edge15" class="edge">
 <title>src/three/&#45;&gt;src/constants.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M196,-145.89C196,-140.14 196,-133.8 196,-133.8 196,-133.8 305.91,-133.8 305.91,-133.8"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="305.91,-135.9 311.91,-133.8 305.91,-131.7 305.91,-135.9"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M223.33,-142C266.34,-142 345,-142 345,-142 345,-142 345,-87.15 345,-87.15"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="347.1,-87.15 345,-81.15 342.9,-87.15 347.1,-87.15"/>
+</g>
+<!-- src/three/&#45;&gt;src/core/ -->
+<g id="edge16" class="edge">
+<title>src/three/&#45;&gt;src/core/</title>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M196,-150.27C196,-152.24 196,-153.75 196,-153.75 196,-153.75 311.26,-153.75 311.26,-153.75"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="311.26,-155.85 317.26,-153.75 311.26,-151.65 311.26,-155.85"/>
 </g>
 <!-- src/index.ts -->
 <g id="node9" class="node">
 <title>src/index.ts</title>
 <g id="a_node9"><a xlink:href="src/index.ts" xlink:title="index.ts">
-<path fill="#ddfeff" stroke="black" d="M143,-85C143,-85 101,-85 101,-85 98,-85 95,-82 95,-79 95,-79 95,-73 95,-73 95,-70 98,-67 101,-67 101,-67 143,-67 143,-67 146,-67 149,-70 149,-73 149,-73 149,-79 149,-79 149,-82 146,-85 143,-85"/>
-<text text-anchor="start" x="106" y="-73.8" font-family="Helvetica,sans-Serif" font-size="9.00">index.ts</text>
+<path fill="#ddfeff" stroke="black" d="M143,-109C143,-109 101,-109 101,-109 98,-109 95,-106 95,-103 95,-103 95,-97 95,-97 95,-94 98,-91 101,-91 101,-91 143,-91 143,-91 146,-91 149,-94 149,-97 149,-97 149,-103 149,-103 149,-106 146,-109 143,-109"/>
+<text text-anchor="start" x="106" y="-97.8" font-family="Helvetica,sans-Serif" font-size="9.00">index.ts</text>
 </a>
 </g>
 </g>
 <!-- src/index.ts&#45;&gt;src/ThreeBCF.ts -->
 <g id="edge9" class="edge">
 <title>src/index.ts&#45;&gt;src/ThreeBCF.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M149.13,-71.5C149.13,-71.5 155.81,-71.5 155.81,-71.5"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="155.81,-73.6 161.81,-71.5 155.81,-69.4 155.81,-73.6"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M149.13,-105.5C149.13,-105.5 155.81,-105.5 155.81,-105.5"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="155.81,-107.6 161.81,-105.5 155.81,-103.4 155.81,-107.6"/>
 </g>
 <!-- src/index.ts&#45;&gt;src/types.ts -->
 <g id="edge10" class="edge">
 <title>src/index.ts&#45;&gt;src/types.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M149.33,-79.6C192.34,-79.6 271,-79.6 271,-79.6 271,-79.6 271,-95.75 271,-95.75"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="268.9,-95.75 271,-101.75 273.1,-95.75 268.9,-95.75"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M149.33,-97C192.34,-97 271,-97 271,-97 271,-97 271,-96.53 271,-96.53"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="273.1,-98.26 271,-92.26 268.9,-98.26 273.1,-98.26"/>
 </g>
 <!-- src/index.ts&#45;&gt;src/constants.ts -->
 <g id="edge6" class="edge">
 <title>src/index.ts&#45;&gt;src/constants.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M149.1,-77.8C206.69,-77.8 336,-77.8 336,-77.8 336,-77.8 336,-111.98 336,-111.98"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="333.9,-111.98 336,-117.98 338.1,-111.98 333.9,-111.98"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M149.32,-99.5C205.98,-99.5 331,-99.5 331,-99.5 331,-99.5 331,-87 331,-87"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="333.1,-87 331,-81 328.9,-87 333.1,-87"/>
 </g>
 <!-- src/index.ts&#45;&gt;src/core/ -->
 <g id="edge7" class="edge">
 <title>src/index.ts&#45;&gt;src/core/</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M122,-66.68C122,-54.31 122,-34 122,-34 122,-34 311.22,-34 311.22,-34"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="311.22,-36.1 317.22,-34 311.22,-31.9 311.22,-36.1"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M113,-109.24C113,-125.49 113,-157.5 113,-157.5 113,-157.5 311.49,-157.5 311.49,-157.5"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="311.49,-159.6 317.49,-157.5 311.49,-155.4 311.49,-159.6"/>
 </g>
 <!-- src/index.ts&#45;&gt;src/three/ -->
 <g id="edge8" class="edge">
 <title>src/index.ts&#45;&gt;src/three/</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M149.12,-81.4C153.16,-81.4 156,-81.4 156,-81.4 156,-81.4 156,-152 156,-152 156,-152 162.66,-152 162.66,-152"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="162.66,-154.1 168.66,-152 162.66,-149.9 162.66,-154.1"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M131,-109.1C131,-121.18 131,-141 131,-141 131,-141 162.81,-141 162.81,-141"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="162.81,-143.1 168.81,-141 162.81,-138.9 162.81,-143.1"/>
 </g>
 <!-- src/index.ts&#45;&gt;src/worker/ -->
 <g id="edge11" class="edge">
 <title>src/index.ts&#45;&gt;src/worker/</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M149.13,-83.2C170.25,-83.2 196,-83.2 196,-83.2 196,-83.2 196,-95.9 196,-95.9"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="193.9,-95.9 196,-101.9 198.1,-95.9 193.9,-95.9"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M149.13,-94.5C170.25,-94.5 196,-94.5 196,-94.5 196,-94.5 196,-68.21 196,-68.21"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="198.1,-68.21 196,-62.21 193.9,-68.21 198.1,-68.21"/>
 </g>
 <!-- src/worker/&#45;&gt;src/types.ts -->
-<g id="edge20" class="edge">
+<g id="edge21" class="edge">
 <title>src/worker/&#45;&gt;src/types.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M223.08,-114C223.08,-114 237.96,-114 237.96,-114"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="237.96,-116.1 243.96,-114 237.96,-111.9 237.96,-116.1"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M223.08,-53C244.56,-53 271,-53 271,-53 271,-53 271,-67.84 271,-67.84"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="268.9,-67.84 271,-73.84 273.1,-67.84 268.9,-67.84"/>
 </g>
 <!-- src/worker/&#45;&gt;src/three&#45;bcf/ -->
-<g id="edge19" class="edge">
+<g id="edge20" class="edge">
 <title>src/worker/&#45;&gt;src/three&#45;bcf/</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M168.87,-111.33C168.87,-111.33 155.13,-111.33 155.13,-111.33"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="155.13,-109.23 149.13,-111.33 155.13,-113.43 155.13,-109.23"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M168.87,-56C168.87,-56 155.13,-56 155.13,-56"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="155.13,-53.9 149.13,-56 155.13,-58.1 155.13,-53.9"/>
 </g>
 <!-- src/vite&#45;env.d.ts -->
 <g id="node11" class="node">
 <title>src/vite&#45;env.d.ts</title>
 <g id="a_node11"><a xlink:href="src/vite-env.d.ts" xlink:title="vite&#45;env.d.ts">
-<path fill="#ccffcc" stroke="black" d="M75.5,-67C75.5,-67 22.5,-67 22.5,-67 19.5,-67 16.5,-64 16.5,-61 16.5,-61 16.5,-55 16.5,-55 16.5,-52 19.5,-49 22.5,-49 22.5,-49 75.5,-49 75.5,-49 78.5,-49 81.5,-52 81.5,-55 81.5,-55 81.5,-61 81.5,-61 81.5,-64 78.5,-67 75.5,-67"/>
-<text text-anchor="start" x="24.5" y="-55.8" font-family="Helvetica,sans-Serif" font-size="9.00">vite&#45;env.d.ts</text>
+<path fill="#ccffcc" stroke="black" d="M75.5,-77C75.5,-77 22.5,-77 22.5,-77 19.5,-77 16.5,-74 16.5,-71 16.5,-71 16.5,-65 16.5,-65 16.5,-62 19.5,-59 22.5,-59 22.5,-59 75.5,-59 75.5,-59 78.5,-59 81.5,-62 81.5,-65 81.5,-65 81.5,-71 81.5,-71 81.5,-74 78.5,-77 75.5,-77"/>
+<text text-anchor="start" x="24.5" y="-65.8" font-family="Helvetica,sans-Serif" font-size="9.00">vite&#45;env.d.ts</text>
 </a>
 </g>
 </g>
