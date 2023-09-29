@@ -11,7 +11,12 @@ import type {
     TopicFolder_ThreeJSON,
     TopicFolder_Worker,
 } from '../../../src/types';
-import { TopicViewpoint_Three } from '../../../src/three';
+import {
+    Coloring_Three,
+    Component_Three,
+    Components_Three,
+    TopicViewpoint_Three,
+} from '../../../src/three';
 
 const bcf = new BCF.ThreeBCF({
     worker,
@@ -67,6 +72,7 @@ export const bcfSlice = createSlice({
                 assignedTo: null,
                 comments: [],
                 viewpoints: [],
+                components: [],
                 ...action.payload.camera,
             };
             topic.set(params);
@@ -78,6 +84,28 @@ export const bcfSlice = createSlice({
             const screenshot = BCFViewer.generateScreenshot();
             const viewpoint = new TopicViewpoint_Three(screenshot);
             topic.addViewpoint(viewpoint);
+
+            const components = new Components_Three();
+
+            const coloring = new Coloring_Three();
+            components.addColoring(coloring);
+
+            coloring.setColor('FF00FF00');
+            const component = new Component_Three();
+
+            const { componentState } = BCFViewer;
+
+            if (componentState) {
+                const { ifcGuid, originatingSystem, authoringToolId } = componentState;
+                component.set({
+                    ifcGuid,
+                    originatingSystem,
+                    authoringToolId,
+                });
+            }
+            coloring.addComponent(component);
+
+            topic.addComponents(components);
 
             // We serialize the topic and add it to the state.
             // This serialized data could be saved to a database.
@@ -271,6 +299,7 @@ export const bcfSlice = createSlice({
                 // TODO: Fix. Some reference is off. Sill referencing object!
                 const comments = JSON.parse(JSON.stringify(state.comments));
                 const viewpoints = JSON.parse(JSON.stringify(state.viewpoints));
+                const components = JSON.parse(JSON.stringify(state.components));
 
                 const object: TopicFolder_Worker = {
                     uuid,
@@ -292,6 +321,7 @@ export const bcfSlice = createSlice({
                     assignedTo,
                     comments,
                     viewpoints,
+                    components,
                 };
 
                 return object;

@@ -32,28 +32,49 @@ class ViewpointFactory_XML extends Topic_XML {
                 'https://raw.githubusercontent.com/buildingSMART/BCF-XML/release_3_0/Schemas/visinfo.xsd',
             );
 
-        const components = root.ele('Components');
+        const { components: _components } = e;
 
-        // Add Selection element
-        components.ele('Selection');
+        _components.forEach((components) => {
+            const { coloring: _coloring } = components;
+            const xmlComponents = root.ele('Components');
 
-        // Add Visibility element
-        const visibility = components.ele('Visibility');
-        visibility.att('DefaultVisibility', 'true');
-        visibility
-            .ele('ViewSetupHints')
-            .att('SpacesVisible', 'false')
-            .att('SpaceBoundariesVisible', 'false')
-            .att('OpeningsVisible', 'false');
-        visibility.ele('Exceptions');
+            // Add Selection element
+            xmlComponents.ele('Selection');
 
-        // Add Coloring element
-        const coloring = components.ele('Coloring');
-        const color = coloring.ele('Color').att('Color', 'FF00FF00');
-        const colorComponents = color.ele('Components');
-        const component = colorComponents.ele('Component').att('IfcGuid', '1Ryb8XgUj3gebyYvJGdU2O');
-        component.ele('OriginatingSystem').txt('Autodesk Revit 2023 (ENU)');
-        component.ele('AuthoringToolId').txt('350815');
+            // Add Visibility element
+            const xmlVisibility = xmlComponents.ele('Visibility');
+            xmlVisibility.att('DefaultVisibility', 'true');
+            xmlVisibility
+                .ele('ViewSetupHints')
+                .att('SpacesVisible', 'false')
+                .att('SpaceBoundariesVisible', 'false')
+                .att('OpeningsVisible', 'false');
+            xmlVisibility.ele('Exceptions');
+
+            // TODO: Coloring is empty!!!
+
+            // Add Coloring element
+            _coloring.forEach((coloring) => {
+                const { color, components } = coloring;
+                const xmlColoring = xmlComponents.ele('Coloring');
+                const xmlColor = xmlColoring.ele('Color').att('Color', `${color}`);
+                const xmlColorComponents = xmlColor.ele('Components');
+                components.forEach((component) => {
+                    const { ifcGuid, originatingSystem, authoringToolId } = component;
+
+                    // IFC GUID is required
+                    if (!ifcGuid) return;
+
+                    const xmlComponent = xmlColorComponents
+                        .ele('Component')
+                        .att('IfcGuid', ifcGuid);
+
+                    if (originatingSystem)
+                        xmlComponent.ele('OriginatingSystem').txt(originatingSystem);
+                    if (authoringToolId) xmlComponent.ele('AuthoringToolId').txt(authoringToolId);
+                });
+            });
+        });
 
         // Add PerspectiveCamera element
         const perspectiveCamera = root.ele('PerspectiveCamera');

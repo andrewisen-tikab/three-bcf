@@ -4,8 +4,193 @@ import { DEFAULT_VECTOR3_TUPLE } from '../types';
 
 import type { TopicCameraState } from '../../example/types';
 import { TOPIC_STATUSES, TOPIC_TYPES } from '../constants';
-import { TopicComment_Core, TopicViewpoint_Core } from '../core';
+import {
+    Components_Core,
+    Component_Core,
+    TopicComment_Core,
+    TopicViewpoint_Core,
+    Coloring_Core,
+} from '../core';
 
+/**
+ * See {@link Component_Core}.
+ */
+export class Component_Three implements Component_Core {
+    ifcGuid: string;
+    originatingSystem: string;
+    authoringToolId: string;
+
+    constructor() {
+        this.ifcGuid = '';
+        this.originatingSystem = '';
+        this.authoringToolId = '';
+    }
+
+    set({ ifcGuid, originatingSystem, authoringToolId }: Partial<Component_Core>) {
+        if (ifcGuid != null) this.ifcGuid = ifcGuid;
+        if (originatingSystem != null) this.originatingSystem = originatingSystem;
+        if (authoringToolId != null) this.authoringToolId = authoringToolId;
+
+        console.log(this.ifcGuid, this.originatingSystem, this.authoringToolId);
+    }
+
+    setIfcGuid(ifcGuid: string) {
+        this.ifcGuid = ifcGuid;
+    }
+
+    setOriginatingSystem(originatingSystem: string) {
+        this.originatingSystem = originatingSystem;
+    }
+
+    setAuthoringToolId(authoringToolId: string) {
+        this.authoringToolId = authoringToolId;
+    }
+
+    fromJSON(json: Component_Core) {
+        Object.assign(this, json);
+    }
+
+    toJSON(): Component_Core {
+        return {
+            ifcGuid: this.ifcGuid,
+            originatingSystem: this.originatingSystem,
+            authoringToolId: this.authoringToolId,
+        };
+    }
+}
+
+/**
+ * See {@link Coloring_Core}.
+ */
+export class Coloring_Three implements Coloring_Core {
+    /**
+     * The color is given in ARGB format.
+     * Colors are represented as 6 or 8 hexadecimal digits.
+     * If 8 digits are present, the first two represent the alpha (transparency) channel.
+     * For example, `40E0D0` would be the color Turquoise.
+     *
+     * [More information about the color format can be found on Wikipedia.](https://en.wikipedia.org/wiki/RGBA_color_space)
+     */
+    private static regex = /^([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6})$/;
+
+    color: string;
+
+    components: Component_Three[];
+
+    constructor() {
+        this.color = '';
+        this.components = [];
+    }
+
+    /**
+     * The color is given in ARGB format.
+     * Colors are represented as 6 or 8 hexadecimal digits.
+     * If 8 digits are present, the first two represent the alpha (transparency) channel.
+     * For example, `40E0D0` would be the color Turquoise.
+     *
+     * [More information about the color format can be found on Wikipedia.](https://en.wikipedia.org/wiki/RGBA_color_space)
+     *
+     * @param color Hex color
+     * @param example
+     * ```ts
+     * Coloring_Three.setColor("FF00FF00")
+     * ```
+     */
+    setColor(color: string) {
+        // Test if color is valid ARGB
+        if (!Coloring_Three.regex.test(color)) throw new Error('Invalid color format');
+
+        this.color = color;
+    }
+
+    addComponent(component: Component_Three) {
+        this.components.push(component);
+    }
+
+    updateComponent(component: Component_Three) {
+        const index = this.components.findIndex((c) => c.ifcGuid === component.ifcGuid);
+        if (index === -1) throw new Error('Component not found');
+        this.components[index] = component;
+    }
+
+    removeComponent(ifcGuid: string) {
+        const index = this.components.findIndex((c) => c.ifcGuid === ifcGuid);
+        if (index === -1) throw new Error('Component not found');
+        this.components.splice(index, 1);
+    }
+
+    fromJSON(json: Coloring_Core) {
+        this.color = json.color;
+        this.components = json.components.map((c) => {
+            const component = new Component_Three();
+            component.fromJSON(c);
+            return component;
+        });
+    }
+
+    toJSON(): Coloring_Core {
+        return {
+            color: this.color,
+            components: this.components.map((c) => c.toJSON()),
+        };
+    }
+}
+/**
+ * See {@link Components_Core}.
+ */
+export class Components_Three implements Components_Core {
+    uuid: string;
+    selection: any;
+    visibility: any;
+    coloring: Coloring_Three[];
+
+    constructor() {
+        this.uuid = THREE.MathUtils.generateUUID();
+        this.selection = null;
+        this.visibility = null;
+        this.coloring = [];
+    }
+
+    toJSON(): Components_Core {
+        return {
+            uuid: this.uuid,
+            selection: this.selection,
+            visibility: this.visibility,
+            coloring: this.coloring.map((c) => c.toJSON()),
+        };
+    }
+
+    fromJSON(json: Components_Core) {
+        this.uuid = json.uuid;
+        this.selection = json.selection;
+        this.visibility = json.visibility;
+        this.coloring = json.coloring.map((c) => {
+            const coloring = new Coloring_Three();
+            coloring.fromJSON(c);
+            return coloring;
+        });
+    }
+
+    addColoring(coloring: Coloring_Three) {
+        this.coloring.push(coloring);
+    }
+
+    updateColoring(coloring: Coloring_Three) {
+        const index = this.coloring.findIndex((c) => c.color === coloring.color);
+        if (index === -1) throw new Error('Coloring not found');
+        this.coloring[index] = coloring;
+    }
+
+    removeColoring(color: string) {
+        const index = this.coloring.findIndex((c) => c.color === color);
+        if (index === -1) throw new Error('Coloring not found');
+        this.coloring.splice(index, 1);
+    }
+}
+
+/**
+ * See {@link TopicViewpoint_Core}.
+ */
 export class TopicViewpoint_Three implements TopicViewpoint_Core {
     public uuid: string;
     public viewpoint: string;
@@ -129,6 +314,8 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
 
     public viewpoints: TopicViewpoint_Three[];
 
+    public components: Components_Three[];
+
     public constructor() {
         this.uuid = THREE.MathUtils.generateUUID();
         this.index = 0;
@@ -150,6 +337,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         this.topicStatus = TOPIC_TYPES.ERROR;
         this.comments = [];
         this.viewpoints = [];
+        this.components = [];
     }
 
     /**
@@ -186,6 +374,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             assignedTo: this.assignedTo,
             comments: this.comments,
             viewpoints: this.viewpoints,
+            components: this.components,
         };
 
         this.checkJSON(topic);
@@ -218,6 +407,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             assignedTo: this.assignedTo,
             comments: this.comments.map((c) => c.toJSON()),
             viewpoints: this.viewpoints.map((v) => v.toJSON()),
+            components: this.components.map((c) => c.toJSON()),
         };
 
         this.checkJSON(json);
@@ -247,6 +437,7 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             dueDate,
             comments,
             viewpoints,
+            components,
         } = json as TopicFolder_ThreeJSON;
 
         this.uuid = uuid;
@@ -268,6 +459,12 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
                 const viewpoint = new TopicViewpoint_Three();
                 viewpoint.fromJSON(v);
                 return viewpoint;
+            }) ?? [];
+        this.components =
+            components.map((c) => {
+                const component = new Components_Three();
+                component.fromJSON(c);
+                return component;
             }) ?? [];
     }
 
@@ -341,5 +538,21 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         const index = this.viewpoints.findIndex((v) => v.uuid === uuid);
         if (index === -1) throw new Error('Viewpoint not found');
         this.viewpoints.splice(index, 1);
+    }
+
+    public addComponents(components: Components_Three): void {
+        this.components.push(components);
+    }
+
+    public updateComponents(components: Components_Three): void {
+        const index = this.components.findIndex((c) => c.uuid === components.uuid);
+        if (index === -1) throw new Error('Components not found');
+        this.components[index] = components;
+    }
+
+    public removeComponents(uuid: string): void {
+        const index = this.components.findIndex((c) => c.uuid === uuid);
+        if (index === -1) throw new Error('Components not found');
+        this.components.splice(index, 1);
     }
 }

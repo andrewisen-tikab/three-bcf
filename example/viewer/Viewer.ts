@@ -6,10 +6,12 @@ import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-
 import Stats from 'three/addons/libs/stats.module.js';
 
 import { IFCLoader } from 'web-ifc-three/IFCLoader';
+import { IFCAPPLICATION } from 'web-ifc';
 
 // @ts-ignore
 import ifc from '../../resources/example_4.ifc?url';
 import { CameraControlsState, BCFCameraState } from '../types';
+import { Component_Core } from '../../src/core/topic';
 
 CameraControls.install({ THREE: THREE });
 // @ts-ignore
@@ -54,6 +56,10 @@ export default class THREEViewer {
     public pointer!: THREE.Vector2;
 
     public ifcLoader!: IFCLoader;
+
+    public componentState: Component_Core | null = null;
+
+    public originatingSystem: string = '';
 
     init(container: HTMLElement = document.body) {
         this.container = container;
@@ -127,6 +133,19 @@ export default class THREEViewer {
                     if (index == null) throw new Error('Face index is null');
                     const geometry = (found.object as THREE.Mesh).geometry;
                     const id = this.ifcLoader.ifcManager.getExpressId(geometry, index);
+                    this.ifcLoader.ifcManager.getItemProperties(model.id, id).then((props) => {
+                        const originatingSystem = this.originatingSystem;
+                        const ifcGuid = props.GlobalId.value;
+                        const authoringToolId = props.Tag.value;
+
+                        const component: Component_Core = {
+                            ifcGuid,
+                            authoringToolId,
+                            originatingSystem,
+                        };
+
+                        this.setComponentState(component);
+                    });
 
                     // Creates subset
                     this.ifcLoader.ifcManager.createSubset({
@@ -210,11 +229,18 @@ export default class THREEViewer {
         });
         // Should work for GH Pages
         this.ifcLoader.ifcManager.setWasmPath('../');
-        this.ifcLoader.load(ifc, (ifcModel) => {
+        this.ifcLoader.load(ifc, async (ifcModel) => {
             this.ifcModels.push(ifcModel);
             this.scene.add(ifcModel);
             this.cameraControls.fitToSphere(this.scene, false);
             this.cameraControls.polarAngle = Math.PI / 4;
+
+            const [ifcApplication] = await this.ifcLoader.ifcManager.getAllItemsOfType(
+                ifcModel.modelID,
+                IFCAPPLICATION,
+                true,
+            );
+            this.originatingSystem = ifcApplication.ApplicationFullName.value;
         });
     }
 
@@ -289,5 +315,9 @@ export default class THREEViewer {
         };
 
         return bcfCameraState;
+    }
+
+    private setComponentState(componentState: Component_Core) {
+        this.componentState = componentState;
     }
 }
