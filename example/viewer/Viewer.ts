@@ -20,6 +20,12 @@ THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
 THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
 
+type IfcSomething = {
+    expressID: number;
+    type: string;
+    name: string;
+};
+
 /**
  * THREE Viewer as singleton.
  */
@@ -241,6 +247,37 @@ export default class THREEViewer {
                 true,
             );
             this.originatingSystem = ifcApplication.ApplicationFullName.value;
+
+            const spatialStructure = await this.ifcLoader.ifcManager.getSpatialStructure(
+                ifcModel.modelID,
+                true,
+            );
+            console.log('spatialStructure', spatialStructure);
+            const ifcSite = spatialStructure.children[0];
+            const ifcBuilding = ifcSite.children[0];
+
+            const ifc = ifcBuilding.children.flatMap((ifcBuildingStorey: any) => {
+                const objects: IfcSomething[] = [];
+                ifcBuildingStorey.children.forEach((object: any) => {
+                    const {
+                        expressID,
+                        type,
+                        Name: { value: name },
+                    } = object;
+
+                    if (type === 'IFCBUILDINGELEMENTPROXY') return;
+
+                    const ifcObject: IfcSomething = {
+                        expressID,
+                        type,
+                        name,
+                    };
+                    objects.push(ifcObject);
+                });
+                return objects;
+            });
+
+            console.log('ifc', ifc);
         });
     }
 
