@@ -266,8 +266,11 @@ export default class THREEViewer {
                     const {
                         expressID,
                         type,
+                        PredefinedType: { value: predefinedType },
+                        ObjectType: { value: objectType },
                         Name: { value: name },
                     } = object;
+                    console.log('object', object);
 
                     if (type === 'IFCBUILDINGELEMENTPROXY') return;
 
@@ -284,7 +287,8 @@ export default class THREEViewer {
 
                     const ifcObject: IFCSomething = {
                         expressID,
-                        type,
+                        type: predefinedType === 'NOTDEFINED' ? type : predefinedType,
+                        objectType,
                         name,
                         selected: false,
                         visible: true,

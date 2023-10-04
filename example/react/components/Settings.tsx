@@ -41,11 +41,13 @@ function RenderCheckBox(props: GridRenderCellParams<any, boolean>) {
 }
 
 const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Name', width: 500 },
+    { field: 'type', headerName: 'Type', width: 100 },
+    { field: 'objectType', headerName: 'Object Type', width: 250 },
+    { field: 'name', headerName: 'Name', width: 380 },
     {
         field: 'visible',
         headerName: 'Visible',
-        width: 150,
+        width: 100,
         renderCell: RenderCheckBox,
     },
 ];
@@ -97,6 +99,7 @@ function SettingsContent() {
                     <br />
                     <Box sx={{ height: '50vh' }}>
                         <DataGrid
+                            density="compact"
                             checkboxSelection
                             disableRowSelectionOnClick
                             rows={state}

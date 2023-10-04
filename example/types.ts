@@ -21,6 +21,7 @@ export interface BCFCameraState {
 export type IFCSomething = {
     expressID: number;
     type: string;
+    objectType: string;
     name: string;
     selected: boolean;
     visible: boolean;
