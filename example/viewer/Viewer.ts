@@ -270,15 +270,14 @@ export default class THREEViewer {
                         ObjectType: { value: objectType },
                         Name: { value: name },
                     } = object;
-                    console.log('object', object);
 
-                    if (type === 'IFCBUILDINGELEMENTPROXY') return;
+                    if (type === 'IFCBUILDINGELEMENTPROXY' || type === 'IFCROOF') return;
 
                     const subset = this.ifcLoader.ifcManager.createSubset({
                         modelID: model.id,
                         scene: this.scene,
                         ids: [expressID],
-                        removePrevious: true,
+                        removePrevious: false,
                         customID: `${type}-${expressID}`,
                     });
 
