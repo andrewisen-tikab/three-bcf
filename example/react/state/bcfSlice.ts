@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 // @ts-ignore
 import worker from '../../../src/worker/worker?worker';
-import { TopicCameraState } from '../../types';
+import { IFCSomething, TopicCameraState } from '../../types';
 import BCFViewer from '../../viewer/BCFViewer';
 import * as BCF from '../../../src';
 import type {
@@ -25,11 +25,13 @@ const bcf = new BCF.ThreeBCF({
 export type BCFState = {
     topics: TopicFolder_ThreeJSON[];
     selectedTopic: TopicFolder_ThreeJSON | null;
+    IFCSomething: IFCSomething[];
 };
 
 const initialState: BCFState = {
     topics: [],
     selectedTopic: null,
+    IFCSomething: [],
 };
 
 type CreateTopicParams = {
@@ -339,6 +341,9 @@ export const bcfSlice = createSlice({
                 header,
             });
         },
+        setIFCSomething: (state, action: PayloadAction<IFCSomething[]>) => {
+            state.IFCSomething = action.payload;
+        },
     },
 });
 
@@ -353,6 +358,7 @@ export const {
     addTopicComment,
     updateTopicComment,
     removeTopicComment,
+    setIFCSomething,
 } = bcfSlice.actions;
 
 export default bcfSlice.reducer;

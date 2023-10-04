@@ -6,12 +6,15 @@ import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-
 import Stats from 'three/addons/libs/stats.module.js';
 
 import { IFCLoader } from 'web-ifc-three/IFCLoader';
+import type { Subset } from 'web-ifc-three/IFC/components/subsets/SubsetManager.d.ts';
 import { IFCAPPLICATION } from 'web-ifc';
 
 // @ts-ignore
 import ifc from '../../resources/example_4.ifc?url';
-import { CameraControlsState, BCFCameraState } from '../types';
+import { CameraControlsState, BCFCameraState, IFCSomething } from '../types';
 import { Component_Core } from '../../src/core/topic';
+import { store } from '../react/state/store';
+import { setIFCSomething } from '../react/state/bcfSlice';
 
 CameraControls.install({ THREE: THREE });
 // @ts-ignore
@@ -20,12 +23,16 @@ THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
 THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
 
-type IfcSomething = {
-    expressID: number;
-    type: string;
-    name: string;
-};
+const model = { id: -1 };
 
+const preselectMat = new THREE.MeshLambertMaterial({
+    // transparent: true,
+    // opacity: 1,
+    color: 0x00ff00,
+    // depthTest: false,
+});
+
+let previousSelection: number[] | null = null;
 /**
  * THREE Viewer as singleton.
  */
@@ -66,6 +73,8 @@ export default class THREEViewer {
     public componentState: Component_Core | null = null;
 
     public originatingSystem: string = '';
+
+    public ifcObjects: { [key: number]: Subset } = {};
 
     init(container: HTMLElement = document.body) {
         this.container = container;
@@ -114,16 +123,10 @@ export default class THREEViewer {
 
         this.container.addEventListener('pointermove', onPointerMove);
 
-        const model = { id: -1 };
-
-        const preselectMat = new THREE.MeshLambertMaterial({
-            transparent: true,
-            opacity: 1,
-            color: 0x00ff00,
-            depthTest: false,
-        });
-
         this.container.addEventListener('pointerdown', (event: PointerEvent) => {
+            // TODO
+            return;
+
             if (event.button === 2 || event.pointerType === 'touch') {
                 this.ifcLoader.ifcManager.removeSubset(model.id, preselectMat);
             } else {
@@ -131,14 +134,13 @@ export default class THREEViewer {
                 const found = this.raycaster.intersectObjects(this.ifcModels)[0];
 
                 if (found) {
-                    // Gets model ID
-                    model.id = (found.object as any).modelID;
-
                     // Gets Express ID
                     const index = found.faceIndex;
                     if (index == null) throw new Error('Face index is null');
                     const geometry = (found.object as THREE.Mesh).geometry;
                     const id = this.ifcLoader.ifcManager.getExpressId(geometry, index);
+                    console.log('id', id);
+
                     this.ifcLoader.ifcManager.getItemProperties(model.id, id).then((props) => {
                         const originatingSystem = this.originatingSystem;
                         const ifcGuid = props.GlobalId.value;
@@ -235,11 +237,13 @@ export default class THREEViewer {
         });
         // Should work for GH Pages
         this.ifcLoader.ifcManager.setWasmPath('../');
+
         this.ifcLoader.load(ifc, async (ifcModel) => {
             this.ifcModels.push(ifcModel);
-            this.scene.add(ifcModel);
-            this.cameraControls.fitToSphere(this.scene, false);
+
             this.cameraControls.polarAngle = Math.PI / 4;
+
+            model.id = ifcModel.modelID;
 
             const [ifcApplication] = await this.ifcLoader.ifcManager.getAllItemsOfType(
                 ifcModel.modelID,
@@ -257,7 +261,7 @@ export default class THREEViewer {
             const ifcBuilding = ifcSite.children[0];
 
             const ifc = ifcBuilding.children.flatMap((ifcBuildingStorey: any) => {
-                const objects: IfcSomething[] = [];
+                const objects: IFCSomething[] = [];
                 ifcBuildingStorey.children.forEach((object: any) => {
                     const {
                         expressID,
@@ -267,17 +271,33 @@ export default class THREEViewer {
 
                     if (type === 'IFCBUILDINGELEMENTPROXY') return;
 
-                    const ifcObject: IfcSomething = {
+                    const subset = this.ifcLoader.ifcManager.createSubset({
+                        modelID: model.id,
+                        scene: this.scene,
+                        ids: [expressID],
+                        removePrevious: true,
+                        customID: `${type}-${expressID}`,
+                    });
+
+                    this.ifcObjects[expressID] = subset;
+                    this.scene.add(subset);
+
+                    const ifcObject: IFCSomething = {
                         expressID,
                         type,
                         name,
+                        selected: false,
+                        visible: true,
                     };
                     objects.push(ifcObject);
                 });
                 return objects;
             });
 
-            console.log('ifc', ifc);
+            store.dispatch(setIFCSomething(ifc));
+
+            // await setupAllCategories();
+            this.cameraControls.fitToSphere(this.scene, false);
         });
     }
 
@@ -356,5 +376,31 @@ export default class THREEViewer {
 
     private setComponentState(componentState: Component_Core) {
         this.componentState = componentState;
+    }
+
+    public setSelection(expressIDs: number[]) {
+        if (previousSelection) {
+            this.setVisibility(previousSelection, true);
+        }
+
+        this.ifcLoader.ifcManager.removeSubset(model.id, preselectMat);
+
+        this.ifcLoader.ifcManager.createSubset({
+            modelID: model.id,
+            ids: expressIDs,
+            material: preselectMat,
+            scene: this.scene,
+            removePrevious: true,
+        });
+
+        this.setVisibility(expressIDs, false);
+        previousSelection = expressIDs;
+    }
+
+    public setVisibility(expressIDs: number[], visible: boolean) {
+        expressIDs.forEach((expressID) => {
+            const subset = this.ifcObjects[expressID];
+            subset.visible = visible;
+        });
     }
 }
