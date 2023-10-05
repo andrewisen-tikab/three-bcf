@@ -6,6 +6,7 @@ import Three from './Three';
 import Issues from './Issues';
 import IssueSorter from './IssueSorter';
 import IssueDetails from './IssueDetails';
+import Settings from './Settings';
 
 function LeftFlexLayout() {
     return <Issues />;
@@ -24,7 +25,7 @@ function RightTopFlexLayout() {
             <Panel title="Issue details" sx={{ flexBasis: '50%', overflowY: 'scroll' }}>
                 <IssueDetails />
             </Panel>
-            <Panel title="3D" sx={{ flexBasis: '50%' }}>
+            <Panel title="3D" sx={{ flexBasis: '50%' }} action={<Settings />}>
                 <Three />
             </Panel>
         </Box>

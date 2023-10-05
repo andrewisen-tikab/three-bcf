@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 // @ts-ignore
 import worker from '../../../src/worker/worker?worker';
-import { TopicCameraState } from '../../types';
+import { IFCSomething, TopicCameraState } from '../../types';
 import BCFViewer from '../../viewer/BCFViewer';
 import * as BCF from '../../../src';
 import type {
@@ -15,6 +15,7 @@ import {
     Coloring_Three,
     Component_Three,
     Components_Three,
+    Selection_Three,
     TopicViewpoint_Three,
 } from '../../../src/three';
 
@@ -25,11 +26,13 @@ const bcf = new BCF.ThreeBCF({
 export type BCFState = {
     topics: TopicFolder_ThreeJSON[];
     selectedTopic: TopicFolder_ThreeJSON | null;
+    IFCSomething: IFCSomething[];
 };
 
 const initialState: BCFState = {
     topics: [],
     selectedTopic: null,
+    IFCSomething: [],
 };
 
 type CreateTopicParams = {
@@ -85,25 +88,38 @@ export const bcfSlice = createSlice({
             const viewpoint = new TopicViewpoint_Three(screenshot);
             topic.addViewpoint(viewpoint);
 
+            // Determine selection
+            const selectionState = BCFViewer.getSelection();
+
             const components = new Components_Three();
+
+            const selection = new Selection_Three();
+            components.addSelection(selection);
 
             const coloring = new Coloring_Three();
             components.addColoring(coloring);
 
             coloring.setColor('FF00FF00');
-            const component = new Component_Three();
 
             const { componentState } = BCFViewer;
 
             if (componentState) {
-                const { ifcGuid, originatingSystem, authoringToolId } = componentState;
-                component.set({
-                    ifcGuid,
-                    originatingSystem,
-                    authoringToolId,
+                selectionState.forEach((selectedObject) => {
+                    const state = componentState[selectedObject];
+                    if (state == null) return;
+                    const component = new Component_Three();
+
+                    const { ifcGuid, originatingSystem, authoringToolId } = state;
+                    component.set({
+                        ifcGuid,
+                        originatingSystem,
+                        authoringToolId,
+                    });
+
+                    coloring.addComponent(component);
+                    selection.addComponent(component);
                 });
             }
-            coloring.addComponent(component);
 
             topic.addComponents(components);
 
@@ -339,6 +355,9 @@ export const bcfSlice = createSlice({
                 header,
             });
         },
+        setIFCSomething: (state, action: PayloadAction<IFCSomething[]>) => {
+            state.IFCSomething = action.payload;
+        },
     },
 });
 
@@ -353,6 +372,7 @@ export const {
     addTopicComment,
     updateTopicComment,
     removeTopicComment,
+    setIFCSomething,
 } = bcfSlice.actions;
 
 export default bcfSlice.reducer;

@@ -35,11 +35,27 @@ class ViewpointFactory_XML extends Topic_XML {
         const { components: _components } = e;
 
         _components.forEach((components) => {
-            const { coloring: _coloring } = components;
+            const { coloring: _coloring, selection: _selection } = components;
             const xmlComponents = root.ele('Components');
 
             // Add Selection element
-            xmlComponents.ele('Selection');
+            _selection.forEach((selection) => {
+                const { components } = selection;
+                const xmlSelection = xmlComponents.ele('Selection');
+
+                components.forEach((component) => {
+                    const { ifcGuid, originatingSystem, authoringToolId } = component;
+
+                    // IFC GUID is required
+                    if (!ifcGuid) return;
+
+                    const xmlComponent = xmlSelection.ele('Component').att('IfcGuid', ifcGuid);
+
+                    if (originatingSystem)
+                        xmlComponent.ele('OriginatingSystem').txt(originatingSystem);
+                    if (authoringToolId) xmlComponent.ele('AuthoringToolId').txt(authoringToolId);
+                });
+            });
 
             // Add Visibility element
             const xmlVisibility = xmlComponents.ele('Visibility');
@@ -50,8 +66,6 @@ class ViewpointFactory_XML extends Topic_XML {
                 .att('SpaceBoundariesVisible', 'false')
                 .att('OpeningsVisible', 'false');
             xmlVisibility.ele('Exceptions');
-
-            // TODO: Coloring is empty!!!
 
             // Add Coloring element
             _coloring.forEach((coloring) => {

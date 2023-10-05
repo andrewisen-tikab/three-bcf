@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+
 import type { TopicFolderBase_Three } from '../src/types';
 
 export interface CameraControlsState {
@@ -16,3 +17,12 @@ export interface BCFCameraState {
     position: THREE.Vector3Tuple;
     up: THREE.Vector3Tuple;
 }
+
+export type IFCSomething = {
+    expressID: number;
+    type: string;
+    objectType: string;
+    name: string;
+    selected: boolean;
+    visible: boolean;
+};

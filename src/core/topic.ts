@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import BCFBaseSchema from './zod';
 
-export const ComponentSchema_Core = z.object({
+export const ComponentSchema_Core = BCFBaseSchema.extend({
     /**
      * The IfcGuid of the component
      */
@@ -22,7 +22,7 @@ export type Component_Core = z.infer<typeof ComponentSchema_Core>;
 /**
  * The `Coloring` element allows specifying the color of {@link Component_Core | components}.
  */
-export const ColoringSchema_Core = z.object({
+export const ColoringSchema_Core = BCFBaseSchema.extend({
     /**
      * The color is given in ARGB format. Colors are represented as 6 or 8 hexadecimal digits.
      * If 8 digits are present, the first two represent the alpha (transparency) channel.
@@ -43,6 +43,21 @@ export const ColoringSchema_Core = z.object({
  */
 export type Coloring_Core = z.infer<typeof ColoringSchema_Core>;
 
+/**
+ * The `Selection` element lists all components that should be selected (highlighted) when displaying a viewpoint.
+ */
+export const SelectionSchema_Core = BCFBaseSchema.extend({
+    /**
+     * All components that should be selected (highlighted) when displaying a viewpoint.
+     */
+    components: z.array(ComponentSchema_Core),
+});
+
+/**
+ * The `Selection` element lists all components that should be selected (highlighted) when displaying a viewpoint.
+ */
+export type Selection_Core = z.infer<typeof SelectionSchema_Core>;
+
 export const ComponentsSchema_Core = BCFBaseSchema.extend({
     /**
      * The `Selection` element lists all components that should be selected (highlighted) when displaying a viewpoint.
@@ -52,7 +67,7 @@ export const ComponentsSchema_Core = BCFBaseSchema.extend({
      *
      * If the size of the selected components is huge (over 1000 components), alert the user and ask them to reduce the number of selected components.
      */
-    selection: z.any(),
+    selection: z.array(SelectionSchema_Core),
     /**
      * The `Visibility` element decides which objects are visible and which are hidden.
      *
