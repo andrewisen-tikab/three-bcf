@@ -10,17 +10,20 @@ import {
     TopicComment_Core,
     TopicViewpoint_Core,
     Coloring_Core,
+    Selection_Core,
 } from '../core';
 
 /**
  * See {@link Component_Core}.
  */
 export class Component_Three implements Component_Core {
+    uuid: string;
     ifcGuid: string;
     originatingSystem: string;
     authoringToolId: string;
 
     constructor() {
+        this.uuid = THREE.MathUtils.generateUUID();
         this.ifcGuid = '';
         this.originatingSystem = '';
         this.authoringToolId = '';
@@ -52,6 +55,7 @@ export class Component_Three implements Component_Core {
 
     toJSON(): Component_Core {
         return {
+            uuid: this.uuid,
             ifcGuid: this.ifcGuid,
             originatingSystem: this.originatingSystem,
             authoringToolId: this.authoringToolId,
@@ -73,11 +77,14 @@ export class Coloring_Three implements Coloring_Core {
      */
     private static regex = /^([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6})$/;
 
+    uuid: string;
+
     color: string;
 
     components: Component_Three[];
 
     constructor() {
+        this.uuid = THREE.MathUtils.generateUUID();
         this.color = '';
         this.components = [];
     }
@@ -120,6 +127,7 @@ export class Coloring_Three implements Coloring_Core {
     }
 
     fromJSON(json: Coloring_Core) {
+        this.uuid = json.uuid;
         this.color = json.color;
         this.components = json.components.map((c) => {
             const component = new Component_Three();
@@ -130,23 +138,70 @@ export class Coloring_Three implements Coloring_Core {
 
     toJSON(): Coloring_Core {
         return {
+            uuid: this.uuid,
             color: this.color,
             components: this.components.map((c) => c.toJSON()),
         };
     }
 }
+
+/**
+ * See {@link Selection_Core}.
+ */
+export class Selection_Three implements Selection_Core {
+    uuid: string;
+    components: Component_Three[];
+
+    constructor() {
+        this.uuid = THREE.MathUtils.generateUUID();
+        this.components = [];
+    }
+
+    addComponent(component: Component_Three) {
+        this.components.push(component);
+    }
+
+    updateComponent(component: Component_Three) {
+        const index = this.components.findIndex((c) => c.ifcGuid === component.ifcGuid);
+        if (index === -1) throw new Error('Component not found');
+        this.components[index] = component;
+    }
+
+    removeComponent(ifcGuid: string) {
+        const index = this.components.findIndex((c) => c.ifcGuid === ifcGuid);
+        if (index === -1) throw new Error('Component not found');
+        this.components.splice(index, 1);
+    }
+
+    fromJSON(json: Selection_Core) {
+        this.uuid = json.uuid;
+        this.components = json.components.map((c) => {
+            const component = new Component_Three();
+            component.fromJSON(c);
+            return component;
+        });
+    }
+
+    toJSON(): Selection_Core {
+        return {
+            uuid: this.uuid,
+            components: this.components.map((c) => c.toJSON()),
+        };
+    }
+}
+
 /**
  * See {@link Components_Core}.
  */
 export class Components_Three implements Components_Core {
     uuid: string;
-    selection: any;
+    selection: Selection_Three[];
     visibility: any;
     coloring: Coloring_Three[];
 
     constructor() {
         this.uuid = THREE.MathUtils.generateUUID();
-        this.selection = null;
+        this.selection = [];
         this.visibility = null;
         this.coloring = [];
     }
@@ -154,7 +209,7 @@ export class Components_Three implements Components_Core {
     toJSON(): Components_Core {
         return {
             uuid: this.uuid,
-            selection: this.selection,
+            selection: this.selection.map((s) => s.toJSON()),
             visibility: this.visibility,
             coloring: this.coloring.map((c) => c.toJSON()),
         };
@@ -162,7 +217,11 @@ export class Components_Three implements Components_Core {
 
     fromJSON(json: Components_Core) {
         this.uuid = json.uuid;
-        this.selection = json.selection;
+        this.selection = json.selection.map((s) => {
+            const selection = new Selection_Three();
+            selection.fromJSON(s);
+            return selection;
+        });
         this.visibility = json.visibility;
         this.coloring = json.coloring.map((c) => {
             const coloring = new Coloring_Three();
@@ -176,15 +235,31 @@ export class Components_Three implements Components_Core {
     }
 
     updateColoring(coloring: Coloring_Three) {
-        const index = this.coloring.findIndex((c) => c.color === coloring.color);
+        const index = this.coloring.findIndex((c) => c.uuid === coloring.uuid);
         if (index === -1) throw new Error('Coloring not found');
         this.coloring[index] = coloring;
     }
 
-    removeColoring(color: string) {
-        const index = this.coloring.findIndex((c) => c.color === color);
+    removeColoring(coloring: Coloring_Three) {
+        const index = this.coloring.findIndex((c) => c.uuid === coloring.uuid);
         if (index === -1) throw new Error('Coloring not found');
         this.coloring.splice(index, 1);
+    }
+
+    addSelection(selection: Selection_Three) {
+        this.selection.push(selection);
+    }
+
+    updateSelection(selection: Selection_Three) {
+        const index = this.selection.findIndex((s) => s.uuid === selection.uuid);
+        if (index === -1) throw new Error('Selection not found');
+        this.selection[index] = selection;
+    }
+
+    removeSelection(uuid: string) {
+        const index = this.selection.findIndex((s) => s.uuid === uuid);
+        if (index === -1) throw new Error('Selection not found');
+        this.selection.splice(index, 1);
     }
 }
 

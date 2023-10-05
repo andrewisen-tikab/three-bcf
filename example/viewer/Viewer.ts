@@ -288,6 +288,7 @@ export default class THREEViewer {
                             const authoringToolId = props.Tag.value;
 
                             const component: Component_Core = {
+                                uuid: THREE.MathUtils.generateUUID(),
                                 ifcGuid,
                                 authoringToolId,
                                 originatingSystem,

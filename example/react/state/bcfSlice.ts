@@ -15,6 +15,7 @@ import {
     Coloring_Three,
     Component_Three,
     Components_Three,
+    Selection_Three,
     TopicViewpoint_Three,
 } from '../../../src/three';
 
@@ -88,9 +89,12 @@ export const bcfSlice = createSlice({
             topic.addViewpoint(viewpoint);
 
             // Determine selection
-            const selection = BCFViewer.getSelection();
+            const selectionState = BCFViewer.getSelection();
 
             const components = new Components_Three();
+
+            const selection = new Selection_Three();
+            components.addSelection(selection);
 
             const coloring = new Coloring_Three();
             components.addColoring(coloring);
@@ -100,7 +104,7 @@ export const bcfSlice = createSlice({
             const { componentState } = BCFViewer;
 
             if (componentState) {
-                selection.forEach((selectedObject) => {
+                selectionState.forEach((selectedObject) => {
                     const state = componentState[selectedObject];
                     if (state == null) return;
                     const component = new Component_Three();
@@ -111,7 +115,9 @@ export const bcfSlice = createSlice({
                         originatingSystem,
                         authoringToolId,
                     });
+
                     coloring.addComponent(component);
+                    selection.addComponent(component);
                 });
             }
 
