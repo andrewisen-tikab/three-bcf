@@ -87,25 +87,33 @@ export const bcfSlice = createSlice({
             const viewpoint = new TopicViewpoint_Three(screenshot);
             topic.addViewpoint(viewpoint);
 
+            // Determine selection
+            const selection = BCFViewer.getSelection();
+
             const components = new Components_Three();
 
             const coloring = new Coloring_Three();
             components.addColoring(coloring);
 
             coloring.setColor('FF00FF00');
-            const component = new Component_Three();
 
             const { componentState } = BCFViewer;
 
             if (componentState) {
-                const { ifcGuid, originatingSystem, authoringToolId } = componentState;
-                component.set({
-                    ifcGuid,
-                    originatingSystem,
-                    authoringToolId,
+                selection.forEach((selectedObject) => {
+                    const state = componentState[selectedObject];
+                    if (state == null) return;
+                    const component = new Component_Three();
+
+                    const { ifcGuid, originatingSystem, authoringToolId } = state;
+                    component.set({
+                        ifcGuid,
+                        originatingSystem,
+                        authoringToolId,
+                    });
+                    coloring.addComponent(component);
                 });
             }
-            coloring.addComponent(component);
 
             topic.addComponents(components);
 

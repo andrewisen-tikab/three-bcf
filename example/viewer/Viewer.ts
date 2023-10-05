@@ -70,11 +70,14 @@ export default class THREEViewer {
 
     public ifcLoader!: IFCLoader;
 
-    public componentState: Component_Core | null = null;
+    public componentState: { [key: string]: Component_Core } = {};
 
     public originatingSystem: string = '';
 
     public ifcObjects: { [key: number]: Subset } = {};
+
+    private selection: number[] = [];
+    private visibility: number[] = [];
 
     init(container: HTMLElement = document.body) {
         this.container = container;
@@ -281,8 +284,25 @@ export default class THREEViewer {
                         customID: `${type}-${expressID}`,
                     });
 
+                    this.visibility.push(expressID);
                     this.ifcObjects[expressID] = subset;
                     this.scene.add(subset);
+
+                    this.ifcLoader.ifcManager
+                        .getItemProperties(model.id, expressID)
+                        .then((props) => {
+                            const originatingSystem = this.originatingSystem;
+                            const ifcGuid = props.GlobalId.value;
+                            const authoringToolId = props.Tag.value;
+
+                            const component: Component_Core = {
+                                ifcGuid,
+                                authoringToolId,
+                                originatingSystem,
+                            };
+
+                            this.componentState[expressID] = component;
+                        });
 
                     const ifcObject: IFCSomething = {
                         expressID,
@@ -377,14 +397,15 @@ export default class THREEViewer {
         return bcfCameraState;
     }
 
-    private setComponentState(componentState: Component_Core) {
-        this.componentState = componentState;
-    }
+    // private setComponentState(componentState: Component_Core) {
+    //     this.componentState = componentState;
+    // }
 
     public setSelection(expressIDs: number[]) {
         if (previousSelection) {
             this.setVisibility(previousSelection, true);
         }
+        this.selection = expressIDs;
 
         this.ifcLoader.ifcManager.removeSubset(model.id, preselectMat);
 
@@ -400,10 +421,25 @@ export default class THREEViewer {
         previousSelection = expressIDs;
     }
 
+    getSelection() {
+        return [...this.selection];
+    }
+
     public setVisibility(expressIDs: number[], visible: boolean) {
         expressIDs.forEach((expressID) => {
             const subset = this.ifcObjects[expressID];
             subset.visible = visible;
+
+            if (visible) {
+                if (!this.visibility.includes(expressID)) this.visibility.push(expressID);
+            } else {
+                const index = this.visibility.indexOf(expressID);
+                if (index > -1) this.visibility.splice(index, 1);
+            }
         });
+    }
+
+    getVisibility() {
+        return [...this.visibility];
     }
 }
