@@ -126,50 +126,42 @@ export default class THREEViewer {
 
         this.container.addEventListener('pointermove', onPointerMove);
 
-        this.container.addEventListener('pointerdown', (event: PointerEvent) => {
-            // TODO
-            return;
-
-            if (event.button === 2 || event.pointerType === 'touch') {
-                this.ifcLoader.ifcManager.removeSubset(model.id, preselectMat);
-            } else {
-                this.raycaster.setFromCamera(this.pointer, this.camera);
-                const found = this.raycaster.intersectObjects(this.ifcModels)[0];
-
-                if (found) {
-                    // Gets Express ID
-                    const index = found.faceIndex;
-                    if (index == null) throw new Error('Face index is null');
-                    const geometry = (found.object as THREE.Mesh).geometry;
-                    const id = this.ifcLoader.ifcManager.getExpressId(geometry, index);
-                    console.log('id', id);
-
-                    this.ifcLoader.ifcManager.getItemProperties(model.id, id).then((props) => {
-                        const originatingSystem = this.originatingSystem;
-                        const ifcGuid = props.GlobalId.value;
-                        const authoringToolId = props.Tag.value;
-
-                        const component: Component_Core = {
-                            ifcGuid,
-                            authoringToolId,
-                            originatingSystem,
-                        };
-
-                        this.setComponentState(component);
-                    });
-
-                    // Creates subset
-                    this.ifcLoader.ifcManager.createSubset({
-                        modelID: model.id,
-                        ids: [id],
-                        material: preselectMat,
-                        scene: this.scene,
-                        removePrevious: true,
-                    });
-                } else {
-                    this.ifcLoader.ifcManager.removeSubset(model.id, preselectMat);
-                }
-            }
+        this.container.addEventListener('pointerdown', (_event: PointerEvent) => {
+            // if (event.button === 2 || event.pointerType === 'touch') {
+            //     this.ifcLoader.ifcManager.removeSubset(model.id, preselectMat);
+            // } else {
+            //     this.raycaster.setFromCamera(this.pointer, this.camera);
+            //     const found = this.raycaster.intersectObjects(this.ifcModels)[0];
+            //     if (found) {
+            //         // Gets Express ID
+            //         const index = found.faceIndex;
+            //         if (index == null) throw new Error('Face index is null');
+            //         const geometry = (found.object as THREE.Mesh).geometry;
+            //         const id = this.ifcLoader.ifcManager.getExpressId(geometry, index);
+            //         console.log('id', id);
+            //         this.ifcLoader.ifcManager.getItemProperties(model.id, id).then((props) => {
+            //             const originatingSystem = this.originatingSystem;
+            //             const ifcGuid = props.GlobalId.value;
+            //             const authoringToolId = props.Tag.value;
+            //             const component: Component_Core = {
+            //                 ifcGuid,
+            //                 authoringToolId,
+            //                 originatingSystem,
+            //             };
+            //             this.setComponentState(component);
+            //         });
+            //         // Creates subset
+            //         this.ifcLoader.ifcManager.createSubset({
+            //             modelID: model.id,
+            //             ids: [id],
+            //             material: preselectMat,
+            //             scene: this.scene,
+            //             removePrevious: true,
+            //         });
+            //     } else {
+            //         this.ifcLoader.ifcManager.removeSubset(model.id, preselectMat);
+            //     }
+            // }
         });
 
         const resize = (): void => {
