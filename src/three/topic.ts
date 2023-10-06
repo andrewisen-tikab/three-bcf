@@ -11,6 +11,8 @@ import {
     TopicViewpoint_Core,
     Coloring_Core,
     Selection_Core,
+    Visibility_Core,
+    ViewSetupHints_Core,
 } from '../core';
 
 /**
@@ -190,19 +192,96 @@ export class Selection_Three implements Selection_Core {
     }
 }
 
+export class ViewSetupHints_Three implements ViewSetupHints_Core {
+    spacesVisible: boolean;
+
+    spaceBoundariesVisible: boolean;
+
+    openingsVisible: boolean;
+
+    constructor() {
+        this.spacesVisible = true;
+        this.spaceBoundariesVisible = true;
+        this.openingsVisible = true;
+    }
+
+    fromJSON(json: ViewSetupHints_Core) {
+        Object.assign(this, json);
+    }
+
+    toJSON(): ViewSetupHints_Core {
+        return {
+            spacesVisible: this.spacesVisible,
+            spaceBoundariesVisible: this.spaceBoundariesVisible,
+            openingsVisible: this.openingsVisible,
+        };
+    }
+}
+
+export class Visibility_Three implements Visibility_Core {
+    uuid: string;
+    components: Component_Three[];
+    defaultVisibility: boolean;
+    viewSetupHints: ViewSetupHints_Three;
+
+    constructor() {
+        this.uuid = THREE.MathUtils.generateUUID();
+        this.components = [];
+        this.defaultVisibility = true;
+        this.viewSetupHints = new ViewSetupHints_Three();
+    }
+
+    addComponent(component: Component_Three) {
+        this.components.push(component);
+    }
+
+    updateComponent(component: Component_Three) {
+        const index = this.components.findIndex((c) => c.ifcGuid === component.ifcGuid);
+        if (index === -1) throw new Error('Component not found');
+        this.components[index] = component;
+    }
+
+    removeComponent(ifcGuid: string) {
+        const index = this.components.findIndex((c) => c.ifcGuid === ifcGuid);
+        if (index === -1) throw new Error('Component not found');
+        this.components.splice(index, 1);
+    }
+
+    fromJSON(json: Visibility_Core) {
+        this.uuid = json.uuid;
+        this.components = json.components.map((c) => {
+            const component = new Component_Three();
+            component.fromJSON(c);
+            return component;
+        });
+        this.defaultVisibility = json.defaultVisibility;
+        this.viewSetupHints = new ViewSetupHints_Three();
+        this.viewSetupHints.fromJSON(json.viewSetupHints);
+    }
+
+    toJSON(): Visibility_Core {
+        return {
+            uuid: this.uuid,
+            components: this.components.map((c) => c.toJSON()),
+            defaultVisibility: this.defaultVisibility,
+            viewSetupHints: this.viewSetupHints.toJSON(),
+        };
+    }
+}
+
 /**
  * See {@link Components_Core}.
  */
 export class Components_Three implements Components_Core {
     uuid: string;
     selection: Selection_Three[];
-    visibility: any;
+    visibility: Visibility_Three;
     coloring: Coloring_Three[];
 
     constructor() {
         this.uuid = THREE.MathUtils.generateUUID();
         this.selection = [];
-        this.visibility = null;
+        this.visibility = new Visibility_Three();
         this.coloring = [];
     }
 
@@ -210,7 +289,7 @@ export class Components_Three implements Components_Core {
         return {
             uuid: this.uuid,
             selection: this.selection.map((s) => s.toJSON()),
-            visibility: this.visibility,
+            visibility: this.visibility.toJSON(),
             coloring: this.coloring.map((c) => c.toJSON()),
         };
     }
@@ -222,7 +301,8 @@ export class Components_Three implements Components_Core {
             selection.fromJSON(s);
             return selection;
         });
-        this.visibility = json.visibility;
+        this.visibility = new Visibility_Three();
+        this.visibility.fromJSON(json.visibility);
         this.coloring = json.coloring.map((c) => {
             const coloring = new Coloring_Three();
             coloring.fromJSON(c);
@@ -260,6 +340,18 @@ export class Components_Three implements Components_Core {
         const index = this.selection.findIndex((s) => s.uuid === uuid);
         if (index === -1) throw new Error('Selection not found');
         this.selection.splice(index, 1);
+    }
+
+    addVisibility(visibility: Visibility_Three) {
+        this.visibility = visibility;
+    }
+
+    updateVisibility(visibility: Visibility_Three) {
+        this.visibility = visibility;
+    }
+
+    removeVisibility() {
+        this.visibility = new Visibility_Three();
     }
 }
 

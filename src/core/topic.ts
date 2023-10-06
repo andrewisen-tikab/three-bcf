@@ -58,6 +58,50 @@ export const SelectionSchema_Core = BCFBaseSchema.extend({
  */
 export type Selection_Core = z.infer<typeof SelectionSchema_Core>;
 
+/**
+ * Boolean flags to allow fine control over the visibility of `spaces`, `space boundaries` and `openings`.
+ *
+ * A typical use of these flags is when `DefaultVisibility=true` but spaces, spaces boundaries and openings should remain hidden.
+ */
+export const ViewSetupHintsSchema_Core = z.object({
+    /**
+     * Same as `DefaultVisibility` but restricted to spaces only.
+     */
+    spacesVisible: z.boolean(),
+    /**
+     * Same as `DefaultVisibility` but restricted to space boundaries only.
+     */
+    spaceBoundariesVisible: z.boolean(),
+    /**
+     * Same as `DefaultVisibility` but restricted to openings only.
+     */
+    openingsVisible: z.boolean(),
+});
+
+export type ViewSetupHints_Core = z.infer<typeof ViewSetupHintsSchema_Core>;
+
+/**
+ * The `Visibility` element decides which objects are visible and which are hidden.
+ */
+export const VisibilitySchema_Core = BCFBaseSchema.extend({
+    /**
+     * Defaults to false
+     *
+     * When `true`, all components should be visible unless listed in the exceptions
+     * When `false` all components should be invisible unless listed in the exceptions
+     */
+    defaultVisibility: z.boolean(),
+    viewSetupHints: ViewSetupHintsSchema_Core,
+    /**
+     * A list of components to
+     * - **hide** when `DefaultVisibility=true`
+     * - **show** when `DefaultVisibility=false`
+     */
+    components: z.array(ComponentSchema_Core),
+});
+
+export type Visibility_Core = z.infer<typeof VisibilitySchema_Core>;
+
 export const ComponentsSchema_Core = BCFBaseSchema.extend({
     /**
      * The `Selection` element lists all components that should be selected (highlighted) when displaying a viewpoint.
@@ -106,7 +150,7 @@ export const ComponentsSchema_Core = BCFBaseSchema.extend({
      * 2. All the other objects are hidden except for one wall which is visible
      *
      */
-    visibility: z.any(),
+    visibility: VisibilitySchema_Core,
     /**
      * The `Coloring` element allows specifying the color of components. For each color a list of components to be displayed with the that color should be provided.
      *
