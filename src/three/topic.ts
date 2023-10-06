@@ -4,21 +4,13 @@ import { DEFAULT_VECTOR3_TUPLE } from '../types';
 
 import type { TopicCameraState } from '../../example/types';
 import { TOPIC_STATUSES, TOPIC_TYPES } from '../constants';
-import {
-    Components_Core,
-    Component_Core,
-    TopicComment_Core,
-    TopicViewpoint_Core,
-    Coloring_Core,
-    Selection_Core,
-    Visibility_Core,
-    ViewSetupHints_Core,
-} from '../core';
+
+import * as CORE from '../core';
 
 /**
- * See {@link Component_Core}.
+ * See {@link CORE.Component}.
  */
-export class Component_Three implements Component_Core {
+export class Component_Three implements CORE.Component {
     uuid: string;
     ifcGuid: string;
     originatingSystem: string;
@@ -31,7 +23,7 @@ export class Component_Three implements Component_Core {
         this.authoringToolId = '';
     }
 
-    set({ ifcGuid, originatingSystem, authoringToolId }: Partial<Component_Core>) {
+    set({ ifcGuid, originatingSystem, authoringToolId }: Partial<CORE.Component>) {
         if (ifcGuid != null) this.ifcGuid = ifcGuid;
         if (originatingSystem != null) this.originatingSystem = originatingSystem;
         if (authoringToolId != null) this.authoringToolId = authoringToolId;
@@ -51,11 +43,11 @@ export class Component_Three implements Component_Core {
         this.authoringToolId = authoringToolId;
     }
 
-    fromJSON(json: Component_Core) {
+    fromJSON(json: CORE.Component) {
         Object.assign(this, json);
     }
 
-    toJSON(): Component_Core {
+    toJSON(): CORE.Component {
         return {
             uuid: this.uuid,
             ifcGuid: this.ifcGuid,
@@ -66,9 +58,9 @@ export class Component_Three implements Component_Core {
 }
 
 /**
- * See {@link Coloring_Core}.
+ * See {@link CORE.Coloring}.
  */
-export class Coloring_Three implements Coloring_Core {
+export class Coloring_Three implements CORE.Coloring {
     /**
      * The color is given in ARGB format.
      * Colors are represented as 6 or 8 hexadecimal digits.
@@ -128,7 +120,7 @@ export class Coloring_Three implements Coloring_Core {
         this.components.splice(index, 1);
     }
 
-    fromJSON(json: Coloring_Core) {
+    fromJSON(json: CORE.Coloring) {
         this.uuid = json.uuid;
         this.color = json.color;
         this.components = json.components.map((c) => {
@@ -138,7 +130,7 @@ export class Coloring_Three implements Coloring_Core {
         });
     }
 
-    toJSON(): Coloring_Core {
+    toJSON(): CORE.Coloring {
         return {
             uuid: this.uuid,
             color: this.color,
@@ -148,9 +140,9 @@ export class Coloring_Three implements Coloring_Core {
 }
 
 /**
- * See {@link Selection_Core}.
+ * See {@link CORE.Selection}.
  */
-export class Selection_Three implements Selection_Core {
+export class Selection_Three implements CORE.Selection {
     uuid: string;
     components: Component_Three[];
 
@@ -175,7 +167,7 @@ export class Selection_Three implements Selection_Core {
         this.components.splice(index, 1);
     }
 
-    fromJSON(json: Selection_Core) {
+    fromJSON(json: CORE.Selection) {
         this.uuid = json.uuid;
         this.components = json.components.map((c) => {
             const component = new Component_Three();
@@ -184,7 +176,7 @@ export class Selection_Three implements Selection_Core {
         });
     }
 
-    toJSON(): Selection_Core {
+    toJSON(): CORE.Selection {
         return {
             uuid: this.uuid,
             components: this.components.map((c) => c.toJSON()),
@@ -192,7 +184,7 @@ export class Selection_Three implements Selection_Core {
     }
 }
 
-export class ViewSetupHints_Three implements ViewSetupHints_Core {
+export class ViewSetupHints_Three implements CORE.ViewSetupHints {
     spacesVisible: boolean;
 
     spaceBoundariesVisible: boolean;
@@ -205,11 +197,11 @@ export class ViewSetupHints_Three implements ViewSetupHints_Core {
         this.openingsVisible = true;
     }
 
-    fromJSON(json: ViewSetupHints_Core) {
+    fromJSON(json: CORE.ViewSetupHints) {
         Object.assign(this, json);
     }
 
-    toJSON(): ViewSetupHints_Core {
+    toJSON(): CORE.ViewSetupHints {
         return {
             spacesVisible: this.spacesVisible,
             spaceBoundariesVisible: this.spaceBoundariesVisible,
@@ -218,7 +210,7 @@ export class ViewSetupHints_Three implements ViewSetupHints_Core {
     }
 }
 
-export class Visibility_Three implements Visibility_Core {
+export class Visibility_Three implements CORE.Visibility {
     uuid: string;
     components: Component_Three[];
     defaultVisibility: boolean;
@@ -247,7 +239,7 @@ export class Visibility_Three implements Visibility_Core {
         this.components.splice(index, 1);
     }
 
-    fromJSON(json: Visibility_Core) {
+    fromJSON(json: CORE.Visibility) {
         this.uuid = json.uuid;
         this.components = json.components.map((c) => {
             const component = new Component_Three();
@@ -259,7 +251,7 @@ export class Visibility_Three implements Visibility_Core {
         this.viewSetupHints.fromJSON(json.viewSetupHints);
     }
 
-    toJSON(): Visibility_Core {
+    toJSON(): CORE.Visibility {
         return {
             uuid: this.uuid,
             components: this.components.map((c) => c.toJSON()),
@@ -270,9 +262,9 @@ export class Visibility_Three implements Visibility_Core {
 }
 
 /**
- * See {@link Components_Core}.
+ * See {@link CORE.Components}.
  */
-export class Components_Three implements Components_Core {
+export class Components_Three implements CORE.Components {
     uuid: string;
     selection: Selection_Three[];
     visibility: Visibility_Three;
@@ -285,7 +277,7 @@ export class Components_Three implements Components_Core {
         this.coloring = [];
     }
 
-    toJSON(): Components_Core {
+    toJSON(): CORE.Components {
         return {
             uuid: this.uuid,
             selection: this.selection.map((s) => s.toJSON()),
@@ -294,7 +286,7 @@ export class Components_Three implements Components_Core {
         };
     }
 
-    fromJSON(json: Components_Core) {
+    fromJSON(json: CORE.Components) {
         this.uuid = json.uuid;
         this.selection = json.selection.map((s) => {
             const selection = new Selection_Three();
@@ -356,9 +348,9 @@ export class Components_Three implements Components_Core {
 }
 
 /**
- * See {@link TopicViewpoint_Core}.
+ * See {@link CORE.Viewpoint}.
  */
-export class TopicViewpoint_Three implements TopicViewpoint_Core {
+export class TopicViewpoint_Three implements CORE.Viewpoint {
     public uuid: string;
     public viewpoint: string;
     public snapshot: string;
@@ -377,11 +369,11 @@ export class TopicViewpoint_Three implements TopicViewpoint_Core {
         this.snapshotImage = snapshotImage;
     }
 
-    fromJSON(json: TopicViewpoint_Core) {
+    fromJSON(json: CORE.Viewpoint) {
         Object.assign(this, json);
     }
 
-    toJSON(): TopicViewpoint_Core {
+    toJSON(): CORE.Viewpoint {
         return {
             uuid: this.uuid,
             viewpoint: this.viewpoint,
@@ -392,7 +384,7 @@ export class TopicViewpoint_Three implements TopicViewpoint_Core {
     }
 }
 
-export class TopicComment_Three implements TopicComment_Core {
+export class TopicComment_Three implements CORE.Comment {
     public uuid: string;
 
     public date: string;
@@ -419,11 +411,11 @@ export class TopicComment_Three implements TopicComment_Core {
         this.modifiedAuthor = '';
     }
 
-    fromJSON(json: TopicComment_Core): void {
+    fromJSON(json: CORE.Comment): void {
         Object.assign(this, json);
     }
 
-    toJSON(): TopicComment_Core {
+    toJSON(): CORE.Comment {
         return {
             uuid: this.uuid,
             date: this.date,

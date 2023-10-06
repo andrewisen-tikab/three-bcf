@@ -1,6 +1,6 @@
 import { create } from 'xmlbuilder2';
 import XMLCreator from '../xml';
-import { ENCODING, SCHEMA_LOCATION, XML_WRITER_OPTIONS } from '../../constants';
+import { XML_ENCODING, SCHEMA_LOCATION, XML_WRITER_OPTIONS } from '../../constants';
 
 /**
  * bcf.version
@@ -21,7 +21,7 @@ class BCFVersionFactory_XML extends XMLCreator {
      * ```
      */
     public create(): string {
-        const root = create({ version: '1.0', encoding: ENCODING, standalone: true })
+        const root = create({ version: '1.0', encoding: XML_ENCODING, standalone: true })
             .ele('Version')
             .att('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
             .att('VersionId', '3.0')

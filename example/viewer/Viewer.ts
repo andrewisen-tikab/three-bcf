@@ -12,7 +12,7 @@ import { IFCAPPLICATION } from 'web-ifc';
 // @ts-ignore
 import ifc from '../../resources/example_4.ifc?url';
 import { CameraControlsState, BCFCameraState, IFCSomething } from '../types';
-import { Component_Core } from '../../src/core/topic';
+import { Component } from '../../src/core';
 import { store } from '../react/state/store';
 import { setIFCSomething } from '../react/state/bcfSlice';
 
@@ -70,7 +70,7 @@ export default class THREEViewer {
 
     public ifcLoader!: IFCLoader;
 
-    public componentState: { [key: string]: Component_Core } = {};
+    public componentState: { [key: string]: Component } = {};
 
     public originatingSystem: string = '';
 
@@ -288,7 +288,7 @@ export default class THREEViewer {
                             const ifcGuid = props.GlobalId.value;
                             const authoringToolId = props.Tag.value;
 
-                            const component: Component_Core = {
+                            const component: Component = {
                                 uuid: THREE.MathUtils.generateUUID(),
                                 ifcGuid,
                                 authoringToolId,

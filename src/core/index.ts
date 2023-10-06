@@ -1,3 +1,10 @@
-export { default as TopicSchema_Core } from './topic';
+export * from './coloring';
+export * from './comment';
+export * from './component';
+export * from './components';
+export * from './selection';
 export * from './topic';
-export { default as BCFBaseSchema } from './zod';
+export * from './viewpoint';
+export * from './viewSetupHints';
+export * from './visibility';
+export * from './zod';

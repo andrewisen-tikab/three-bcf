@@ -3,6 +3,9 @@ import { WorkerEventOnMessageParams, WorkerEventPostMessageData, EXTENSION } fro
 import saveAs from 'file-saver';
 import { VERSION } from './version';
 
+/**
+ * The parameters for the ThreeBCF class.
+ */
 export type ThreeBCFParams = {
     /**
      * The URL of the worker script.
@@ -20,12 +23,19 @@ export type ThreeBCFParams = {
 
 /**
  * Manager for converting three.js data to BCF data.
+ *
  * The topics should be created and stored in three.js space first.
  * This class helps with the conversion to a BCF file format
  */
 class ThreeBCF extends THREE.EventDispatcher {
+    /**
+     * The worker instance.
+     */
     private worker: Worker;
 
+    /**
+     * The version of the library.
+     */
     public version: string = VERSION;
 
     constructor({ workerURL, worker: _Worker }: ThreeBCFParams) {
@@ -63,7 +73,7 @@ class ThreeBCF extends THREE.EventDispatcher {
      * This will be done in a Web Worker and the resulting file will be downloaded.
      * @param params {@link WorkerEventPostMessageData}
      */
-    createBCF(params: WorkerEventPostMessageData): void {
+    public createBCF(params: WorkerEventPostMessageData): void {
         this.worker.postMessage(params);
     }
 }
