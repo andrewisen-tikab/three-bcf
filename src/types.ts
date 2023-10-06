@@ -1,6 +1,6 @@
 import * as z from 'zod';
 import * as THREE from 'three';
-import TopicSchema_Core from './core/topic';
+import TopicSchema from './core/topic';
 import { FILE_EXTENSIONS, WORKER_EVENT_TYPES } from './constants';
 
 /**
@@ -38,7 +38,7 @@ export const DEFAULT_VECTOR3_TUPLE = new THREE.Vector3(-1, -1, -1).toArray();
 /**
  * `TopicFolderBase` as schema indented for the `three.js`.
  */
-export const TopicFolderBaseSchema_Three = TopicSchema_Core.extend({
+export const TopicFolderBaseSchema_Three = TopicSchema.extend({
     /**
      * Position of the camera in local three.js space.
      */
@@ -75,7 +75,7 @@ export type TopicFolderBaseNoUUID_Three = Omit<TopicFolderBase_Three, 'uuid'>;
  * `TopicFolder` as schema indented for the `three.js`.
  */
 export const TopicFolderSchema_Three = TopicFolderBaseSchema_Three.extend({}).merge(
-    TopicSchema_Core.pick({ topicType: true, topicStatus: true }),
+    TopicSchema.pick({ topicType: true, topicStatus: true }),
 );
 
 /**
@@ -86,7 +86,7 @@ export type TopicFolder_ThreeJSON = z.infer<typeof TopicFolderSchema_Three>;
 /**
  * `TopicFolder` as schema indented for the `worker`.
  */
-export const TopicFolderSchema_Worker = TopicSchema_Core.extend({
+export const TopicFolderSchema_Worker = TopicSchema.extend({
     cameraViewPoint: Vector3TupleSchema,
     cameraDirection: Vector3TupleSchema,
     cameraUpVector: Vector3TupleSchema,

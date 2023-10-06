@@ -148,24 +148,26 @@ The structure of the code mimics this design.
 
 ### Core
 
-At the bottom you'll find the `core`. It contains the main functionality of `three-bcf`.
-Mainly the creation of the actual BCF file. It has code related the `zip` files and `xml` generation.
+At the bottom you'll find the `core`.
+The `core` namespace is where you find everything related to the core of the library.
+The core features most of the BCF interfaces as so-called [zod](https://github.com/colinhacks/zod) schemas.
 
-Use parts of this code to write your own BCF writer.
+Use parts of this namespace to create your own implementation of the library.
 
 ### Three
 
 On top of the core, you'll find the `three` layer.
 
-Al actions performed on the actual "BCF data" should be done in a `three.js` context (!!!).
+All actions performed on the actual "BCF data" should be done in a `three.js` context (!!!).
 This means that the BIM models used, cameras position, math operations, etc. etc. are done in terms of `three.js` (!!!).
 
-This layer is highly opinionated one!
+This layer is a highly opinionated one!
 
 ### ThreeBCF
 
 Finally, on top of the three layer, you'll find the `ThreeBCF` layer.
-This layers is the main entry point for `three-bcf` and is a high-level "API"for creating BCF files.
+
+This layers is the main entry point for the library and is a high-level "API" for creating BCF files.
 
 If this workflow doesn't fit your needs, you can always grab individual parts from each layer use them as you see fit.
 

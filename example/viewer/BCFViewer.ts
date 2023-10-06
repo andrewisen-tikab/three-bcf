@@ -39,7 +39,7 @@ class _BCFViewer extends THREEViewer {
         return BCFCameraState;
     }
 
-    public setTopicCameraState(topic: BCF.THREE.Topic_Three) {
+    public setTopicCameraState(topic: BCF.THREE.Topic) {
         this.cameraControls.setLookAt(
             topic.position[0],
             topic.position[1],
