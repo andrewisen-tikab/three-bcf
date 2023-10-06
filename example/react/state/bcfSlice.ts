@@ -17,6 +17,7 @@ import {
     Components_Three,
     Selection_Three,
     TopicViewpoint_Three,
+    Visibility_Three,
 } from '../../../src/three';
 
 const bcf = new BCF.ThreeBCF({
@@ -120,6 +121,29 @@ export const bcfSlice = createSlice({
                     selection.addComponent(component);
                 });
             }
+
+            const visibilityState = BCFViewer.getVisibility();
+            const defaultVisibilityState = BCFViewer.getDefaultVisibility();
+            const visibility = new Visibility_Three();
+            components.addVisibility(visibility);
+
+            // Difference between defaultVisibilityState and visibilityState
+            const exceptions = defaultVisibilityState.filter(
+                (obj) => visibilityState.find((defaultObj) => defaultObj === obj) == null,
+            );
+
+            exceptions.forEach((exception) => {
+                const state = componentState[exception];
+                if (state == null) return;
+                const component = new Component_Three();
+                const { ifcGuid, originatingSystem, authoringToolId } = state;
+                component.set({
+                    ifcGuid,
+                    originatingSystem,
+                    authoringToolId,
+                });
+                visibility.addComponent(component);
+            });
 
             topic.addComponents(components);
 

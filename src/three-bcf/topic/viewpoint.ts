@@ -35,7 +35,7 @@ class ViewpointFactory_XML extends Topic_XML {
         const { components: _components } = e;
 
         _components.forEach((components) => {
-            const { coloring: _coloring, selection: _selection } = components;
+            const { coloring: _coloring, selection: _selection, visibility } = components;
             const xmlComponents = root.ele('Components');
 
             // Add Selection element
@@ -57,15 +57,31 @@ class ViewpointFactory_XML extends Topic_XML {
                 });
             });
 
+            const {
+                defaultVisibility,
+                viewSetupHints,
+                components: visibilityComponents,
+            } = visibility;
+
             // Add Visibility element
             const xmlVisibility = xmlComponents.ele('Visibility');
-            xmlVisibility.att('DefaultVisibility', 'true');
+            xmlVisibility.att('DefaultVisibility', `${defaultVisibility.toString()}`);
+
             xmlVisibility
                 .ele('ViewSetupHints')
-                .att('SpacesVisible', 'false')
-                .att('SpaceBoundariesVisible', 'false')
-                .att('OpeningsVisible', 'false');
-            xmlVisibility.ele('Exceptions');
+                .att('SpacesVisible', viewSetupHints.spacesVisible.toString())
+                .att('SpaceBoundariesVisible', viewSetupHints.spaceBoundariesVisible.toString())
+                .att('OpeningsVisible', viewSetupHints.openingsVisible.toString());
+            const xmlExceptions = xmlVisibility.ele('Exceptions');
+
+            visibilityComponents.forEach((component) => {
+                const { ifcGuid, originatingSystem, authoringToolId } = component;
+                // IFC GUID is required
+                if (!ifcGuid) return;
+                const xmlComponent = xmlExceptions.ele('Component').att('IfcGuid', ifcGuid);
+                if (originatingSystem) xmlComponent.ele('OriginatingSystem').txt(originatingSystem);
+                if (authoringToolId) xmlComponent.ele('AuthoringToolId').txt(authoringToolId);
+            });
 
             // Add Coloring element
             _coloring.forEach((coloring) => {

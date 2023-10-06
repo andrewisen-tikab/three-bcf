@@ -78,6 +78,7 @@ export default class THREEViewer {
 
     private selection: number[] = [];
     private visibility: number[] = [];
+    private defaultVisibility: number[] = [];
 
     init(container: HTMLElement = document.body) {
         this.container = container;
@@ -310,6 +311,8 @@ export default class THREEViewer {
                 return objects;
             });
 
+            this.defaultVisibility = [...this.visibility];
+
             store.dispatch(setIFCSomething(ifc));
 
             // await setupAllCategories();
@@ -434,5 +437,9 @@ export default class THREEViewer {
 
     getVisibility() {
         return [...this.visibility];
+    }
+
+    getDefaultVisibility() {
+        return [...this.defaultVisibility];
     }
 }
