@@ -11,14 +11,6 @@ import type {
     TopicFolder_ThreeJSON,
     TopicFolder_Worker,
 } from '../../../src/types';
-import {
-    Coloring_Three,
-    Component_Three,
-    Components_Three,
-    Selection_Three,
-    TopicViewpoint_Three,
-    Visibility_Three,
-} from '../../../src/three';
 
 const bcf = new BCF.ThreeBCF({
     worker,
@@ -56,7 +48,7 @@ export const bcfSlice = createSlice({
          */
         createTopic: (state, action: PayloadAction<CreateTopicParams>): void => {
             // Create a new topic
-            const topic = new BCF.THREE.Topic_Three();
+            const topic = new BCF.THREE.Topic();
 
             const author = 'André Wisén' as const;
             const date = new Date().toISOString();
@@ -86,18 +78,18 @@ export const bcfSlice = createSlice({
 
             // Finally, we order the Viewer to generate a screenshot.
             const screenshot = BCFViewer.generateScreenshot();
-            const viewpoint = new TopicViewpoint_Three(screenshot);
+            const viewpoint = new BCF.THREE.Viewpoint(screenshot);
             topic.addViewpoint(viewpoint);
 
             // Determine selection
             const selectionState = BCFViewer.getSelection();
 
-            const components = new Components_Three();
+            const components = new BCF.THREE.Components();
 
-            const selection = new Selection_Three();
+            const selection = new BCF.THREE.Selection();
             components.addSelection(selection);
 
-            const coloring = new Coloring_Three();
+            const coloring = new BCF.THREE.Coloring();
             components.addColoring(coloring);
 
             coloring.setColor('FF00FF00');
@@ -108,7 +100,7 @@ export const bcfSlice = createSlice({
                 selectionState.forEach((selectedObject) => {
                     const state = componentState[selectedObject];
                     if (state == null) return;
-                    const component = new Component_Three();
+                    const component = new BCF.THREE.Component();
 
                     const { ifcGuid, originatingSystem, authoringToolId } = state;
                     component.set({
@@ -124,7 +116,7 @@ export const bcfSlice = createSlice({
 
             const visibilityState = BCFViewer.getVisibility();
             const defaultVisibilityState = BCFViewer.getDefaultVisibility();
-            const visibility = new Visibility_Three();
+            const visibility = new BCF.THREE.Visibility();
             components.addVisibility(visibility);
 
             // Difference between defaultVisibilityState and visibilityState
@@ -135,7 +127,7 @@ export const bcfSlice = createSlice({
             exceptions.forEach((exception) => {
                 const state = componentState[exception];
                 if (state == null) return;
-                const component = new Component_Three();
+                const component = new BCF.THREE.Component();
                 const { ifcGuid, originatingSystem, authoringToolId } = state;
                 component.set({
                     ifcGuid,
@@ -212,13 +204,13 @@ export const bcfSlice = createSlice({
          * @param state {@link BCFState}
          * @param action {@link CreateTopicParams}
          */
-        removeTopic: (state, action: PayloadAction<BCF.THREE.Topic_Three>) => {
+        removeTopic: (state, action: PayloadAction<BCF.THREE.Topic>) => {
             const index = action.payload.index;
             state.topics.splice(index, 1);
 
             for (let i = index; i < state.topics.length; i++) {
                 const input = state.topics[i];
-                const topic = new BCF.THREE.Topic_Three();
+                const topic = new BCF.THREE.Topic();
                 topic.fromJSON(input);
                 topic.index--;
                 state.topics[i] = topic.toJSON();
@@ -247,7 +239,7 @@ export const bcfSlice = createSlice({
             const topic = state.topics[index];
             if (topic == null) throw new Error('topic is null');
 
-            const topicObject = new BCF.THREE.Topic_Three();
+            const topicObject = new BCF.THREE.Topic();
             topicObject.fromJSON(topic);
             topicObject.addComment(new BCF.THREE.TopicComment_Three(action.payload));
             const json = topicObject.toJSON();
@@ -270,7 +262,7 @@ export const bcfSlice = createSlice({
             const topic = state.topics[index];
             if (topic == null) throw new Error('topic is null');
 
-            const topicObject = new BCF.THREE.Topic_Three();
+            const topicObject = new BCF.THREE.Topic();
             topicObject.fromJSON(topic);
             const comment = topicObject.comments.find((obj) => obj.uuid === action.payload.uuid);
 
@@ -296,7 +288,7 @@ export const bcfSlice = createSlice({
             const topic = state.topics[index];
             if (topic == null) throw new Error('topic is null');
 
-            const topicObject = new BCF.THREE.Topic_Three();
+            const topicObject = new BCF.THREE.Topic();
             topicObject.fromJSON(topic);
             topicObject.removeComment(action.payload);
             const json = topicObject.toJSON();

@@ -1,440 +1,17 @@
 import * as THREE from 'three';
 import type { Nullable, TopicFolderBaseNoUUID_Three, TopicFolder_ThreeJSON } from '../types';
 import { DEFAULT_VECTOR3_TUPLE } from '../types';
-
-import type { TopicCameraState } from '../../example/types';
 import { TOPIC_STATUSES, TOPIC_TYPES } from '../constants';
-
-import * as CORE from '../core';
-
-/**
- * See {@link CORE.Component}.
- */
-export class Component_Three implements CORE.Component {
-    uuid: string;
-    ifcGuid: string;
-    originatingSystem: string;
-    authoringToolId: string;
-
-    constructor() {
-        this.uuid = THREE.MathUtils.generateUUID();
-        this.ifcGuid = '';
-        this.originatingSystem = '';
-        this.authoringToolId = '';
-    }
-
-    set({ ifcGuid, originatingSystem, authoringToolId }: Partial<CORE.Component>) {
-        if (ifcGuid != null) this.ifcGuid = ifcGuid;
-        if (originatingSystem != null) this.originatingSystem = originatingSystem;
-        if (authoringToolId != null) this.authoringToolId = authoringToolId;
-
-        console.log(this.ifcGuid, this.originatingSystem, this.authoringToolId);
-    }
-
-    setIfcGuid(ifcGuid: string) {
-        this.ifcGuid = ifcGuid;
-    }
-
-    setOriginatingSystem(originatingSystem: string) {
-        this.originatingSystem = originatingSystem;
-    }
-
-    setAuthoringToolId(authoringToolId: string) {
-        this.authoringToolId = authoringToolId;
-    }
-
-    fromJSON(json: CORE.Component) {
-        Object.assign(this, json);
-    }
-
-    toJSON(): CORE.Component {
-        return {
-            uuid: this.uuid,
-            ifcGuid: this.ifcGuid,
-            originatingSystem: this.originatingSystem,
-            authoringToolId: this.authoringToolId,
-        };
-    }
-}
-
-/**
- * See {@link CORE.Coloring}.
- */
-export class Coloring_Three implements CORE.Coloring {
-    /**
-     * The color is given in ARGB format.
-     * Colors are represented as 6 or 8 hexadecimal digits.
-     * If 8 digits are present, the first two represent the alpha (transparency) channel.
-     * For example, `40E0D0` would be the color Turquoise.
-     *
-     * [More information about the color format can be found on Wikipedia.](https://en.wikipedia.org/wiki/RGBA_color_space)
-     */
-    private static regex = /^([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6})$/;
-
-    uuid: string;
-
-    color: string;
-
-    components: Component_Three[];
-
-    constructor() {
-        this.uuid = THREE.MathUtils.generateUUID();
-        this.color = '';
-        this.components = [];
-    }
-
-    /**
-     * The color is given in ARGB format.
-     * Colors are represented as 6 or 8 hexadecimal digits.
-     * If 8 digits are present, the first two represent the alpha (transparency) channel.
-     * For example, `40E0D0` would be the color Turquoise.
-     *
-     * [More information about the color format can be found on Wikipedia.](https://en.wikipedia.org/wiki/RGBA_color_space)
-     *
-     * @param color Hex color
-     * @param example
-     * ```ts
-     * Coloring_Three.setColor("FF00FF00")
-     * ```
-     */
-    setColor(color: string) {
-        // Test if color is valid ARGB
-        if (!Coloring_Three.regex.test(color)) throw new Error('Invalid color format');
-
-        this.color = color;
-    }
-
-    addComponent(component: Component_Three) {
-        this.components.push(component);
-    }
-
-    updateComponent(component: Component_Three) {
-        const index = this.components.findIndex((c) => c.ifcGuid === component.ifcGuid);
-        if (index === -1) throw new Error('Component not found');
-        this.components[index] = component;
-    }
-
-    removeComponent(ifcGuid: string) {
-        const index = this.components.findIndex((c) => c.ifcGuid === ifcGuid);
-        if (index === -1) throw new Error('Component not found');
-        this.components.splice(index, 1);
-    }
-
-    fromJSON(json: CORE.Coloring) {
-        this.uuid = json.uuid;
-        this.color = json.color;
-        this.components = json.components.map((c) => {
-            const component = new Component_Three();
-            component.fromJSON(c);
-            return component;
-        });
-    }
-
-    toJSON(): CORE.Coloring {
-        return {
-            uuid: this.uuid,
-            color: this.color,
-            components: this.components.map((c) => c.toJSON()),
-        };
-    }
-}
-
-/**
- * See {@link CORE.Selection}.
- */
-export class Selection_Three implements CORE.Selection {
-    uuid: string;
-    components: Component_Three[];
-
-    constructor() {
-        this.uuid = THREE.MathUtils.generateUUID();
-        this.components = [];
-    }
-
-    addComponent(component: Component_Three) {
-        this.components.push(component);
-    }
-
-    updateComponent(component: Component_Three) {
-        const index = this.components.findIndex((c) => c.ifcGuid === component.ifcGuid);
-        if (index === -1) throw new Error('Component not found');
-        this.components[index] = component;
-    }
-
-    removeComponent(ifcGuid: string) {
-        const index = this.components.findIndex((c) => c.ifcGuid === ifcGuid);
-        if (index === -1) throw new Error('Component not found');
-        this.components.splice(index, 1);
-    }
-
-    fromJSON(json: CORE.Selection) {
-        this.uuid = json.uuid;
-        this.components = json.components.map((c) => {
-            const component = new Component_Three();
-            component.fromJSON(c);
-            return component;
-        });
-    }
-
-    toJSON(): CORE.Selection {
-        return {
-            uuid: this.uuid,
-            components: this.components.map((c) => c.toJSON()),
-        };
-    }
-}
-
-export class ViewSetupHints_Three implements CORE.ViewSetupHints {
-    spacesVisible: boolean;
-
-    spaceBoundariesVisible: boolean;
-
-    openingsVisible: boolean;
-
-    constructor() {
-        this.spacesVisible = true;
-        this.spaceBoundariesVisible = true;
-        this.openingsVisible = true;
-    }
-
-    fromJSON(json: CORE.ViewSetupHints) {
-        Object.assign(this, json);
-    }
-
-    toJSON(): CORE.ViewSetupHints {
-        return {
-            spacesVisible: this.spacesVisible,
-            spaceBoundariesVisible: this.spaceBoundariesVisible,
-            openingsVisible: this.openingsVisible,
-        };
-    }
-}
-
-export class Visibility_Three implements CORE.Visibility {
-    uuid: string;
-    components: Component_Three[];
-    defaultVisibility: boolean;
-    viewSetupHints: ViewSetupHints_Three;
-
-    constructor() {
-        this.uuid = THREE.MathUtils.generateUUID();
-        this.components = [];
-        this.defaultVisibility = true;
-        this.viewSetupHints = new ViewSetupHints_Three();
-    }
-
-    addComponent(component: Component_Three) {
-        this.components.push(component);
-    }
-
-    updateComponent(component: Component_Three) {
-        const index = this.components.findIndex((c) => c.ifcGuid === component.ifcGuid);
-        if (index === -1) throw new Error('Component not found');
-        this.components[index] = component;
-    }
-
-    removeComponent(ifcGuid: string) {
-        const index = this.components.findIndex((c) => c.ifcGuid === ifcGuid);
-        if (index === -1) throw new Error('Component not found');
-        this.components.splice(index, 1);
-    }
-
-    fromJSON(json: CORE.Visibility) {
-        this.uuid = json.uuid;
-        this.components = json.components.map((c) => {
-            const component = new Component_Three();
-            component.fromJSON(c);
-            return component;
-        });
-        this.defaultVisibility = json.defaultVisibility;
-        this.viewSetupHints = new ViewSetupHints_Three();
-        this.viewSetupHints.fromJSON(json.viewSetupHints);
-    }
-
-    toJSON(): CORE.Visibility {
-        return {
-            uuid: this.uuid,
-            components: this.components.map((c) => c.toJSON()),
-            defaultVisibility: this.defaultVisibility,
-            viewSetupHints: this.viewSetupHints.toJSON(),
-        };
-    }
-}
-
-/**
- * See {@link CORE.Components}.
- */
-export class Components_Three implements CORE.Components {
-    uuid: string;
-    selection: Selection_Three[];
-    visibility: Visibility_Three;
-    coloring: Coloring_Three[];
-
-    constructor() {
-        this.uuid = THREE.MathUtils.generateUUID();
-        this.selection = [];
-        this.visibility = new Visibility_Three();
-        this.coloring = [];
-    }
-
-    toJSON(): CORE.Components {
-        return {
-            uuid: this.uuid,
-            selection: this.selection.map((s) => s.toJSON()),
-            visibility: this.visibility.toJSON(),
-            coloring: this.coloring.map((c) => c.toJSON()),
-        };
-    }
-
-    fromJSON(json: CORE.Components) {
-        this.uuid = json.uuid;
-        this.selection = json.selection.map((s) => {
-            const selection = new Selection_Three();
-            selection.fromJSON(s);
-            return selection;
-        });
-        this.visibility = new Visibility_Three();
-        this.visibility.fromJSON(json.visibility);
-        this.coloring = json.coloring.map((c) => {
-            const coloring = new Coloring_Three();
-            coloring.fromJSON(c);
-            return coloring;
-        });
-    }
-
-    addColoring(coloring: Coloring_Three) {
-        this.coloring.push(coloring);
-    }
-
-    updateColoring(coloring: Coloring_Three) {
-        const index = this.coloring.findIndex((c) => c.uuid === coloring.uuid);
-        if (index === -1) throw new Error('Coloring not found');
-        this.coloring[index] = coloring;
-    }
-
-    removeColoring(coloring: Coloring_Three) {
-        const index = this.coloring.findIndex((c) => c.uuid === coloring.uuid);
-        if (index === -1) throw new Error('Coloring not found');
-        this.coloring.splice(index, 1);
-    }
-
-    addSelection(selection: Selection_Three) {
-        this.selection.push(selection);
-    }
-
-    updateSelection(selection: Selection_Three) {
-        const index = this.selection.findIndex((s) => s.uuid === selection.uuid);
-        if (index === -1) throw new Error('Selection not found');
-        this.selection[index] = selection;
-    }
-
-    removeSelection(uuid: string) {
-        const index = this.selection.findIndex((s) => s.uuid === uuid);
-        if (index === -1) throw new Error('Selection not found');
-        this.selection.splice(index, 1);
-    }
-
-    addVisibility(visibility: Visibility_Three) {
-        this.visibility = visibility;
-    }
-
-    updateVisibility(visibility: Visibility_Three) {
-        this.visibility = visibility;
-    }
-
-    removeVisibility() {
-        this.visibility = new Visibility_Three();
-    }
-}
-
-/**
- * See {@link CORE.Viewpoint}.
- */
-export class TopicViewpoint_Three implements CORE.Viewpoint {
-    public uuid: string;
-    public viewpoint: string;
-    public snapshot: string;
-    public index: number;
-    public snapshotImage: string;
-
-    constructor(snapshotImage?: string) {
-        this.uuid = THREE.MathUtils.generateUUID();
-        this.viewpoint = `${this.uuid}.bcfv`;
-        this.snapshot = `${this.uuid}.png`;
-        this.snapshotImage = snapshotImage ?? '';
-        this.index = 0;
-    }
-
-    setSnapshotImage(snapshotImage: string) {
-        this.snapshotImage = snapshotImage;
-    }
-
-    fromJSON(json: CORE.Viewpoint) {
-        Object.assign(this, json);
-    }
-
-    toJSON(): CORE.Viewpoint {
-        return {
-            uuid: this.uuid,
-            viewpoint: this.viewpoint,
-            snapshot: this.snapshot,
-            snapshotImage: this.snapshotImage,
-            index: this.index,
-        };
-    }
-}
-
-export class TopicComment_Three implements CORE.Comment {
-    public uuid: string;
-
-    public date: string;
-
-    public author: string;
-
-    public comment?: string;
-
-    public viewpoint?: string;
-
-    public modifiedDate?: string;
-
-    public modifiedAuthor?: string;
-
-    constructor(comment?: string, viewpoint?: string) {
-        this.uuid = THREE.MathUtils.generateUUID();
-        this.date = new Date().toISOString();
-        this.author = '';
-        this.comment = comment ?? '';
-
-        this.viewpoint = viewpoint ?? '';
-
-        this.modifiedDate = '';
-        this.modifiedAuthor = '';
-    }
-
-    fromJSON(json: CORE.Comment): void {
-        Object.assign(this, json);
-    }
-
-    toJSON(): CORE.Comment {
-        return {
-            uuid: this.uuid,
-            date: this.date,
-            author: this.author,
-            comment: this.comment,
-            // TODO: Fix guid
-            viewpoint: this.uuid,
-            modifiedDate: this.modifiedDate,
-            modifiedAuthor: this.modifiedAuthor,
-        };
-    }
-}
+import { Components } from './Components';
+import { TopicComment_Three, Viewpoint } from './Viewpoint';
 
 /**
  * Three.js wrapper for `BCF topic`.
  *
  * Use this class to create a new `BCF Topic` that temporary lives in three.js space.
  */
-export default class Topic_Three implements TopicFolder_ThreeJSON {
+
+export class Topic implements TopicFolder_ThreeJSON {
     public uuid: string;
 
     public index: number;
@@ -471,9 +48,9 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
 
     public comments: TopicComment_Three[];
 
-    public viewpoints: TopicViewpoint_Three[];
+    public viewpoints: Viewpoint[];
 
-    public components: Components_Three[];
+    public components: Components[];
 
     public constructor() {
         this.uuid = THREE.MathUtils.generateUUID();
@@ -615,13 +192,13 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
             }) ?? [];
         this.viewpoints =
             viewpoints.map((v) => {
-                const viewpoint = new TopicViewpoint_Three();
+                const viewpoint = new Viewpoint();
                 viewpoint.fromJSON(v);
                 return viewpoint;
             }) ?? [];
         this.components =
             components.map((c) => {
-                const component = new Components_Three();
+                const component = new Components();
                 component.fromJSON(c);
                 return component;
             }) ?? [];
@@ -683,11 +260,11 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         this.comments.splice(index, 1);
     }
 
-    public addViewpoint(viewpoint: TopicViewpoint_Three): void {
+    public addViewpoint(viewpoint: Viewpoint): void {
         this.viewpoints.push(viewpoint);
     }
 
-    public updateViewpoint(viewpoint: TopicViewpoint_Three): void {
+    public updateViewpoint(viewpoint: Viewpoint): void {
         const index = this.viewpoints.findIndex((v) => v.uuid === viewpoint.uuid);
         if (index === -1) throw new Error('Viewpoint not found');
         this.viewpoints[index] = viewpoint;
@@ -699,11 +276,11 @@ export default class Topic_Three implements TopicFolder_ThreeJSON {
         this.viewpoints.splice(index, 1);
     }
 
-    public addComponents(components: Components_Three): void {
+    public addComponents(components: Components): void {
         this.components.push(components);
     }
 
-    public updateComponents(components: Components_Three): void {
+    public updateComponents(components: Components): void {
         const index = this.components.findIndex((c) => c.uuid === components.uuid);
         if (index === -1) throw new Error('Components not found');
         this.components[index] = components;
