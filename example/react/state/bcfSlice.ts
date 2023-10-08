@@ -48,7 +48,7 @@ export const bcfSlice = createSlice({
          */
         createTopic: (state, action: PayloadAction<CreateTopicParams>): void => {
             // Create a new topic
-            const topic = new BCF.THREE.Topic();
+            const topic = new BCF.THREE.Topic2();
 
             const author = 'André Wisén' as const;
             const date = new Date().toISOString();
@@ -204,13 +204,13 @@ export const bcfSlice = createSlice({
          * @param state {@link BCFState}
          * @param action {@link CreateTopicParams}
          */
-        removeTopic: (state, action: PayloadAction<BCF.THREE.Topic>) => {
+        removeTopic: (state, action: PayloadAction<BCF.THREE.Topic2>) => {
             const index = action.payload.index;
             state.topics.splice(index, 1);
 
             for (let i = index; i < state.topics.length; i++) {
                 const input = state.topics[i];
-                const topic = new BCF.THREE.Topic();
+                const topic = new BCF.THREE.Topic2();
                 topic.fromJSON(input);
                 topic.index--;
                 state.topics[i] = topic.toJSON();
@@ -239,7 +239,7 @@ export const bcfSlice = createSlice({
             const topic = state.topics[index];
             if (topic == null) throw new Error('topic is null');
 
-            const topicObject = new BCF.THREE.Topic();
+            const topicObject = new BCF.THREE.Topic2();
             topicObject.fromJSON(topic);
             topicObject.addComment(new BCF.THREE.TopicComment_Three(action.payload));
             const json = topicObject.toJSON();
@@ -262,7 +262,7 @@ export const bcfSlice = createSlice({
             const topic = state.topics[index];
             if (topic == null) throw new Error('topic is null');
 
-            const topicObject = new BCF.THREE.Topic();
+            const topicObject = new BCF.THREE.Topic2();
             topicObject.fromJSON(topic);
             const comment = topicObject.comments.find((obj) => obj.uuid === action.payload.uuid);
 
@@ -288,7 +288,7 @@ export const bcfSlice = createSlice({
             const topic = state.topics[index];
             if (topic == null) throw new Error('topic is null');
 
-            const topicObject = new BCF.THREE.Topic();
+            const topicObject = new BCF.THREE.Topic2();
             topicObject.fromJSON(topic);
             topicObject.removeComment(action.payload);
             const json = topicObject.toJSON();
