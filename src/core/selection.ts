@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import BCFBaseSchema from './zod';
-import { ComponentSchema } from './component';
+import { ComponentSchema } from './Component';
 
 /**
  * The `Selection` element lists all components that should be selected (highlighted) when displaying a viewpoint.

@@ -1,9 +1,9 @@
 import { z } from 'zod';
 import BCFBaseSchema from './zod';
 
-import { ColoringSchema } from './coloring';
-import { SelectionSchema } from './selection';
-import { VisibilitySchema } from './visibility';
+import { ColoringSchema } from './Coloring';
+import { SelectionSchema } from './Selection';
+import { VisibilitySchema } from './Visibility';
 
 export const ComponentsSchema = BCFBaseSchema.extend({
     /**

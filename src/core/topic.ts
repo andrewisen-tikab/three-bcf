@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import BCFBaseSchema from './zod';
-import { ComponentsSchema } from './components';
-import { ViewpointSchema } from './viewpoint';
-import { CommentSchema } from './comment';
+import { ComponentsSchema } from './Components';
+import { ViewpointSchema } from './Viewpoint';
+import { CommentSchema } from './Comment';
 
 /*
  * Topic node contains reference information of the topic.
