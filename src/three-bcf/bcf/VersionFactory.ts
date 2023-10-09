@@ -1,5 +1,5 @@
 import { create } from 'xmlbuilder2';
-import XMLCreator from '../xml';
+import XMLFactory from './XMLFactory';
 import { XML_ENCODING, SCHEMA_LOCATION, XML_WRITER_OPTIONS } from '../../constants';
 
 /**
@@ -12,7 +12,7 @@ import { XML_ENCODING, SCHEMA_LOCATION, XML_WRITER_OPTIONS } from '../../constan
  *
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#bcf-file-structure](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#bcf-file-structure)
  */
-class BCFVersionFactory_XML extends XMLCreator {
+class VersionFactory extends XMLFactory {
     /**
      * Example XML:
      * ```xml
@@ -31,4 +31,4 @@ class BCFVersionFactory_XML extends XMLCreator {
     }
 }
 
-export default BCFVersionFactory_XML;
+export default VersionFactory;

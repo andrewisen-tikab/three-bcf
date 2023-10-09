@@ -1,14 +1,14 @@
 import JSZip from 'jszip';
-import BCFVersionFactory_XML from './root/bcf.version';
+import VersionFactory from '../bcf/VersionFactory';
 
-import MarkupFactory_XML from './topic/markup';
-import ViewpointFactory_XML from './topic/viewpoint';
+import MarkupFactory from '../bcf/MarkupFactory';
+import ViewpointFactory from '../bcf/ViewpointFactory';
 import {
     CreateParams_Worker,
     TopicFolderSchema_Worker,
     WorkerEventPostMessageData,
-} from '../types';
-import { dataURLtoBlob } from '../worker/utils';
+} from '../../types';
+import { dataURLtoBlob } from '../../worker/utils';
 
 /**
  * Create a BCF zip file from a list of topics.
@@ -18,7 +18,7 @@ import { dataURLtoBlob } from '../worker/utils';
  */
 const createZipAsync = async (e: WorkerEventPostMessageData): Promise<Blob> => {
     const zipFile = new JSZip();
-    zipFile.file('bcf.version', new BCFVersionFactory_XML().create());
+    zipFile.file('bcf.version', new VersionFactory().create());
 
     for (let i = 0; i < e.topics.length; i++) {
         const topic = e.topics[i];
@@ -44,11 +44,11 @@ const createZipAsync = async (e: WorkerEventPostMessageData): Promise<Blob> => {
             });
             topicFolder.file(
                 `${viewpoint.viewpoint}`,
-                new ViewpointFactory_XML().create(params, viewpoint.uuid),
+                new ViewpointFactory().create(params, viewpoint.uuid),
             );
         }
 
-        topicFolder.file('markup.bcf', new MarkupFactory_XML().create(params));
+        topicFolder.file('markup.bcf', new MarkupFactory().create(params));
     }
 
     const data = await zipFile.generateAsync({ type: 'blob' });

@@ -1,4 +1,4 @@
-import XMLCreator from '../xml';
+import XMLFactory from './XMLFactory';
 
 /**
  * The folder name is the GUID of the topic.
@@ -34,6 +34,6 @@ import XMLCreator from '../xml';
  *
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#topic-folder-structure-inside-a-bcfzip-archive](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#topic-folder-structure-inside-a-bcfzip-archive)
  */
-class Topic_XML extends XMLCreator {}
+class TopicFactory extends XMLFactory {}
 
-export default Topic_XML;
+export default TopicFactory;

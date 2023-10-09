@@ -1,10 +1,10 @@
 import { create } from 'xmlbuilder2';
-import Topic_XML from './topic';
-import MarkupFactory_XML from './markup';
+import TopicFactory from './TopicFactory';
+import MarkupFactory from './MarkupFactory';
 import type { CreateParams_Worker } from '../../types';
 
 /**
- * The {@link MarkupFactory_XML} can contain multiple viewpoints related to one or more comments.
+ * The {@link MarkupFactory} can contain multiple viewpoints related to one or more comments.
  * A viewpoint has also the Guid attribute for identifying it uniquely.
  *
  * In addition, it has the following nodes:
@@ -21,7 +21,7 @@ import type { CreateParams_Worker } from '../../types';
  *
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#viewpoints](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#viewpoints)
  */
-class ViewpointFactory_XML extends Topic_XML {
+class ViewpointFactory extends TopicFactory {
     public create(e: CreateParams_Worker, guid?: string): string {
         const root = create({ version: '1.0', encoding: 'UTF-8', standalone: true })
             .ele('VisualizationInfo')
@@ -136,4 +136,4 @@ class ViewpointFactory_XML extends Topic_XML {
     }
 }
 
-export default ViewpointFactory_XML;
+export default ViewpointFactory;
