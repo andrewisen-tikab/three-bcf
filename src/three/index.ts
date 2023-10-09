@@ -5,4 +5,4 @@ export * from './Selection';
 export * from './Viewpoint';
 export * from './ViewSetupHints';
 export * from './Visibility';
-export * from './Topic2';
+export * from './Topic';
