@@ -20,7 +20,7 @@
         "ts": "tsc",
         "docs": "typedoc",
         "version": "node setVersion.cjs",
-        "cruise": "yarn cruise:1 && yarn cruise:2",
+        "cruise": "yarn cruise:1 && yarn cruise:2 && yarn cruise:3",
         "cruise:1": "npx depcruise src --include-only '^src' --config --collapse 2 --output-type dot | dot -T svg > ./resources/dependency-graph-01.svg",
         "cruise:2": "npx depcruise src --include-only '^src' --config --collapse 3 --output-type dot | dot -T svg > ./resources/dependency-graph-02.svg",
         "cruise:3": "npx depcruise src --include-only '^src' --config --collapse 4 --output-type dot | dot -T svg > ./resources/dependency-graph-03.svg",
