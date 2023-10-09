@@ -1,6 +1,6 @@
 import { create } from 'xmlbuilder2';
 import { XML_WRITER_OPTIONS } from '../../constants';
-import Topic_XML from './topic';
+import TopicFactory from './TopicFactory';
 import type { CreateParams_Worker } from '../../types';
 
 /**
@@ -36,7 +36,7 @@ import type { CreateParams_Worker } from '../../types';
  *
  * [https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#markup-bcf-file](https://github.com/BuildingSMART/BCF-XML/tree/release_3_0/Documentation#markup-bcf-file)
  */
-class MarkupFactory_XML extends Topic_XML {
+class MarkupFactory extends TopicFactory {
     public create(e: CreateParams_Worker): string {
         const doc = create({ version: '1.0', encoding: 'UTF-8', standalone: true });
 
@@ -149,4 +149,4 @@ class MarkupFactory_XML extends Topic_XML {
     }
 }
 
-export default MarkupFactory_XML;
+export default MarkupFactory;

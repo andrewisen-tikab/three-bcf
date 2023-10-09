@@ -5,8 +5,8 @@ export { default as TopicSchema } from './core/Topic';
 export { Topic as Topic } from './three/Topic';
 
 // THREE BCF
-export { default as MarkupFactory_XML } from './three-bcf/topic/markup';
-export { default as ViewpointFactory_XML } from './three-bcf/topic/viewpoint';
+export { default as MarkupFactory } from './three-bcf/bcf/MarkupFactory';
+export { default as ViewpointFactory } from './three-bcf/bcf/ViewpointFactory';
 
 // EXAMPLE
 export { bcfSlice } from '../example/react/state/bcfSlice';

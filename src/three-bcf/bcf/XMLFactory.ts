@@ -1,7 +1,7 @@
 /**
  * Base class for creating XML files.
  */
-class XMLCreator {
+class XMLFactory {
     /**
      * Creates a XML document string.
      *
@@ -16,4 +16,4 @@ class XMLCreator {
     }
 }
 
-export default XMLCreator;
+export default XMLFactory;
