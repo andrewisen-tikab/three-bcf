@@ -68,6 +68,7 @@ Finally, the main thread should receive the response and tell you that everythin
 > THREE.BCF: Got message from worker thread. Everything's fine!
 
 If that works, then you can continue to the next step.
+If not, then you have configured the worker incorrectly.
 
 ## Usage
 
@@ -83,7 +84,7 @@ import * as BCF from 'three-bcf';
 Then, use the different namespace to access the different parts of the library.
 
 ```ts
-const topic = new BCF.THREE.Topic_Three();
+const topic = new BCF.THREE.Topic();
 ```
 
 ### Creating a topic
@@ -91,10 +92,11 @@ const topic = new BCF.THREE.Topic_Three();
 Simply create a topic and add the relevant data (params) to it.
 
 ```ts
-const topic = new BCF.THREE.Topic_Three(); // The topic is empty at this point§
+const topic = new BCF.THREE.Topic(); // The topic is empty at this point§
 topic.set(params);
 
-// Store the topic somewhere
+// Store the topic somewhere.
+// In this case, we store it in an array.
 topics.push(topic);
 ```
 
@@ -113,6 +115,8 @@ bcf.createBCF({
     topics: data,
 });
 ```
+
+This will tell the web worker to create a BCF file.
 
 ## Example
 
@@ -191,7 +195,7 @@ const TopicSchema_Core = BCFBaseSchema.extend({
 
 2. Modify the `three` layer.
 
-Update `Topic_Three` found inside `src/three/topic.ts`.
+Update `Topic` found inside `src/three/topic.ts`.
 
 Simply:
 
