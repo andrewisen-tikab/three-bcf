@@ -2,7 +2,7 @@
 export { default as TopicSchema } from './core/Topic';
 
 // THREE
-export { Topic2 as Topic } from './three/Topic';
+export { Topic2 as Topic } from './three/Topic2';
 
 // THREE BCF
 export { default as MarkupFactory_XML } from './three-bcf/topic/markup';
