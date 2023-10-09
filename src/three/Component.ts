@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import * as CORE from '../core';
+import * as CORE from '../core-2';
 
 /**
  * See {@link CORE.Component}.
