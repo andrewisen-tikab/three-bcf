@@ -12,7 +12,7 @@ import { IFCAPPLICATION } from 'web-ifc';
 // @ts-ignore
 import ifc from '../../resources/example_4.ifc?url';
 import { CameraControlsState, BCFCameraState, IFCSomething } from '../types';
-import { Component } from '../../src/core-2';
+import { Component } from '../../src/core';
 import { store } from '../react/state/store';
 import { setIFCSomething } from '../react/state/bcfSlice';
 

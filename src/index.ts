@@ -11,7 +11,7 @@ export * from './ThreeBCF';
  *
  * Use parts of this namespace to create your own implementation of the library.
  */
-export * as CORE from './core-2';
+export * as CORE from './core';
 
 /**
  * On top of the core, you'll find the `three` layer.

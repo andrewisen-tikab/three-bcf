@@ -1,4 +1,4 @@
-import * as CORE from '../core-2';
+import * as CORE from '../core';
 
 export class ViewSetupHints implements CORE.ViewSetupHints {
     public spacesVisible: boolean;

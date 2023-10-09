@@ -1,5 +1,5 @@
 // CORE
-export { default as TopicSchema } from './core-2/Topic';
+export { default as TopicSchema } from './core/Topic';
 
 // THREE
 export { Topic2 as Topic } from './three/Topic';

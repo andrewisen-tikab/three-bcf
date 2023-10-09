@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import * as CORE from '../core-2';
+import * as CORE from '../core';
 import { Component } from './Component';
 
 /**
