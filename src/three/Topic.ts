@@ -10,7 +10,7 @@ import { TopicComment_Three, Viewpoint } from './Viewpoint';
  *
  * Use this class to create a new `BCF Topic` that temporary lives in three.js space.
  */
-export class Topic2 implements TopicFolder_ThreeJSON {
+export class Topic implements TopicFolder_ThreeJSON {
     public uuid: string;
 
     public index: number;

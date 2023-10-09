@@ -46,7 +46,7 @@ export default function IssueList() {
                     if (!topic) return;
 
                     // Convert the topic to the THREE.js version
-                    const topic3 = new BCF.THREE.Topic2();
+                    const topic3 = new BCF.THREE.Topic();
                     topic3.fromJSON(topic);
                     BCFViewer.setTopicCameraState(topic3);
 
