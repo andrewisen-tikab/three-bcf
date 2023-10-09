@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import BCFBaseSchema from './zod';
-import { ComponentSchema } from './component';
-import type { Component } from './component';
+import { ComponentSchema } from './Component';
+import type { Component } from './Component';
 
 /**
  * The `Coloring` element allows specifying the color of {@link Component | components}.

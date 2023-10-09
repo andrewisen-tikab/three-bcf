@@ -1,6 +1,6 @@
 import * as z from 'zod';
 import * as THREE from 'three';
-import TopicSchema from './core/topic';
+import TopicSchema from './core/Topic';
 import { FILE_EXTENSIONS, WORKER_EVENT_TYPES } from './constants';
 
 /**

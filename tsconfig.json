@@ -18,7 +18,10 @@
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+
+        /* Misc */
+        "forceConsistentCasingInFileNames": true
     },
     "include": ["src", "example"]
 }

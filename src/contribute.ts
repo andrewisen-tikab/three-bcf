@@ -1,8 +1,8 @@
 // CORE
-export { default as TopicSchema } from './core/topic';
+export { default as TopicSchema } from './core/Topic';
 
 // THREE
-export { Topic } from './three/topic';
+export { Topic as Topic } from './three/Topic';
 
 // THREE BCF
 export { default as MarkupFactory_XML } from './three-bcf/topic/markup';

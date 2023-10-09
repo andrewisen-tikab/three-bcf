@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import BCFBaseSchema from './zod';
-import { ComponentSchema } from './component';
-import { ViewSetupHintsSchema } from './viewSetupHints';
+import { ComponentSchema } from './Component';
+import { ViewSetupHintsSchema } from './ViewSetupHints';
 
 /**
  * The `Visibility` element decides which objects are visible and which are hidden.
